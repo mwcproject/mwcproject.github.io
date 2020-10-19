@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `api/src/owner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>owner.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `api/src/owner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>owner.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -2381,6 +2382,150 @@
 <span id="2381">2381</span>
 <span id="2382">2382</span>
 <span id="2383">2383</span>
+<span id="2384">2384</span>
+<span id="2385">2385</span>
+<span id="2386">2386</span>
+<span id="2387">2387</span>
+<span id="2388">2388</span>
+<span id="2389">2389</span>
+<span id="2390">2390</span>
+<span id="2391">2391</span>
+<span id="2392">2392</span>
+<span id="2393">2393</span>
+<span id="2394">2394</span>
+<span id="2395">2395</span>
+<span id="2396">2396</span>
+<span id="2397">2397</span>
+<span id="2398">2398</span>
+<span id="2399">2399</span>
+<span id="2400">2400</span>
+<span id="2401">2401</span>
+<span id="2402">2402</span>
+<span id="2403">2403</span>
+<span id="2404">2404</span>
+<span id="2405">2405</span>
+<span id="2406">2406</span>
+<span id="2407">2407</span>
+<span id="2408">2408</span>
+<span id="2409">2409</span>
+<span id="2410">2410</span>
+<span id="2411">2411</span>
+<span id="2412">2412</span>
+<span id="2413">2413</span>
+<span id="2414">2414</span>
+<span id="2415">2415</span>
+<span id="2416">2416</span>
+<span id="2417">2417</span>
+<span id="2418">2418</span>
+<span id="2419">2419</span>
+<span id="2420">2420</span>
+<span id="2421">2421</span>
+<span id="2422">2422</span>
+<span id="2423">2423</span>
+<span id="2424">2424</span>
+<span id="2425">2425</span>
+<span id="2426">2426</span>
+<span id="2427">2427</span>
+<span id="2428">2428</span>
+<span id="2429">2429</span>
+<span id="2430">2430</span>
+<span id="2431">2431</span>
+<span id="2432">2432</span>
+<span id="2433">2433</span>
+<span id="2434">2434</span>
+<span id="2435">2435</span>
+<span id="2436">2436</span>
+<span id="2437">2437</span>
+<span id="2438">2438</span>
+<span id="2439">2439</span>
+<span id="2440">2440</span>
+<span id="2441">2441</span>
+<span id="2442">2442</span>
+<span id="2443">2443</span>
+<span id="2444">2444</span>
+<span id="2445">2445</span>
+<span id="2446">2446</span>
+<span id="2447">2447</span>
+<span id="2448">2448</span>
+<span id="2449">2449</span>
+<span id="2450">2450</span>
+<span id="2451">2451</span>
+<span id="2452">2452</span>
+<span id="2453">2453</span>
+<span id="2454">2454</span>
+<span id="2455">2455</span>
+<span id="2456">2456</span>
+<span id="2457">2457</span>
+<span id="2458">2458</span>
+<span id="2459">2459</span>
+<span id="2460">2460</span>
+<span id="2461">2461</span>
+<span id="2462">2462</span>
+<span id="2463">2463</span>
+<span id="2464">2464</span>
+<span id="2465">2465</span>
+<span id="2466">2466</span>
+<span id="2467">2467</span>
+<span id="2468">2468</span>
+<span id="2469">2469</span>
+<span id="2470">2470</span>
+<span id="2471">2471</span>
+<span id="2472">2472</span>
+<span id="2473">2473</span>
+<span id="2474">2474</span>
+<span id="2475">2475</span>
+<span id="2476">2476</span>
+<span id="2477">2477</span>
+<span id="2478">2478</span>
+<span id="2479">2479</span>
+<span id="2480">2480</span>
+<span id="2481">2481</span>
+<span id="2482">2482</span>
+<span id="2483">2483</span>
+<span id="2484">2484</span>
+<span id="2485">2485</span>
+<span id="2486">2486</span>
+<span id="2487">2487</span>
+<span id="2488">2488</span>
+<span id="2489">2489</span>
+<span id="2490">2490</span>
+<span id="2491">2491</span>
+<span id="2492">2492</span>
+<span id="2493">2493</span>
+<span id="2494">2494</span>
+<span id="2495">2495</span>
+<span id="2496">2496</span>
+<span id="2497">2497</span>
+<span id="2498">2498</span>
+<span id="2499">2499</span>
+<span id="2500">2500</span>
+<span id="2501">2501</span>
+<span id="2502">2502</span>
+<span id="2503">2503</span>
+<span id="2504">2504</span>
+<span id="2505">2505</span>
+<span id="2506">2506</span>
+<span id="2507">2507</span>
+<span id="2508">2508</span>
+<span id="2509">2509</span>
+<span id="2510">2510</span>
+<span id="2511">2511</span>
+<span id="2512">2512</span>
+<span id="2513">2513</span>
+<span id="2514">2514</span>
+<span id="2515">2515</span>
+<span id="2516">2516</span>
+<span id="2517">2517</span>
+<span id="2518">2518</span>
+<span id="2519">2519</span>
+<span id="2520">2520</span>
+<span id="2521">2521</span>
+<span id="2522">2522</span>
+<span id="2523">2523</span>
+<span id="2524">2524</span>
+<span id="2525">2525</span>
+<span id="2526">2526</span>
+<span id="2527">2527</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -2406,19 +2551,22 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">Transaction</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">global</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">impls</span>::<span class="ident">create_sender</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">impls</span>::<span class="ident">MwcMqsChannel</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">keychain</span>::{<span class="ident">Identifier</span>, <span class="ident">Keychain</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::<span class="ident">owner_updater</span>::{<span class="ident">start_updater_log_thread</span>, <span class="ident">StatusMessage</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::{<span class="ident">owner</span>, <span class="ident">owner_updater</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::{<span class="ident">owner</span>, <span class="ident">owner_swap</span>, <span class="ident">owner_updater</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">proof</span>::<span class="ident">tx_proof</span>::<span class="ident">TxProof</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">fsm</span>::<span class="ident">state</span>::{<span class="ident">StateEtaInfo</span>, <span class="ident">StateId</span>, <span class="ident">StateProcessRespond</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">types</span>::{<span class="ident">Action</span>, <span class="ident">SwapTransactionsConfirmations</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::{<span class="ident">message</span>::<span class="ident">Message</span>, <span class="ident">swap</span>::<span class="ident">Swap</span>, <span class="ident">swap</span>::<span class="ident">SwapJournalRecord</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::{
 	<span class="ident">AcctPathMapping</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">InitTxArgs</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">NodeClient</span>,
-	<span class="ident">NodeHeightResult</span>, <span class="ident">OutputCommitMapping</span>, <span class="ident">PaymentProof</span>, <span class="ident">Slate</span>, <span class="ident">TxLogEntry</span>, <span class="ident">WalletInfo</span>, <span class="ident">WalletInst</span>,
-	<span class="ident">WalletLCProvider</span>,
+	<span class="ident">NodeHeightResult</span>, <span class="ident">OutputCommitMapping</span>, <span class="ident">PaymentProof</span>, <span class="ident">Slate</span>, <span class="ident">SwapStartArgs</span>, <span class="ident">TxLogEntry</span>,
+	<span class="ident">WalletInfo</span>, <span class="ident">WalletInst</span>, <span class="ident">WalletLCProvider</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">logger</span>::<span class="ident">LoggingConfig</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::<span class="ident">SecretKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::{<span class="ident">from_hex</span>, <span class="ident">static_secp_instance</span>, <span class="ident">Mutex</span>, <span class="ident">ZeroingString</span>};
-<span class="kw">use</span> <span class="ident">grin_wallet_libwallet</span>::<span class="ident">proof</span>::<span class="ident">tx_proof</span>::<span class="ident">TxProof</span>;
+<span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">grin_util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::<span class="ident">PublicKey</span>;
 <span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">OnionV3Address</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">convert</span>::<span class="ident">TryFrom</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
@@ -2449,26 +2597,26 @@
 	<span class="ident">K</span>: <span class="ident">Keychain</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="doccomment">/// contain all methods to manage the wallet</span>
-	<span class="kw">pub</span> <span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
 	<span class="doccomment">/// Flag to normalize some output during testing. Can mostly be ignored.</span>
 	<span class="kw">pub</span> <span class="ident">doctest_mode</span>: <span class="ident">bool</span>,
 	<span class="doccomment">/// Share ECDH key</span>
-	<span class="kw">pub</span> <span class="ident">shared_key</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">shared_key</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Update thread</span>
-	<span class="ident">updater</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">owner_updater</span>::<span class="ident">Updater</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">updater</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">owner_updater</span>::<span class="ident">Updater</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Stop state for update thread</span>
 	<span class="kw">pub</span> <span class="ident">updater_running</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicBool</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Sender for update messages</span>
-	<span class="ident">status_tx</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">status_tx</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Holds all update and status messages returned by the</span>
 	<span class="doccomment">/// updater process</span>
-	<span class="ident">updater_messages</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">updater_messages</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Optional TOR configuration, holding address of sender and</span>
 	<span class="doccomment">/// data directory</span>
-	<span class="ident">tor_config</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">tor_config</span>: <span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;&gt;</span>,
 
 	<span class="doccomment">/// updater log thread. Expected to be removed at next rebase</span>
-	<span class="ident">updater_log_thread</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">JoinHandle</span><span class="op">&lt;</span>()<span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">updater_log_thread</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">JoinHandle</span><span class="op">&lt;</span>()<span class="op">&gt;&gt;</span>,
 	<span class="comment">// Atomic to stop the thread</span>
 	<span class="ident">updater_log_running_state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicBool</span><span class="op">&gt;</span>,
 }
@@ -2571,15 +2719,16 @@
 	<span class="doccomment">/// // All wallet functions operate on an Arc::Mutex to allow multithreading where needed</span>
 	<span class="doccomment">/// let mut wallet = Arc::new(Mutex::new(wallet));</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// // .. perform wallet operations</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ```</span>
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-		<span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-		<span class="ident">custom_channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+		<span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
+		<span class="ident">custom_channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;&gt;</span>,
+		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
+	) <span class="op">-&gt;</span> <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">updater_running</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>));
 		<span class="kw">let</span> <span class="ident">updater</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="ident">owner_updater</span>::<span class="ident">Updater</span>::<span class="ident">new</span>(
 			<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -2589,8 +2738,8 @@
 
 		<span class="kw">let</span> <span class="ident">running</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">true</span>));
 		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">handle</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">custom_channel</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">c</span>, <span class="prelude-val">None</span>),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=&gt;</span> (<span class="ident">c</span>, <span class="prelude-val">None</span>),
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span> {
 				<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">channel</span>();
 				<span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span>
 					<span class="ident">start_updater_log_thread</span>(<span class="ident">rx</span>, <span class="ident">updater_messages</span>.<span class="ident">clone</span>(), <span class="ident">running</span>.<span class="ident">clone</span>())
@@ -2607,7 +2756,7 @@
 			<span class="ident">updater_running</span>,
 			<span class="ident">status_tx</span>: <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">Some</span>(<span class="ident">tx</span>)),
 			<span class="ident">updater_messages</span>,
-			<span class="ident">tor_config</span>: <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>),
+			<span class="ident">tor_config</span>: <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="ident">tor_config</span>),
 			<span class="ident">updater_log_thread</span>: <span class="ident">handle</span>,
 			<span class="ident">updater_log_running_state</span>: <span class="ident">running</span>,
 		}
@@ -2648,7 +2797,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let result = api_owner.accounts(None);</span>
 	<span class="doccomment">///</span>
@@ -2660,7 +2809,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accounts</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -2699,7 +2848,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let result = api_owner.create_account_path(None, &quot;account1&quot;);</span>
 	<span class="doccomment">///</span>
@@ -2712,7 +2861,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner</span>::<span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">label</span>)
@@ -2746,7 +2895,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let result = api_owner.create_account_path(None, &quot;account1&quot;);</span>
 	<span class="doccomment">///</span>
@@ -2760,7 +2909,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -2802,7 +2951,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let show_spent = false;</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let tx_id = None;</span>
@@ -2820,14 +2969,14 @@
 		<span class="ident">include_spent</span>: <span class="ident">bool</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner</span>::<span class="ident">retrieve_outputs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -2870,7 +3019,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let tx_id = None;</span>
 	<span class="doccomment">/// let tx_slate_id = None;</span>
@@ -2889,14 +3038,14 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntry</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntry</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">retrieve_txs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -2947,7 +3096,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let minimum_confirmations=10;</span>
 	<span class="doccomment">///</span>
@@ -2964,14 +3113,14 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">minimum_confirmations</span>: <span class="ident">u64</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner</span>::<span class="ident">retrieve_summary_info</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -3033,7 +3182,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// // Attempt to create a transaction using the &#39;default&#39; account</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
@@ -3064,9 +3213,9 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">args</span>: <span class="ident">InitTxArgs</span>,
-		<span class="ident">outputs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span>, <span class="comment">// outputs to include into the transaction</span>
+		<span class="ident">outputs</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;&gt;</span>, <span class="comment">// outputs to include into the transaction</span>
 		<span class="ident">routputs</span>: <span class="ident">usize</span>,            <span class="comment">// Number of resulting outputs. Normally it is 1</span>
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">address</span>.<span class="ident">clone</span>();
 
 		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
@@ -3081,15 +3230,15 @@
 		}
 
 		<span class="kw">match</span> <span class="ident">args</span>.<span class="ident">send_args</span>.<span class="ident">clone</span>() {
-			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="op">!</span><span class="ident">sa</span>.<span class="ident">finalize</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=&gt;</span> {
+				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">sa</span>.<span class="ident">finalize</span> {
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
 						<span class="string">&quot;Transcations can not be posted without being finalized!&quot;</span>.<span class="ident">to_owned</span>(),
 					)
 					.<span class="ident">into</span>());
 				}
 			}
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {}
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span> {}
 		}
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">slate</span> <span class="op">=</span> {
@@ -3105,27 +3254,21 @@
 			)<span class="question-mark">?</span>
 		};
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">is_mqs</span> <span class="op">=</span> <span class="bool-val">false</span>;
-
 		<span class="kw">match</span> <span class="ident">send_args</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span><span class="op">&gt;</span> {
-				<span class="comment">//TODO: in case of keybase, the response might take 60s and leave the service hanging</span>
-				<span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">method</span>.<span class="ident">as_ref</span>() {
-					<span class="string">&quot;http&quot;</span> <span class="op">|</span> <span class="string">&quot;keybase&quot;</span> <span class="op">|</span> <span class="string">&quot;mwcmqs&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
-						<span class="kw">if</span> <span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">method</span> <span class="op">=</span><span class="op">=</span> <span class="string">&quot;mwcmqs&quot;</span> {
-							<span class="ident">is_mqs</span> <span class="op">=</span> <span class="bool-val">true</span>;
-						}
+			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=&gt;</span> {
+				<span class="kw">let</span> <span class="ident">original_slate</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">clone</span>();
 
+				<span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">method</span>.<span class="ident">as_ref</span>() {
+					<span class="string">&quot;http&quot;</span> <span class="op">|</span> <span class="string">&quot;keybase&quot;</span> <span class="op">|</span> <span class="string">&quot;mwcmqs&quot;</span> <span class="op">=&gt;</span> {
 						<span class="kw">let</span> <span class="ident">tor_config_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tor_config</span>.<span class="ident">lock</span>();
 						<span class="kw">let</span> <span class="ident">comm_adapter</span> <span class="op">=</span> <span class="ident">create_sender</span>(
 							<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">method</span>,
 							<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">dest</span>,
 							<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">apisecret</span>,
 							<span class="ident">tor_config_lock</span>.<span class="ident">clone</span>(),
-							<span class="prelude-val">Some</span>(<span class="ident">MwcMqsChannel</span>::<span class="ident">new</span>(<span class="ident">sa</span>.<span class="ident">dest</span>.<span class="ident">clone</span>(), <span class="ident">sa</span>.<span class="ident">finalize</span>.<span class="ident">clone</span>())),
 						)
 						.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-							<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to crete a sender, {}&quot;</span>, <span class="ident">e</span>))
+							<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to create a sender, {}&quot;</span>, <span class="ident">e</span>))
 						})<span class="question-mark">?</span>;
 
 						<span class="ident">slate</span> <span class="op">=</span> <span class="ident">comm_adapter</span>.<span class="ident">send_tx</span>(<span class="kw-2">&amp;</span><span class="ident">slate</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
@@ -3135,7 +3278,7 @@
 							))
 						})<span class="question-mark">?</span>;
 					}
-					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="kw">_</span> <span class="op">=&gt;</span> {
 						<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;unsupported payment method: {}&quot;</span>, <span class="ident">sa</span>.<span class="ident">method</span>);
 						<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
 							<span class="string">&quot;unsupported payment method&quot;</span>.<span class="ident">to_owned</span>(),
@@ -3144,18 +3287,29 @@
 					}
 				};
 
-				<span class="comment">//for mwcmqs ,finalizing and proof  has been done in listener thread</span>
-				<span class="kw">if</span> <span class="op">!</span><span class="ident">is_mqs</span> {
-					<span class="self">self</span>.<span class="ident">tx_lock_outputs</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="ident">address</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
-					<span class="ident">slate</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">finalize</span> {
-						<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">finalize_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>,
-						<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">slate</span>,
-					};
-					<span class="macro">println</span><span class="macro">!</span>(
-						<span class="string">&quot;slate [{}] finalized successfully in owner_api&quot;</span>,
-						<span class="ident">slate</span>.<span class="ident">id</span>.<span class="ident">to_string</span>()
-					);
-				}
+				<span class="comment">// Restore back ttl, because it can be gone</span>
+				<span class="ident">slate</span>.<span class="ident">ttl_cutoff_height</span> <span class="op">=</span> <span class="ident">original_slate</span>.<span class="ident">ttl_cutoff_height</span>.<span class="ident">clone</span>();
+				<span class="comment">// Checking is sender didn&#39;t do any harm to slate</span>
+				<span class="ident">Slate</span>::<span class="ident">compare_slates_send</span>(<span class="kw-2">&amp;</span><span class="ident">original_slate</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>;
+
+				<span class="self">self</span>.<span class="ident">verify_slate_messages</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)
+					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+						<span class="macro">error</span><span class="macro">!</span>(
+							<span class="string">&quot;Unable to validate participant messages at slate {}: {}&quot;</span>,
+							<span class="ident">slate</span>.<span class="ident">id</span>, <span class="ident">e</span>
+						);
+						<span class="ident">e</span>
+					})<span class="question-mark">?</span>;
+
+				<span class="self">self</span>.<span class="ident">tx_lock_outputs</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="ident">address</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
+				<span class="ident">slate</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">finalize</span> {
+					<span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="self">self</span>.<span class="ident">finalize_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>,
+					<span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">slate</span>,
+				};
+				<span class="macro">println</span><span class="macro">!</span>(
+					<span class="string">&quot;slate [{}] finalized successfully in owner_api&quot;</span>,
+					<span class="ident">slate</span>.<span class="ident">id</span>.<span class="ident">to_string</span>()
+				);
 
 				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> {
 					<span class="self">self</span>.<span class="ident">post_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>.<span class="ident">tx</span>, <span class="ident">sa</span>.<span class="ident">fluff</span>)<span class="question-mark">?</span>;
@@ -3166,7 +3320,7 @@
 				);
 				<span class="prelude-val">Ok</span>(<span class="ident">slate</span>)
 			}
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">slate</span>),
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">slate</span>),
 		}
 	}
 
@@ -3192,7 +3346,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let args = IssueInvoiceTxArgs {</span>
 	<span class="doccomment">///     amount: 60_000_000_000,</span>
@@ -3209,7 +3363,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">args</span>: <span class="ident">IssueInvoiceTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner</span>::<span class="ident">issue_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="number">1</span>)
@@ -3247,7 +3401,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // . . .</span>
 	<span class="doccomment">/// // The slate has been recieved from the invoicer, somehow</span>
@@ -3275,7 +3429,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
 		<span class="ident">args</span>: <span class="ident">InitTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">//minimum_confirmations cannot be zero.</span>
@@ -3288,7 +3442,14 @@
 		}
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">process_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">slate</span>, <span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>)
+		<span class="ident">owner</span>::<span class="ident">process_invoice_tx</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
+			<span class="ident">keychain_mask</span>,
+			<span class="ident">slate</span>,
+			<span class="ident">args</span>,
+			<span class="self">self</span>.<span class="ident">doctest_mode</span>,
+			<span class="bool-val">true</span>,
+		)
 	}
 
 	<span class="doccomment">/// Locks the outputs associated with the inputs to the transaction in the given</span>
@@ -3322,7 +3483,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
 	<span class="doccomment">///     amount: 2_000_000_000,</span>
@@ -3354,7 +3515,7 @@
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
 		<span class="ident">address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">participant_id</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner</span>::<span class="ident">tx_lock_outputs</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">slate</span>, <span class="ident">address</span>, <span class="ident">participant_id</span>)
@@ -3371,6 +3532,8 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// This function also stores the final transaction in the user&#39;s wallet files for retrieval</span>
 	<span class="doccomment">/// via the [`get_stored_tx`](struct.Owner.html#method.get_stored_tx) function.</span>
+	<span class="doccomment">/// Plus it check if proof is available. If it is - it will store it as well.</span>
+	<span class="doccomment">/// Currently proffs are generated by MQS only.</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// # Arguments</span>
 	<span class="doccomment">/// * `keychain_mask` - Wallet secret mask to XOR against the stored wallet seed before using, if</span>
@@ -3389,7 +3552,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
 	<span class="doccomment">///     amount: 2_000_000_000,</span>
@@ -3423,38 +3586,10 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="kw">let</span> (<span class="ident">slate_res</span>, <span class="ident">_context</span>) <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">finalize_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>;
-
-		<span class="prelude-val">Ok</span>(<span class="ident">slate_res</span>)
-	}
-
-	<span class="doccomment">///added with mqs feature.</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize_tx_with_proof</span>(
-		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
-		<span class="ident">tx_proof</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">TxProof</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
-		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="kw">let</span> (<span class="ident">slate_res</span>, <span class="ident">context</span>) <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">finalize_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>;
-		<span class="comment">//do tx_proof</span>
-		<span class="kw">if</span> <span class="ident">tx_proof</span>.<span class="ident">is_some</span>() {
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">proof</span> <span class="op">=</span> <span class="ident">tx_proof</span>.<span class="ident">unwrap</span>();
-			<span class="ident">proof</span>.<span class="ident">amount</span> <span class="op">=</span> <span class="ident">context</span>.<span class="ident">amount</span>;
-			<span class="ident">proof</span>.<span class="ident">fee</span> <span class="op">=</span> <span class="ident">context</span>.<span class="ident">fee</span>;
-			<span class="kw">for</span> <span class="ident">input</span> <span class="kw">in</span> <span class="ident">context</span>.<span class="ident">input_commits</span> {
-				<span class="ident">proof</span>.<span class="ident">inputs</span>.<span class="ident">push</span>(<span class="ident">input</span>.<span class="ident">clone</span>());
-			}
-			<span class="kw">for</span> <span class="ident">output</span> <span class="kw">in</span> <span class="ident">context</span>.<span class="ident">output_commits</span> {
-				<span class="ident">proof</span>.<span class="ident">outputs</span>.<span class="ident">push</span>(<span class="ident">output</span>.<span class="ident">clone</span>());
-			}
-
-			<span class="ident">proof</span>.<span class="ident">store_tx_proof</span>(<span class="ident">w</span>.<span class="ident">get_data_file_dir</span>(), <span class="kw-2">&amp;</span><span class="ident">slate_res</span>.<span class="ident">id</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>;
-		};
+		<span class="kw">let</span> (<span class="ident">slate_res</span>, <span class="ident">_context</span>) <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">finalize_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="bool-val">true</span>)<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">slate_res</span>)
 	}
@@ -3481,7 +3616,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
 	<span class="doccomment">///     amount: 2_000_000_000,</span>
@@ -3517,7 +3652,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx</span>: <span class="kw-2">&amp;</span><span class="ident">Transaction</span>,
 		<span class="ident">fluff</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -3555,7 +3690,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
 	<span class="doccomment">///     amount: 2_000_000_000,</span>
@@ -3590,7 +3725,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -3623,7 +3758,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let tx_id = None;</span>
 	<span class="doccomment">/// let tx_slate_id = None;</span>
@@ -3642,7 +3777,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_log_entry</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntry</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Transaction</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Transaction</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -3651,7 +3786,7 @@
 	}
 
 	<span class="doccomment">/// Loads a stored transaction from a file</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner</span>::<span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">file</span>)
@@ -3680,7 +3815,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let args = InitTxArgs {</span>
 	<span class="doccomment">///     src_acct_name: None,</span>
 	<span class="doccomment">///     amount: 2_000_000_000,</span>
@@ -3713,7 +3848,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -3762,7 +3897,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let mut api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let result = api_owner.scan(</span>
 	<span class="doccomment">///     None,</span>
 	<span class="doccomment">///     Some(20000),</span>
@@ -3780,7 +3915,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">start_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">delete_unconfirmed</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -3796,7 +3931,7 @@
 	}
 
 	<span class="doccomment">/// Dump wallet data (outputs,transactions) into the logs</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dump_wallet_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dump_wallet_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -3831,7 +3966,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let result = api_owner.node_height(None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// if let Ok(node_height_result) = result {</span>
@@ -3846,7 +3981,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">node_height</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -3888,7 +4023,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let result = api_owner.get_top_level_directory();</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// if let Ok(dir) = result {</span>
@@ -3897,7 +4032,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
@@ -3936,7 +4071,7 @@
 	<span class="doccomment">/// #   .ok_or(&quot;Failed to convert tmpdir path to string.&quot;.to_owned())</span>
 	<span class="doccomment">/// #   .unwrap();</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let result = api_owner.set_top_level_directory(dir);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// if let Ok(dir) = result {</span>
@@ -3944,7 +4079,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">set_top_level_directory</span>(<span class="ident">dir</span>)
@@ -3986,7 +4121,7 @@
 	<span class="doccomment">/// #   .ok_or(&quot;Failed to convert tmpdir path to string.&quot;.to_owned())</span>
 	<span class="doccomment">/// #   .unwrap();</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let _ = api_owner.set_top_level_directory(dir);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let result = api_owner.create_config(&amp;ChainTypes::Mainnet, None, None, None, None );</span>
@@ -4003,7 +4138,7 @@
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 		<span class="ident">mqs_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MQSConfig</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">create_config</span>(
@@ -4057,7 +4192,7 @@
 	<span class="doccomment">/// #   .to_str()</span>
 	<span class="doccomment">/// #   .ok_or(&quot;Failed to convert tmpdir path to string.&quot;.to_owned())</span>
 	<span class="doccomment">/// #   .unwrap();</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let _ = api_owner.set_top_level_directory(dir);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Create configuration</span>
@@ -4079,7 +4214,7 @@
 		<span class="ident">mnemonic_length</span>: <span class="ident">u32</span>,
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">create_wallet</span>(
@@ -4126,7 +4261,7 @@
 	<span class="doccomment">/// #   .to_str()</span>
 	<span class="doccomment">/// #   .ok_or(&quot;Failed to convert tmpdir path to string.&quot;.to_owned())</span>
 	<span class="doccomment">/// #   .unwrap();</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let _ = api_owner.set_top_level_directory(dir);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Create configuration</span>
@@ -4150,7 +4285,7 @@
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">use_mask</span>: <span class="ident">bool</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="comment">// just return a representative string for doctest mode</span>
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
 			<span class="kw">let</span> <span class="ident">secp_inst</span> <span class="op">=</span> <span class="ident">static_secp_instance</span>();
@@ -4184,7 +4319,7 @@
 	<span class="doccomment">/// use grin_core::global::ChainTypes;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.close_wallet(None);</span>
 	<span class="doccomment">///</span>
@@ -4193,7 +4328,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">close_wallet</span>(<span class="ident">name</span>)
@@ -4220,7 +4355,7 @@
 	<span class="doccomment">/// use grin_core::global::ChainTypes;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">///	let pw = ZeroingString::from(&quot;my_password&quot;);</span>
 	<span class="doccomment">/// let res = api_owner.get_mnemonic(None, pw, None);</span>
@@ -4234,7 +4369,7 @@
 		<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ZeroingString</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ZeroingString</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">get_mnemonic</span>(<span class="ident">name</span>, <span class="ident">password</span>, <span class="ident">wallet_data_dir</span>)
@@ -4266,7 +4401,7 @@
 	<span class="doccomment">/// use grin_core::global::ChainTypes;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">///	let old = ZeroingString::from(&quot;my_password&quot;);</span>
 	<span class="doccomment">///	let new = ZeroingString::from(&quot;new_password&quot;);</span>
@@ -4282,7 +4417,7 @@
 		<span class="ident">old</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">new</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">change_password</span>(<span class="ident">name</span>, <span class="ident">old</span>, <span class="ident">new</span>, <span class="ident">wallet_data_dir</span>)
@@ -4310,7 +4445,7 @@
 	<span class="doccomment">/// use grin_core::global::ChainTypes;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.delete_wallet(None);</span>
 	<span class="doccomment">///</span>
@@ -4319,7 +4454,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">delete_wallet</span>(<span class="ident">name</span>)
@@ -4366,7 +4501,7 @@
 	<span class="doccomment">/// use std::time::Duration;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.start_updater(None, Duration::from_secs(60));</span>
 	<span class="doccomment">///</span>
@@ -4379,19 +4514,19 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">frequency</span>: <span class="ident">Duration</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">updater_inner</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">updater</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">tx_inner</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">keychain_mask</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">keychain_mask</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>.<span class="ident">clone</span>()),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			<span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>.<span class="ident">clone</span>()),
+			<span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
 		};
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">Builder</span>::<span class="ident">new</span>()
 			.<span class="ident">name</span>(<span class="string">&quot;wallet-updater&quot;</span>.<span class="ident">to_string</span>())
-			.<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
+			.<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> {
 				<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">updater_inner</span>.<span class="ident">lock</span>();
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">u</span>.<span class="ident">run</span>(<span class="ident">frequency</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">tx_inner</span>) {
 					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Wallet state updater failed with error: {}&quot;</span>, <span class="ident">e</span>);
@@ -4421,7 +4556,7 @@
 	<span class="doccomment">/// use std::time::Duration;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.start_updater(None, Duration::from_secs(60));</span>
 	<span class="doccomment">///</span>
@@ -4432,7 +4567,7 @@
 	<span class="doccomment">/// let res = api_owner.stop_updater();</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -4463,7 +4598,7 @@
 	<span class="doccomment">/// use std::time::Duration;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.start_updater(None, Duration::from_secs(60));</span>
 	<span class="doccomment">///</span>
@@ -4475,7 +4610,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">q</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">updater_messages</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident">q</span>.<span class="ident">len</span>().<span class="ident">saturating_sub</span>(<span class="ident">count</span>);
 		<span class="prelude-val">Ok</span>(<span class="ident">q</span>.<span class="ident">split_off</span>(<span class="ident">index</span>))
@@ -4527,9 +4662,9 @@
 	<span class="doccomment">/// use std::time::Duration;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let res = api_owner.get_public_proof_address(None, 0);</span>
+	<span class="doccomment">/// let res = api_owner.get_public_proof_address(None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// if let Ok(_) = res {</span>
 	<span class="doccomment">///   // ...</span>
@@ -4540,9 +4675,8 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_public_proof_address</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-		<span class="ident">derivation_index</span>: <span class="ident">u32</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">get_public_proof_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">derivation_index</span>)
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner</span>::<span class="ident">get_public_proof_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
 	}
 
 	<span class="doccomment">/// Helper function to convert an Onion v3 address to a payment proof address (essentially</span>
@@ -4567,7 +4701,7 @@
 	<span class="doccomment">/// use std::time::Duration;</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // Set up as above</span>
-	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// # let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_owner.proof_address_from_onion_v3(</span>
 	<span class="doccomment">///  &quot;2a6at2obto3uvkpkitqp4wxcg6u36qf534eucbskqciturczzc5suyid&quot;</span>
@@ -4580,7 +4714,7 @@
 	<span class="doccomment">/// let res = api_owner.stop_updater();</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">proof_address_from_onion_v3</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address_v3</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">proof_address_from_onion_v3</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">address_v3</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="ident">OnionV3Address</span>::<span class="ident">try_from</span>(<span class="ident">address_v3</span>)<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">addr</span>.<span class="ident">to_ed25519</span>()<span class="question-mark">?</span>)
 	}
@@ -4616,7 +4750,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let tx_id = None;</span>
 	<span class="doccomment">/// let tx_slate_id = Some(Uuid::parse_str(&quot;0436430c-2b02-624c-2032-570501212b00&quot;).unwrap());</span>
@@ -4635,14 +4769,14 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> <span class="op">=&gt;</span> <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner</span>::<span class="ident">retrieve_payment_proof</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -4652,6 +4786,14 @@
 			<span class="ident">tx_id</span>,
 			<span class="ident">tx_slate_id</span>,
 		)
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_stored_tx_proof</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">_keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TxProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner</span>::<span class="ident">get_stored_tx_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">tx_id</span>)
 	}
 
 	<span class="doccomment">/// Verifies a [PaymentProof](../grin_wallet_libwallet/api_impl/types/struct.PaymentProof.html)</span>
@@ -4685,7 +4827,7 @@
 	<span class="doccomment">/// ```</span>
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None);</span>
+	<span class="doccomment">/// let api_owner = Owner::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">/// let update_from_node = true;</span>
 	<span class="doccomment">/// let tx_id = None;</span>
 	<span class="doccomment">/// let tx_slate_id = Some(Uuid::parse_str(&quot;0436430c-2b02-624c-2032-570501212b00&quot;).unwrap());</span>
@@ -4707,15 +4849,161 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">proof</span>: <span class="kw-2">&amp;</span><span class="ident">PaymentProof</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner</span>::<span class="ident">verify_payment_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">proof</span>)
+	}
+
+	<span class="doccomment">/// Start swap trade process. Return SwapID that can be used to check the status or perform further action.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_start</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">params</span>: <span class="kw-2">&amp;</span><span class="ident">SwapStartArgs</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="comment">// Updating wallet state first because we need to select outputs.</span>
+		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="ident">owner_swap</span>::<span class="ident">swap_start</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">params</span>)
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_create_from_offer</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">message_filename</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_create_from_offer</span>(
+			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
+			<span class="ident">keychain_mask</span>,
+			<span class="ident">message_filename</span>,
+		)
+	}
+
+	<span class="doccomment">/// List all available swap operations. SwapId &amp; Status</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_list</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">do_check</span>: <span class="ident">bool</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap</span>::<span class="ident">SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_list</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">do_check</span>)
+	}
+
+	<span class="doccomment">/// Delete swap trade</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_delete</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_delete</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+	}
+	<span class="doccomment">/// Retrieve swap trade</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_get</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Swap</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_get</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+	}
+
+	<span class="doccomment">/// Adjust the sate of swap trade.</span>
+	<span class="doccomment">/// method &amp; destination required for adjust_cmd=&#39;destination&#39;</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_adjust</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+		<span class="ident">adjust_cmd</span>: <span class="ident">String</span>,
+		<span class="ident">method</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">destination</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">secondary_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="comment">// secondary address to adjust</span>
+		<span class="ident">secondary_fee</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateId</span>, <span class="ident">Action</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_adjust</span>(
+			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
+			<span class="ident">keychain_mask</span>,
+			<span class="kw-2">&amp;</span><span class="ident">swap_id</span>,
+			<span class="kw-2">&amp;</span><span class="ident">adjust_cmd</span>,
+			<span class="ident">method</span>,
+			<span class="ident">destination</span>,
+			<span class="ident">secondary_address</span>,
+			<span class="ident">secondary_fee</span>,
+		)
+	}
+
+	<span class="doccomment">/// Dump swap file content</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_dump</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_dump</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+	}
+
+	<span class="doccomment">/// Refresh and get a status and current expected action for the swap.</span>
+	<span class="doccomment">/// return: &lt;state&gt;, &lt;Action&gt;, &lt;time limit&gt;, &lt;Readmap lines&gt;, &lt;Journal records&gt;</span>
+	<span class="doccomment">/// time limit shows when this action will be expired</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_swap_status_action</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
+		(
+			<span class="ident">StateId</span>,
+			<span class="ident">Action</span>,
+			<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>,
+			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StateEtaInfo</span><span class="op">&gt;</span>,
+			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SwapJournalRecord</span><span class="op">&gt;</span>,
+		),
+		<span class="ident">Error</span>,
+	<span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">update_swap_status_action</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+	}
+
+	<span class="doccomment">/// Get a status of the transactions that involved into the swap.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_swap_tx_tstatus</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SwapTransactionsConfirmations</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">get_swap_tx_tstatus</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+	}
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_process</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">swap_id</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+		<span class="ident">message_sender</span>: <span class="ident">F</span>,
+		<span class="ident">message_file_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">buyer_refund_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">secondary_fee</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
+		<span class="ident">secondary_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateProcessRespond</span>, <span class="ident">Error</span><span class="op">&gt;</span>
+	<span class="kw">where</span>
+		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+			<span class="op">+</span> <span class="lifetime">&#39;static</span>,
+	{
+		<span class="ident">owner_swap</span>::<span class="ident">swap_process</span>(
+			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
+			<span class="ident">keychain_mask</span>,
+			<span class="ident">swap_id</span>,
+			<span class="ident">message_sender</span>,
+			<span class="ident">message_file_name</span>,
+			<span class="ident">buyer_refund_address</span>,
+			<span class="ident">secondary_fee</span>,
+			<span class="ident">secondary_address</span>,
+		)
+	}
+
+	<span class="doccomment">/// Process swap income message</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_income_message</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
+		<span class="ident">message</span>: <span class="ident">String</span>,
+	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap</span>::<span class="ident">swap_income_message</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="prelude-val">None</span>)
 	}
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">doctest_helper_setup_doc_env</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
 		<span class="kw">use</span> <span class="ident">grin_wallet_api</span> <span class="kw">as</span> <span class="ident">api</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_config</span> <span class="kw">as</span> <span class="ident">config</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_impls</span> <span class="kw">as</span> <span class="ident">impls</span>;
@@ -4747,7 +5035,8 @@
 		<span class="ident">wallet_config</span>.<span class="ident">data_file_dir</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">to_owned</span>();
 		<span class="kw">let</span> <span class="ident">pw</span> <span class="op">=</span> <span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="string">&quot;&quot;</span>);
 
-		<span class="kw">let</span> <span class="ident">node_client</span> <span class="op">=</span> <span class="ident">HTTPNodeClient</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">wallet_config</span>.<span class="ident">check_node_api_http_addr</span>, <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">node_client</span> <span class="op">=</span>
+			<span class="ident">HTTPNodeClient</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="ident">wallet_config</span>.<span class="ident">check_node_api_http_addr</span>, <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(
 			<span class="ident">DefaultWalletImpl</span>::<span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">HTTPNodeClient</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">node_client</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>(),
 			)
@@ -4766,4 +5055,4 @@
 	};
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "grin_wallet_api";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "grin_wallet_api";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
