@@ -527,6 +527,29 @@
 <span id="526">526</span>
 <span id="527">527</span>
 <span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -728,6 +751,29 @@
 			)<span class="question-mark">?</span>;
 		}
 		<span class="prelude-val">Ok</span>(<span class="ident">foreign</span>::<span class="ident">check_version</span>())
+	}
+
+	<span class="doccomment">/// Return the tor proof address</span>
+	<span class="doccomment">/// # Arguments</span>
+	<span class="doccomment">/// None</span>
+	<span class="doccomment">/// # Returns</span>
+	<span class="doccomment">/// * [`String`]</span>
+	<span class="doccomment">/// # Example</span>
+	<span class="doccomment">/// Set up as in [`new`](struct.Foreign.html#method.new) method above.</span>
+	<span class="doccomment">/// ```</span>
+	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env_foreign!(wallet, wallet_config);</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// let mut api_foreign = Foreign::new(wallet.clone(), None, None);</span>
+	<span class="doccomment">///</span>
+	<span class="doccomment">/// let tor_proof_address = api_foreign.get_proof_address();</span>
+	<span class="doccomment">/// // check and proceed accordingly</span>
+	<span class="doccomment">/// ```</span>
+
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
+		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
+
+		<span class="ident">foreign</span>::<span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())
 	}
 
 	<span class="doccomment">/// Builds a new unconfirmed coinbase output in the wallet, generally for inclusion in a</span>
