@@ -1,3 +1,3 @@
 (function() {var implementors = {};
-implementors["grin_wallet_api"] = [{"text":"impl Handler for dyn ForeignRpc","synthetic":false,"types":[]},{"text":"impl Handler for dyn OwnerRpc","synthetic":false,"types":[]},{"text":"impl Handler for dyn OwnerRpcS","synthetic":false,"types":[]}];
+implementors["grin_wallet_api"] = [{"text":"impl Handler for dyn ForeignRpc","synthetic":false,"types":[]},{"text":"impl Handler for dyn OwnerRpcV2","synthetic":false,"types":[]},{"text":"impl Handler for dyn OwnerRpcV3","synthetic":false,"types":[]}];
 if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

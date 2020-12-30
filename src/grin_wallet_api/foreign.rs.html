@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `api/src/foreign.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>foreign.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `api/src/foreign.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>foreign.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -550,6 +552,61 @@
 <span id="549">549</span>
 <span id="550">550</span>
 <span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -570,16 +627,17 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">keychain</span>::<span class="ident">Keychain</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::<span class="ident">foreign</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::{
-	<span class="ident">BlockFees</span>, <span class="ident">CbData</span>, <span class="ident">Error</span>, <span class="ident">NodeClient</span>, <span class="ident">NodeVersionInfo</span>, <span class="ident">Slate</span>, <span class="ident">VersionInfo</span>, <span class="ident">WalletInst</span>,
-	<span class="ident">WalletLCProvider</span>,
+	<span class="ident">BlockFees</span>, <span class="ident">CbData</span>, <span class="ident">Error</span>, <span class="ident">NodeClient</span>, <span class="ident">NodeVersionInfo</span>, <span class="ident">Slate</span>, <span class="ident">SlatePurpose</span>, <span class="ident">SlateVersion</span>,
+	<span class="ident">VersionInfo</span>, <span class="ident">VersionedSlate</span>, <span class="ident">WalletInst</span>, <span class="ident">WalletLCProvider</span>,
 };
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::<span class="ident">SecretKey</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">Mutex</span>;
+<span class="kw">use</span> <span class="ident">ed25519_dalek</span>::<span class="ident">PublicKey</span> <span class="kw">as</span> <span class="ident">DalekPublicKey</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
 
 <span class="doccomment">/// ForeignAPI Middleware Check callback</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ForeignCheckMiddleware</span> <span class="op">=</span>
-	<span class="kw">fn</span>(<span class="ident">ForeignCheckMiddlewareFn</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NodeVersionInfo</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Slate</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span>(<span class="ident">ForeignCheckMiddlewareFn</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NodeVersionInfo</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Slate</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// Middleware Identifiers for each function</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ForeignCheckMiddlewareFn</span> {
@@ -616,7 +674,7 @@
 	<span class="ident">K</span>: <span class="ident">Keychain</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
 {
 	<span class="doccomment">/// Wallet instance</span>
-	<span class="kw">pub</span> <span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Flag to normalize some output during testing. Can mostly be ignored.</span>
 	<span class="kw">pub</span> <span class="ident">doctest_mode</span>: <span class="ident">bool</span>,
 	<span class="doccomment">/// foreign check middleware</span>
@@ -671,6 +729,8 @@
 	<span class="doccomment">/// use impls::{DefaultWalletImpl, DefaultLCProvider, HTTPNodeClient};</span>
 	<span class="doccomment">/// use libwallet::WalletInst;</span>
 	<span class="doccomment">///</span>
+	<span class="doccomment">/// grin_wallet_util::grin_core::global::set_local_chain_type(grin_wallet_util::grin_core::global::ChainTypes::AutomatedTesting);</span>
+	<span class="doccomment">///</span>
 	<span class="doccomment">/// let mut wallet_config = WalletConfig::default();</span>
 	<span class="doccomment">/// # let dir = tempdir().map_err(|e| format!(&quot;{:#?}&quot;, e)).unwrap();</span>
 	<span class="doccomment">/// # let dir = dir</span>
@@ -712,10 +772,10 @@
 	<span class="doccomment">/// ```</span>
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-		<span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
+		<span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">middleware</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ForeignCheckMiddleware</span><span class="op">&gt;</span>,
-	) <span class="op">-&gt;</span> <span class="self">Self</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">Foreign</span> {
 			<span class="ident">wallet_inst</span>,
 			<span class="ident">doctest_mode</span>: <span class="bool-val">false</span>,
@@ -740,17 +800,18 @@
 	<span class="doccomment">/// // check and proceed accordingly</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
+		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
-			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
-			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 			<span class="ident">m</span>(
 				<span class="ident">ForeignCheckMiddlewareFn</span>::<span class="ident">CheckVersion</span>,
 				<span class="ident">w</span>.<span class="ident">w2n_client</span>().<span class="ident">get_version_info</span>(),
 				<span class="prelude-val">None</span>,
 			)<span class="question-mark">?</span>;
 		}
-		<span class="prelude-val">Ok</span>(<span class="ident">foreign</span>::<span class="ident">check_version</span>())
+		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">foreign</span>::<span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>(<span class="ident">version</span>)
 	}
 
 	<span class="doccomment">/// Return the tor proof address</span>
@@ -769,7 +830,7 @@
 	<span class="doccomment">/// // check and proceed accordingly</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 
@@ -826,7 +887,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CbData</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">CbData</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
@@ -867,7 +928,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let mut api_foreign = Foreign::new(wallet.clone(), None, None);</span>
 	<span class="doccomment">///</span>
-	<span class="doccomment">/// # let slate = Slate::blank(2);</span>
+	<span class="doccomment">/// # let slate = Slate::blank(2, false);</span>
 	<span class="doccomment">/// // Receive a slate via some means</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let res = api_foreign.verify_slate_messages(&amp;slate);</span>
@@ -882,7 +943,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -939,7 +1000,7 @@
 	<span class="doccomment">/// # grin_wallet_api::doctest_helper_setup_doc_env_foreign!(wallet, wallet_config);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let mut api_foreign = Foreign::new(wallet.clone(), None, None);</span>
-	<span class="doccomment">/// # let slate = Slate::blank(2);</span>
+	<span class="doccomment">/// # let slate = Slate::blank(2, false);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // . . .</span>
 	<span class="doccomment">/// // Obtain a sent slate somehow</span>
@@ -957,7 +1018,7 @@
 		<span class="ident">address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">dest_acct_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
 		<span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
@@ -1018,18 +1079,18 @@
 	<span class="doccomment">///     amount: 10_000_000_000,</span>
 	<span class="doccomment">///     ..Default::default()</span>
 	<span class="doccomment">/// };</span>
-	<span class="doccomment">/// let result = api_owner.issue_invoice_tx(None, args);</span>
+	<span class="doccomment">/// let result = api_owner.issue_invoice_tx(None, &amp;args);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// // If result okay, send to payer, who will apply the transaction via their</span>
 	<span class="doccomment">/// // owner API, then send back the slate</span>
 	<span class="doccomment">/// // ...</span>
-	<span class="doccomment">/// # let slate = Slate::blank(2);</span>
+	<span class="doccomment">/// # let slate = Slate::blank(2, false);</span>
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// let slate = api_foreign.finalize_invoice_tx(&amp;slate);</span>
 	<span class="doccomment">/// // if okay, then post via the owner API</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
@@ -1039,22 +1100,69 @@
 				<span class="prelude-val">Some</span>(<span class="ident">slate</span>),
 			)<span class="question-mark">?</span>;
 		}
-		<span class="ident">foreign</span>::<span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">slate</span>, <span class="bool-val">true</span>)
+		<span class="ident">foreign</span>::<span class="ident">finalize_invoice_tx</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
+			(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
+			<span class="ident">slate</span>,
+			<span class="bool-val">true</span>,
+			<span class="self">self</span>.<span class="ident">doctest_mode</span>,
+		)
 	}
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">swap_message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">swap_message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">foreign</span>::<span class="ident">receive_swap_message</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">swap_message</span>,
 		)
 	}
+
+	<span class="comment">// Utility method, not expected to be called from Foreign API.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt_slate</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">encrypted_slate</span>: <span class="ident">VersionedSlate</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Slate</span>, <span class="ident">SlatePurpose</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
+		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
+		<span class="kw">let</span> (<span class="ident">slate</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">_receiver</span>) <span class="op">=</span> <span class="ident">foreign</span>::<span class="ident">decrypt_slate</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
+			(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
+			<span class="ident">encrypted_slate</span>,
+			<span class="prelude-val">None</span>,
+		)<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>((<span class="ident">slate</span>, <span class="ident">content</span>, <span class="ident">sender</span>))
+	}
+
+	<span class="comment">// Utility method, not expected to be called from Foreign API.</span>
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encrypt_slate</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
+		<span class="ident">version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SlateVersion</span><span class="op">&gt;</span>,
+		<span class="ident">content</span>: <span class="ident">SlatePurpose</span>,
+		<span class="ident">slatepack_recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span>,
+		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+		<span class="ident">use_test_rng</span>: <span class="ident">bool</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
+		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">foreign</span>::<span class="ident">encrypt_slate</span>(
+			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
+			(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
+			<span class="ident">slate</span>,
+			<span class="ident">version</span>,
+			<span class="ident">content</span>,
+			<span class="ident">slatepack_recipient</span>,
+			<span class="ident">address_index</span>,
+			<span class="ident">use_test_rng</span>,
+		)<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>(<span class="ident">vslate</span>)
+	}
 }
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">doctest_helper_setup_doc_env_foreign</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">grin_wallet_api</span> <span class="kw">as</span> <span class="ident">api</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_config</span> <span class="kw">as</span> <span class="ident">config</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_impls</span> <span class="kw">as</span> <span class="ident">impls</span>;
@@ -1072,6 +1180,10 @@
 		<span class="kw">use</span> <span class="ident">config</span>::<span class="ident">WalletConfig</span>;
 		<span class="kw">use</span> <span class="ident">impls</span>::{<span class="ident">DefaultLCProvider</span>, <span class="ident">DefaultWalletImpl</span>, <span class="ident">HTTPNodeClient</span>};
 		<span class="kw">use</span> <span class="ident">libwallet</span>::{<span class="ident">BlockFees</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">Slate</span>, <span class="ident">WalletInst</span>};
+
+		<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">set_local_chain_type</span>(
+			<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">ChainTypes</span>::<span class="ident">AutomatedTesting</span>,
+			);
 
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempdir</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:#?}&quot;</span>, <span class="ident">e</span>)).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">dir</span>
