@@ -2636,6 +2636,7 @@
 <span id="2633">2633</span>
 <span id="2634">2634</span>
 <span id="2635">2635</span>
+<span id="2636">2636</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -3370,8 +3371,9 @@
 								<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to create a sender, {}&quot;</span>, <span class="ident">e</span>))
 							})<span class="question-mark">?</span>;
 
-					<span class="kw">let</span> <span class="ident">other_wallet_version</span> <span class="op">=</span>
-						<span class="ident">comm_adapter</span>.<span class="ident">check_other_wallet_version</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+					<span class="kw">let</span> <span class="ident">other_wallet_version</span> <span class="op">=</span> <span class="ident">comm_adapter</span>
+						.<span class="ident">check_other_wallet_version</span>(<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">dest</span>)
+						.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 							<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(
 								<span class="string">&quot;Unable to get other wallet info, {}&quot;</span>,
 								<span class="ident">e</span>

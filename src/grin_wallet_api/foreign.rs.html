@@ -598,15 +598,6 @@
 <span id="595">595</span>
 <span id="596">596</span>
 <span id="597">597</span>
-<span id="598">598</span>
-<span id="599">599</span>
-<span id="600">600</span>
-<span id="601">601</span>
-<span id="602">602</span>
-<span id="603">603</span>
-<span id="604">604</span>
-<span id="605">605</span>
-<span id="606">606</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -801,16 +792,7 @@
 	<span class="doccomment">/// ```</span>
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
-		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">middleware</span>.<span class="ident">as_ref</span>() {
-			<span class="ident">m</span>(
-				<span class="ident">ForeignCheckMiddlewareFn</span>::<span class="ident">CheckVersion</span>,
-				<span class="ident">w</span>.<span class="ident">w2n_client</span>().<span class="ident">get_version_info</span>(),
-				<span class="prelude-val">None</span>,
-			)<span class="question-mark">?</span>;
-		}
-		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">foreign</span>::<span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">foreign</span>::<span class="ident">check_version</span>()<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">version</span>)
 	}
 
