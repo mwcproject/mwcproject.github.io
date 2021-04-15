@@ -2639,6 +2639,9 @@
 <span id="2636">2636</span>
 <span id="2637">2637</span>
 <span id="2638">2638</span>
+<span id="2639">2639</span>
+<span id="2640">2640</span>
+<span id="2641">2641</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -5008,7 +5011,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">do_check</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap</span>::<span class="ident">SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap</span>::<span class="ident">SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap</span>::<span class="ident">swap_list</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">do_check</span>)
 	}
 
@@ -5042,6 +5045,7 @@
 		<span class="ident">secondary_fee</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri1</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">tag</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateId</span>, <span class="ident">Action</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap</span>::<span class="ident">swap_adjust</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -5054,6 +5058,7 @@
 			<span class="ident">secondary_fee</span>,
 			<span class="ident">electrum_node_uri1</span>,
 			<span class="ident">electrum_node_uri2</span>,
+			<span class="ident">tag</span>,
 		)
 	}
 
@@ -5067,7 +5072,7 @@
 	}
 
 	<span class="doccomment">/// Refresh and get a status and current expected action for the swap.</span>
-	<span class="doccomment">/// return: &lt;state&gt;, &lt;Action&gt;, &lt;time limit&gt;, &lt;Readmap lines&gt;, &lt;Journal records&gt;</span>
+	<span class="doccomment">/// return: &lt;state&gt;, &lt;Action&gt;, &lt;time limit&gt;, &lt;Roadmap lines&gt;, &lt;Journal records&gt;, &lt;last error&gt; , &lt;mkt place cancelled trades&gt;</span>
 	<span class="doccomment">/// time limit shows when this action will be expired</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">update_swap_status_action</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
@@ -5083,6 +5088,7 @@
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StateEtaInfo</span><span class="op">&gt;</span>,
 			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">SwapJournalRecord</span><span class="op">&gt;</span>,
 			<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+			<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>,
 		),
 		<span class="ident">Error</span>,
 	<span class="op">&gt;</span> {
@@ -5124,7 +5130,7 @@
 		<span class="ident">secondary_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri1</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StateProcessRespond</span>, <span class="ident">Error</span><span class="op">&gt;</span>
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateProcessRespond</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span>
 	<span class="kw">where</span>
 		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">Error</span><span class="op">&gt;</span>
 			<span class="op">+</span> <span class="lifetime">&#39;static</span>,
@@ -5247,7 +5253,7 @@
 
 		<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">set_local_chain_type</span>(
 			<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">ChainTypes</span>::<span class="ident">AutomatedTesting</span>,
-			);
+		);
 
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempdir</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:#?}&quot;</span>, <span class="ident">e</span>)).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">dir</span>
@@ -5263,7 +5269,7 @@
 		<span class="kw">let</span> <span class="ident">node_client</span> <span class="op">=</span> <span class="ident">HTTPNodeClient</span>::<span class="ident">new</span>(<span class="ident">node_list</span>, <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(
 			<span class="ident">DefaultWalletImpl</span>::<span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">HTTPNodeClient</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">node_client</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>(),
-			)
+		)
 			<span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span>
 				<span class="ident">WalletInst</span><span class="op">&lt;</span>
 					<span class="lifetime">&#39;static</span>,
@@ -5271,7 +5277,7 @@
 					<span class="ident">HTTPNodeClient</span>,
 					<span class="ident">ExtKeychain</span>,
 				<span class="op">&gt;</span>,
-				<span class="op">&gt;</span>;
+			<span class="op">&gt;</span>;
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">wallet</span>.<span class="ident">lc_provider</span>().<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">lc</span>.<span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="ident">wallet_config</span>.<span class="ident">data_file_dir</span>);
 		<span class="ident">lc</span>.<span class="ident">open_wallet</span>(<span class="prelude-val">None</span>, <span class="ident">pw</span>, <span class="bool-val">false</span>, <span class="bool-val">false</span>, <span class="prelude-val">None</span>);
