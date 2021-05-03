@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["grin_api"] = [{"text":"impl Fail for <a class=\"enum\" href=\"grin_api/enum.ErrorKind.html\" title=\"enum grin_api::ErrorKind\">ErrorKind</a>","synthetic":false,"types":["grin_api::rest::ErrorKind"]},{"text":"impl Fail for <a class=\"struct\" href=\"grin_api/struct.Error.html\" title=\"struct grin_api::Error\">Error</a>","synthetic":false,"types":["grin_api::rest::Error"]},{"text":"impl Fail for <a class=\"enum\" href=\"grin_api/enum.RouterError.html\" title=\"enum grin_api::RouterError\">RouterError</a>","synthetic":false,"types":["grin_api::router::RouterError"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

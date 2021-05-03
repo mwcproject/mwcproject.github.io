@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["BasicAuthMiddleware",""],["BasicAuthURIMiddleware",""],["MWC_BASIC_REALM",""],["MWC_FOREIGN_BASIC_REALM",""]]});
