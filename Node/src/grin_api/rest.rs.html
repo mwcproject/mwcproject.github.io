@@ -574,10 +574,10 @@
 				};
 
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">Runtime</span>::<span class="ident">new</span>()
-					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>))
+					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>))
 					.<span class="ident">unwrap</span>();
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">rt</span>.<span class="ident">block_on</span>(<span class="ident">server</span>) {
-					<span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>)
+					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>)
 				}
 			})
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;failed to spawn API thread. {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
@@ -625,10 +625,10 @@
 				};
 
 				<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rt</span> <span class="op">=</span> <span class="ident">Runtime</span>::<span class="ident">new</span>()
-					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>))
+					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>))
 					.<span class="ident">unwrap</span>();
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">rt</span>.<span class="ident">block_on</span>(<span class="ident">server</span>) {
-					<span class="macro">eprintln</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>)
+					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server error: {}&quot;</span>, <span class="ident">e</span>)
 				}
 			})
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;failed to spawn API thread. {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
