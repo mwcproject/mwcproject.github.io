@@ -2664,6 +2664,15 @@
 <span id="2661">2661</span>
 <span id="2662">2662</span>
 <span id="2663">2663</span>
+<span id="2664">2664</span>
+<span id="2665">2665</span>
+<span id="2666">2666</span>
+<span id="2667">2667</span>
+<span id="2668">2668</span>
+<span id="2669">2669</span>
+<span id="2670">2670</span>
+<span id="2671">2671</span>
+<span id="2672">2672</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2019 The Grin Developers</span>
 <span class="comment">//</span>
@@ -2696,7 +2705,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">proof</span>::<span class="ident">proofaddress</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">proof</span>::<span class="ident">tx_proof</span>::<span class="ident">TxProof</span>;
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">fsm</span>::<span class="ident">state</span>::{<span class="ident">StateEtaInfo</span>, <span class="ident">StateId</span>, <span class="ident">StateProcessRespond</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">types</span>::{<span class="ident">Action</span>, <span class="ident">SwapTransactionsConfirmations</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">types</span>::{<span class="ident">Action</span>, <span class="ident">Currency</span>, <span class="ident">SwapTransactionsConfirmations</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::{<span class="ident">message</span>::<span class="ident">Message</span>, <span class="ident">swap</span>::<span class="ident">Swap</span>, <span class="ident">swap</span>::<span class="ident">SwapJournalRecord</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::{
 	<span class="ident">AcctPathMapping</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">InitTxArgs</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">NodeClient</span>,
@@ -5096,13 +5105,18 @@
 	}
 
 	<span class="doccomment">/// dump ethereum info</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_eth</span>::<span class="ident">info</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>())
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">currency</span>: <span class="ident">Currency</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_eth</span>::<span class="ident">info</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>)
 	}
 
 	<span class="doccomment">/// ethereum transfer</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_transfer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_eth</span>::<span class="ident">transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">dest</span>, <span class="ident">amount</span>)
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_transfer</span>(
+		<span class="kw-2">&amp;</span><span class="self">self</span>,
+		<span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">currency</span>: <span class="ident">Currency</span>,
+		<span class="ident">amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_eth</span>::<span class="ident">transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>, <span class="ident">dest</span>, <span class="ident">amount</span>)
 	}
 
 	<span class="doccomment">/// Refresh and get a status and current expected action for the swap.</span>
@@ -5115,6 +5129,7 @@
 		<span class="ident">electrum_node_uri1</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">erc20_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
 		(
@@ -5135,6 +5150,7 @@
 			<span class="ident">electrum_node_uri1</span>,
 			<span class="ident">electrum_node_uri2</span>,
 			<span class="ident">eth_swap_contract_address</span>,
+			<span class="ident">erc20_swap_contract_address</span>,
 			<span class="ident">eth_infura_project_id</span>,
 			<span class="bool-val">false</span>,
 		)
@@ -5148,6 +5164,7 @@
 		<span class="ident">electrum_node_uri1</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+		<span class="ident">erc20_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SwapTransactionsConfirmations</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap</span>::<span class="ident">get_swap_tx_tstatus</span>(
@@ -5157,6 +5174,7 @@
 			<span class="ident">electrum_node_uri1</span>,
 			<span class="ident">electrum_node_uri2</span>,
 			<span class="ident">eth_swap_contract_address</span>,
+			<span class="ident">erc20_swap_contract_address</span>,
 			<span class="ident">eth_infura_project_id</span>,
 		)
 	}
