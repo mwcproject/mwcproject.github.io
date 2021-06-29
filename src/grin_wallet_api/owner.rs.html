@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/owner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>owner.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
@@ -2690,38 +2690,38 @@
 
 <span class="doccomment">//! Owner API External Definition</span>
 
-<span class="kw">use</span> <span class="ident">chrono</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">ed25519_dalek</span>::<span class="ident">PublicKey</span> <span class="kw">as</span> <span class="ident">DalekPublicKey</span>;
-<span class="kw">use</span> <span class="ident">uuid</span>::<span class="ident">Uuid</span>;
+<span class="kw">use</span> <span class="ident">chrono::prelude</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">ed25519_dalek::PublicKey</span> <span class="kw">as</span> <span class="ident">DalekPublicKey</span>;
+<span class="kw">use</span> <span class="ident">uuid::Uuid</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::{<span class="ident">MQSConfig</span>, <span class="ident">TorConfig</span>, <span class="ident">WalletConfig</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">Transaction</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">global</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">impls</span>::<span class="ident">create_sender</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">keychain</span>::{<span class="ident">Identifier</span>, <span class="ident">Keychain</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::<span class="ident">foreign</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::<span class="ident">owner_updater</span>::{<span class="ident">start_updater_log_thread</span>, <span class="ident">StatusMessage</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">api_impl</span>::{<span class="ident">owner</span>, <span class="ident">owner_eth</span>, <span class="ident">owner_swap</span>, <span class="ident">owner_updater</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">proof</span>::<span class="ident">proofaddress</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">proof</span>::<span class="ident">tx_proof</span>::<span class="ident">TxProof</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">fsm</span>::<span class="ident">state</span>::{<span class="ident">StateEtaInfo</span>, <span class="ident">StateId</span>, <span class="ident">StateProcessRespond</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::<span class="ident">types</span>::{<span class="ident">Action</span>, <span class="ident">Currency</span>, <span class="ident">SwapTransactionsConfirmations</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">swap</span>::{<span class="ident">message</span>::<span class="ident">Message</span>, <span class="ident">swap</span>::<span class="ident">Swap</span>, <span class="ident">swap</span>::<span class="ident">SwapJournalRecord</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::{
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::config</span>::{<span class="ident">MQSConfig</span>, <span class="ident">TorConfig</span>, <span class="ident">WalletConfig</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::Transaction</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::global</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::impls::create_sender</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::keychain</span>::{<span class="ident">Identifier</span>, <span class="ident">Keychain</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::api_impl::foreign</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::api_impl::owner_updater</span>::{<span class="ident">start_updater_log_thread</span>, <span class="ident">StatusMessage</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::api_impl</span>::{<span class="ident">owner</span>, <span class="ident">owner_eth</span>, <span class="ident">owner_swap</span>, <span class="ident">owner_updater</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::proof::proofaddress</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::proof::tx_proof::TxProof</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::swap::fsm::state</span>::{<span class="ident">StateEtaInfo</span>, <span class="ident">StateId</span>, <span class="ident">StateProcessRespond</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::swap::types</span>::{<span class="ident">Action</span>, <span class="ident">Currency</span>, <span class="ident">SwapTransactionsConfirmations</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::swap</span>::{<span class="ident">message::Message</span>, <span class="ident">swap::Swap</span>, <span class="ident">swap::SwapJournalRecord</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet</span>::{
 	<span class="ident">AcctPathMapping</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">InitTxArgs</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">NodeClient</span>,
 	<span class="ident">NodeHeightResult</span>, <span class="ident">OutputCommitMapping</span>, <span class="ident">PaymentProof</span>, <span class="ident">Slate</span>, <span class="ident">SlatePurpose</span>, <span class="ident">SlateVersion</span>,
 	<span class="ident">SwapStartArgs</span>, <span class="ident">TxLogEntry</span>, <span class="ident">VersionedSlate</span>, <span class="ident">WalletInfo</span>, <span class="ident">WalletInst</span>, <span class="ident">WalletLCProvider</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">logger</span>::<span class="ident">LoggingConfig</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::<span class="ident">SecretKey</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::{<span class="ident">from_hex</span>, <span class="ident">Mutex</span>, <span class="ident">ZeroingString</span>};
-<span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">grin_util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::<span class="ident">PublicKey</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::{<span class="ident">channel</span>, <span class="ident">Sender</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>::<span class="ident">JoinHandle</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::logger::LoggingConfig</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::secp::key::SecretKey</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>::{<span class="ident">from_hex</span>, <span class="ident">Mutex</span>, <span class="ident">ZeroingString</span>};
+<span class="kw">use</span> <span class="ident">grin_wallet_util::grin_util::secp::key::PublicKey</span>;
+<span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std::sync::mpsc</span>::{<span class="ident">channel</span>, <span class="ident">Sender</span>};
+<span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
+<span class="kw">use</span> <span class="ident">std::thread</span>;
+<span class="kw">use</span> <span class="ident">std::thread::JoinHandle</span>;
+<span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
 <span class="doccomment">/// Main interface into all wallet API functions.</span>
 <span class="doccomment">/// Wallet APIs are split into two seperate blocks of functionality</span>
@@ -2750,7 +2750,7 @@
 	<span class="doccomment">/// Share ECDH key</span>
 	<span class="kw">pub</span> <span class="ident">shared_key</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Update thread</span>
-	<span class="ident">updater</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">owner_updater</span>::<span class="ident">Updater</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">updater</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">owner_updater::Updater</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Stop state for update thread</span>
 	<span class="kw">pub</span> <span class="ident">updater_running</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicBool</span><span class="op">&gt;</span>,
 	<span class="doccomment">/// Sender for update messages</span>
@@ -2782,7 +2782,7 @@
 	<span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">thr_info</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">updater_log_thread</span>.<span class="ident">take</span>() {
 			<span class="self">self</span>.<span class="ident">updater_log_running_state</span>
-				.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+				.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::Relaxed</span>);
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">thr_info</span>.<span class="ident">join</span>();
 		}
 	}
@@ -2880,14 +2880,14 @@
 		<span class="ident">custom_channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
-		<span class="kw">let</span> <span class="ident">updater_running</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">false</span>));
-		<span class="kw">let</span> <span class="ident">updater</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="ident">owner_updater</span>::<span class="ident">Updater</span>::<span class="ident">new</span>(
+		<span class="kw">let</span> <span class="ident">updater_running</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">AtomicBool::new</span>(<span class="bool-val">false</span>));
+		<span class="kw">let</span> <span class="ident">updater</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">owner_updater::Updater::new</span>(
 			<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">updater_running</span>.<span class="ident">clone</span>(),
 		)));
-		<span class="kw">let</span> <span class="ident">updater_messages</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="macro">vec</span><span class="macro">!</span>[]));
+		<span class="kw">let</span> <span class="ident">updater_messages</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="macro">vec!</span>[]));
 
-		<span class="kw">let</span> <span class="ident">running</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">AtomicBool</span>::<span class="ident">new</span>(<span class="bool-val">true</span>));
+		<span class="kw">let</span> <span class="ident">running</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">AtomicBool::new</span>(<span class="bool-val">true</span>));
 		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">handle</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">custom_channel</span> {
 			<span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">c</span>, <span class="prelude-val">None</span>),
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
@@ -2902,12 +2902,12 @@
 		<span class="ident">Owner</span> {
 			<span class="ident">wallet_inst</span>,
 			<span class="ident">doctest_mode</span>: <span class="bool-val">false</span>,
-			<span class="ident">shared_key</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">None</span>)),
+			<span class="ident">shared_key</span>: <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="prelude-val">None</span>)),
 			<span class="ident">updater</span>,
 			<span class="ident">updater_running</span>,
-			<span class="ident">status_tx</span>: <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="prelude-val">Some</span>(<span class="ident">tx</span>)),
+			<span class="ident">status_tx</span>: <span class="ident">Mutex::new</span>(<span class="prelude-val">Some</span>(<span class="ident">tx</span>)),
 			<span class="ident">updater_messages</span>,
-			<span class="ident">tor_config</span>: <span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="ident">tor_config</span>),
+			<span class="ident">tor_config</span>: <span class="ident">Mutex::new</span>(<span class="ident">tor_config</span>),
 			<span class="ident">updater_log_thread</span>: <span class="ident">handle</span>,
 			<span class="ident">updater_log_running_state</span>: <span class="ident">running</span>,
 		}
@@ -2965,7 +2965,7 @@
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>)
+		<span class="ident">owner::accounts</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>)
 	}
 
 	<span class="doccomment">/// Creates a new &#39;account&#39;, which is a mapping of a user-specified</span>
@@ -3015,7 +3015,7 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">label</span>)
+		<span class="ident">owner::create_account_path</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">label</span>)
 	}
 
 	<span class="doccomment">/// Sets the wallet&#39;s currently active account. This sets the</span>
@@ -3065,7 +3065,7 @@
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">label</span>)
+		<span class="ident">owner::set_active_account</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">label</span>)
 	}
 
 	<span class="doccomment">/// Returns a list of outputs from the active account in the wallet.</span>
@@ -3125,11 +3125,11 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
 			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
 			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
-		<span class="ident">owner</span>::<span class="ident">retrieve_outputs</span>(
+		<span class="ident">owner::retrieve_outputs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">tx</span>,
@@ -3194,11 +3194,11 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
 			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
 			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">retrieve_txs</span>(
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner::retrieve_txs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">tx</span>,
@@ -3269,11 +3269,11 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
 			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
 			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
-		<span class="ident">owner</span>::<span class="ident">retrieve_summary_info</span>(
+		<span class="ident">owner::retrieve_summary_info</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">tx</span>,
@@ -3367,12 +3367,12 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">address</span>.<span class="ident">clone</span>();
 
-		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">send_args</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">send_args</span>.<span class="ident">clone</span>();
 		<span class="comment">//minimum_confirmations cannot be zero.</span>
 		<span class="kw">let</span> <span class="ident">minimum_confirmations</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">minimum_confirmations</span>.<span class="ident">clone</span>();
 		<span class="kw">if</span> <span class="ident">minimum_confirmations</span> <span class="op">&lt;</span> <span class="number">1</span> {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 				<span class="string">&quot;Minimum_confirmations can not be smaller than 1&quot;</span>.<span class="ident">to_owned</span>(),
 			)
 			.<span class="ident">into</span>());
@@ -3381,7 +3381,7 @@
 		<span class="kw">match</span> <span class="ident">args</span>.<span class="ident">send_args</span>.<span class="ident">clone</span>() {
 			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">sa</span>.<span class="ident">finalize</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 						<span class="string">&quot;Transcations can not be posted without being finalized!&quot;</span>.<span class="ident">to_owned</span>(),
 					)
 					.<span class="ident">into</span>());
@@ -3406,13 +3406,13 @@
 					<span class="kw">let</span> <span class="ident">comm_adapter</span> <span class="op">=</span>
 						<span class="ident">create_sender</span>(<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">method</span>, <span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">dest</span>, <span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">apisecret</span>, <span class="ident">tor_config_lock</span>.<span class="ident">clone</span>())
 							.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-								<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to create a sender, {}&quot;</span>, <span class="ident">e</span>))
+								<span class="ident">ErrorKind::GenericError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to create a sender, {}&quot;</span>, <span class="ident">e</span>))
 							})<span class="question-mark">?</span>;
 
 					<span class="kw">let</span> <span class="ident">other_wallet_version</span> <span class="op">=</span> <span class="ident">comm_adapter</span>
 						.<span class="ident">check_other_wallet_version</span>(<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">dest</span>)
 						.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-							<span class="ident">ErrorKind</span>::<span class="ident">GenericError</span>(<span class="macro">format</span><span class="macro">!</span>(
+							<span class="ident">ErrorKind::GenericError</span>(<span class="macro">format!</span>(
 								<span class="string">&quot;Unable to get other wallet info, {}&quot;</span>,
 								<span class="ident">e</span>
 							))
@@ -3435,7 +3435,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">slate</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-			<span class="ident">owner</span>::<span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="ident">routputs</span>)<span class="question-mark">?</span>
+			<span class="ident">owner::init_send_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="ident">routputs</span>)<span class="question-mark">?</span>
 		};
 
 		<span class="kw">match</span> <span class="ident">send_args</span> {
@@ -3449,28 +3449,28 @@
 							<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 							<span class="kw">let</span> <span class="ident">keychain</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
 							<span class="kw">let</span> <span class="ident">slatepack_secret</span> <span class="op">=</span>
-								<span class="ident">proofaddress</span>::<span class="ident">payment_proof_address_dalek_secret</span>(<span class="kw-2">&amp;</span><span class="ident">keychain</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+								<span class="ident">proofaddress::payment_proof_address_dalek_secret</span>(<span class="kw-2">&amp;</span><span class="ident">keychain</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 							<span class="ident">slatepack_secret</span>
 						};
 
 						<span class="ident">slate</span> <span class="op">=</span> <span class="ident">sender</span>
 							.<span class="ident">send_tx</span>(
 								<span class="kw-2">&amp;</span><span class="ident">slate</span>,
-								<span class="ident">SlatePurpose</span>::<span class="ident">SendInitial</span>,
+								<span class="ident">SlatePurpose::SendInitial</span>,
 								<span class="kw-2">&amp;</span><span class="ident">slatepack_secret</span>,
 								<span class="ident">recipient</span>,
 								<span class="ident">other_wallet_info</span>,
 							)
 							.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-								<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(<span class="macro">format</span><span class="macro">!</span>(
+								<span class="ident">ErrorKind::ClientCallback</span>(<span class="macro">format!</span>(
 									<span class="string">&quot;Unable to send slate {} with {}, {}&quot;</span>,
 									<span class="ident">slate</span>.<span class="ident">id</span>, <span class="ident">sa</span>.<span class="ident">method</span>, <span class="ident">e</span>
 								))
 							})<span class="question-mark">?</span>;
 					}
 					<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-						<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;unsupported payment method: {}&quot;</span>, <span class="ident">sa</span>.<span class="ident">method</span>);
-						<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
+						<span class="macro">error!</span>(<span class="string">&quot;unsupported payment method: {}&quot;</span>, <span class="ident">sa</span>.<span class="ident">method</span>);
+						<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 							<span class="string">&quot;unsupported payment method&quot;</span>.<span class="ident">to_owned</span>(),
 						)
 						.<span class="ident">into</span>());
@@ -3480,11 +3480,11 @@
 				<span class="comment">// Restore back ttl, because it can be gone</span>
 				<span class="ident">slate</span>.<span class="ident">ttl_cutoff_height</span> <span class="op">=</span> <span class="ident">original_slate</span>.<span class="ident">ttl_cutoff_height</span>.<span class="ident">clone</span>();
 				<span class="comment">// Checking is sender didn&#39;t do any harm to slate</span>
-				<span class="ident">Slate</span>::<span class="ident">compare_slates_send</span>(<span class="kw-2">&amp;</span><span class="ident">original_slate</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>;
+				<span class="ident">Slate::compare_slates_send</span>(<span class="kw-2">&amp;</span><span class="ident">original_slate</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>;
 
 				<span class="self">self</span>.<span class="ident">verify_slate_messages</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)
 					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-						<span class="macro">error</span><span class="macro">!</span>(
+						<span class="macro">error!</span>(
 							<span class="string">&quot;Unable to validate participant messages at slate {}: {}&quot;</span>,
 							<span class="ident">slate</span>.<span class="ident">id</span>, <span class="ident">e</span>
 						);
@@ -3496,7 +3496,7 @@
 					<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">finalize_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>,
 					<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">slate</span>,
 				};
-				<span class="macro">println</span><span class="macro">!</span>(
+				<span class="macro">println!</span>(
 					<span class="string">&quot;slate [{}] finalized successfully in owner_api&quot;</span>,
 					<span class="ident">slate</span>.<span class="ident">id</span>.<span class="ident">to_string</span>()
 				);
@@ -3504,7 +3504,7 @@
 				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> {
 					<span class="self">self</span>.<span class="ident">post_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>.<span class="ident">tx</span>, <span class="ident">sa</span>.<span class="ident">fluff</span>)<span class="question-mark">?</span>;
 				}
-				<span class="macro">println</span><span class="macro">!</span>(
+				<span class="macro">println!</span>(
 					<span class="string">&quot;slate [{}] posted successfully in owner_api&quot;</span>,
 					<span class="ident">slate</span>.<span class="ident">id</span>.<span class="ident">to_string</span>()
 				);
@@ -3556,7 +3556,7 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">issue_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="number">1</span>)
+		<span class="ident">owner::issue_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="number">1</span>)
 	}
 
 	<span class="doccomment">/// Processes an invoice tranaction created by another party, essentially</span>
@@ -3620,19 +3620,19 @@
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
 		<span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="ident">InitTxArgs</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">//minimum_confirmations cannot be zero.</span>
 		<span class="kw">let</span> <span class="ident">minimum_confirmations</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">minimum_confirmations</span>.<span class="ident">clone</span>();
 		<span class="kw">if</span> <span class="ident">minimum_confirmations</span> <span class="op">&lt;</span> <span class="number">1</span> {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">ClientCallback</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 				<span class="string">&quot;minimum_confirmations can not smaller than 1&quot;</span>.<span class="ident">to_owned</span>(),
 			)
 			.<span class="ident">into</span>());
 		}
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">process_invoice_tx</span>(
+		<span class="ident">owner::process_invoice_tx</span>(
 			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">slate</span>,
@@ -3707,7 +3707,7 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">tx_lock_outputs</span>(
+		<span class="ident">owner::tx_lock_outputs</span>(
 			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">slate</span>,
@@ -3785,7 +3785,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> (<span class="ident">slate_res</span>, <span class="ident">_context</span>) <span class="op">=</span>
-			<span class="ident">owner</span>::<span class="ident">finalize_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="bool-val">true</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>)<span class="question-mark">?</span>;
+			<span class="ident">owner::finalize_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="bool-val">true</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>)<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">slate_res</span>)
 	}
@@ -3855,7 +3855,7 @@
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
 			<span class="ident">w</span>.<span class="ident">w2n_client</span>().<span class="ident">clone</span>()
 		};
-		<span class="ident">owner</span>::<span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>, <span class="ident">tx</span>, <span class="ident">fluff</span>)
+		<span class="ident">owner::post_tx</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>, <span class="ident">tx</span>, <span class="ident">fluff</span>)
 	}
 
 	<span class="doccomment">/// Cancels a transaction. This entails:</span>
@@ -3924,7 +3924,7 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="ident">owner</span>::<span class="ident">cancel_tx</span>(
+		<span class="ident">owner::cancel_tx</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">tx</span>,
@@ -3976,14 +3976,14 @@
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">get_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">tx_log_entry</span>)
+		<span class="ident">owner::get_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">tx_log_entry</span>)
 	}
 
 	<span class="doccomment">/// Loads a stored transaction from a file</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">owner</span>::<span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">file</span>)
+		<span class="ident">owner::load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">file</span>)
 	}
 
 	<span class="doccomment">/// Verifies all messages in the slate match their public keys.</span>
@@ -4048,7 +4048,7 @@
 			<span class="comment">// Test keychain mask, to keep API consistent</span>
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
 		}
-		<span class="ident">owner</span>::<span class="ident">verify_slate_messages</span>(<span class="ident">slate</span>)
+		<span class="ident">owner::verify_slate_messages</span>(<span class="ident">slate</span>)
 	}
 
 	<span class="doccomment">/// Scans the entire UTXO set from the node, identify which outputs belong to the given wallet</span>
@@ -4113,7 +4113,7 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="ident">owner</span>::<span class="ident">scan</span>(
+		<span class="ident">owner::scan</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">start_height</span>,
@@ -4130,7 +4130,7 @@
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 
-		<span class="ident">owner</span>::<span class="ident">dump_wallet_data</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">tx</span>.<span class="ident">unwrap</span>(), <span class="ident">file_name</span>)
+		<span class="ident">owner::dump_wallet_data</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">tx</span>.<span class="ident">unwrap</span>(), <span class="ident">file_name</span>)
 	}
 
 	<span class="doccomment">/// Retrieves the last known height known by the wallet. This is determined as follows:</span>
@@ -4181,7 +4181,7 @@
 			<span class="comment">// Test keychain mask, to keep API consistent</span>
 			<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">w</span>.<span class="ident">keychain</span>(<span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
 		}
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner</span>::<span class="ident">node_height</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner::node_height</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
 			<span class="comment">// return a consistent hash for doctest</span>
 			<span class="ident">res</span>.<span class="ident">header_hash</span> <span class="op">=</span>
@@ -4326,7 +4326,7 @@
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_config</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">chain_type</span>: <span class="kw-2">&amp;</span><span class="ident">global</span>::<span class="ident">ChainTypes</span>,
+		<span class="ident">chain_type</span>: <span class="kw-2">&amp;</span><span class="ident">global::ChainTypes</span>,
 		<span class="ident">wallet_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WalletConfig</span><span class="op">&gt;</span>,
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
@@ -4481,7 +4481,7 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="comment">// just return a representative string for doctest mode</span>
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
-			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SecretKey</span>::<span class="ident">from_slice</span>(
+			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SecretKey::from_slice</span>(
 				<span class="kw-2">&amp;</span><span class="ident">from_hex</span>(<span class="string">&quot;d096b3cb75986b3b13f80b8f5243a9edf0af4c74ac37578c5a12cfb5b59b1868&quot;</span>)
 					.<span class="ident">unwrap</span>(),
 			)<span class="question-mark">?</span>));
@@ -4714,12 +4714,12 @@
 			<span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>.<span class="ident">clone</span>()),
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
 		};
-		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">Builder</span>::<span class="ident">new</span>()
+		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">thread::Builder::new</span>()
 			.<span class="ident">name</span>(<span class="string">&quot;wallet-updater&quot;</span>.<span class="ident">to_string</span>())
 			.<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
 				<span class="kw">let</span> <span class="ident">u</span> <span class="op">=</span> <span class="ident">updater_inner</span>.<span class="ident">lock</span>();
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">u</span>.<span class="ident">run</span>(<span class="ident">frequency</span>, <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">tx_inner</span>) {
-					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Wallet state updater failed with error: {}&quot;</span>, <span class="ident">e</span>);
+					<span class="macro">error!</span>(<span class="string">&quot;Wallet state updater failed with error: {}&quot;</span>, <span class="ident">e</span>);
 				}
 			})<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(())
@@ -4758,7 +4758,7 @@
 	<span class="doccomment">/// ```</span>
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
+		<span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::Relaxed</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
 
@@ -4838,7 +4838,7 @@
 	<span class="doccomment">/// ```</span>
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">get_mqs_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
+		<span class="ident">owner::get_mqs_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
 	}
 
 	<span class="doccomment">/// Retrieve the Tor or wallet public address associated with the wallet. This address can be changed with</span>
@@ -4877,7 +4877,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">get_wallet_public_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
+		<span class="ident">owner::get_wallet_public_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
 	}
 
 	<span class="doccomment">/// Returns a single, exportable [PaymentProof](../grin_wallet_libwallet/api_impl/types/struct.PaymentProof.html)</span>
@@ -4935,11 +4935,11 @@
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
-		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
 			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
 			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
 		};
-		<span class="ident">owner</span>::<span class="ident">retrieve_payment_proof</span>(
+		<span class="ident">owner::retrieve_payment_proof</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">tx</span>,
@@ -4954,7 +4954,7 @@
 		<span class="ident">_keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TxProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">get_stored_tx_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">tx_id</span>)
+		<span class="ident">owner::get_stored_tx_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">tx_id</span>)
 	}
 
 	<span class="doccomment">/// Verifies a [PaymentProof](../grin_wallet_libwallet/api_impl/types/struct.PaymentProof.html)</span>
@@ -5011,7 +5011,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">proof</span>: <span class="kw-2">&amp;</span><span class="ident">PaymentProof</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner</span>::<span class="ident">verify_payment_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">proof</span>)
+		<span class="ident">owner::verify_payment_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">proof</span>)
 	}
 
 	<span class="doccomment">/// Start swap trade process. Return SwapID that can be used to check the status or perform further action.</span>
@@ -5021,8 +5021,8 @@
 		<span class="ident">params</span>: <span class="kw-2">&amp;</span><span class="ident">SwapStartArgs</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="comment">// Updating wallet state first because we need to select outputs.</span>
-		<span class="ident">owner</span>::<span class="ident">update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
-		<span class="ident">owner_swap</span>::<span class="ident">swap_start</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">params</span>)
+		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
+		<span class="ident">owner_swap::swap_start</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">params</span>)
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_create_from_offer</span>(
@@ -5030,7 +5030,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">message_filename</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_create_from_offer</span>(
+		<span class="ident">owner_swap::swap_create_from_offer</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">message_filename</span>,
@@ -5042,8 +5042,8 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">do_check</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap</span>::<span class="ident">SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_list</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">do_check</span>)
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap::SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+		<span class="ident">owner_swap::swap_list</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">do_check</span>)
 	}
 
 	<span class="doccomment">/// Delete swap trade</span>
@@ -5052,7 +5052,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_delete</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+		<span class="ident">owner_swap::swap_delete</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 	<span class="doccomment">/// Retrieve swap trade</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_get</span>(
@@ -5060,7 +5060,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Swap</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_get</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+		<span class="ident">owner_swap::swap_get</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 
 	<span class="doccomment">/// Adjust the sate of swap trade.</span>
@@ -5079,7 +5079,7 @@
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">tag</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateId</span>, <span class="ident">Action</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_adjust</span>(
+		<span class="ident">owner_swap::swap_adjust</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">swap_id</span>,
@@ -5101,12 +5101,12 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_dump</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
+		<span class="ident">owner_swap::swap_dump</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 
 	<span class="doccomment">/// dump ethereum info</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">currency</span>: <span class="ident">Currency</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_eth</span>::<span class="ident">info</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>)
+		<span class="ident">owner_eth::info</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>)
 	}
 
 	<span class="doccomment">/// ethereum transfer</span>
@@ -5116,7 +5116,7 @@
 		<span class="ident">currency</span>: <span class="ident">Currency</span>,
 		<span class="ident">amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_eth</span>::<span class="ident">transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>, <span class="ident">dest</span>, <span class="ident">amount</span>)
+		<span class="ident">owner_eth::transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>, <span class="ident">dest</span>, <span class="ident">amount</span>)
 	}
 
 	<span class="doccomment">/// Refresh and get a status and current expected action for the swap.</span>
@@ -5143,7 +5143,7 @@
 		),
 		<span class="ident">Error</span>,
 	<span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">update_swap_status_action</span>(
+		<span class="ident">owner_swap::update_swap_status_action</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">swap_id</span>,
@@ -5167,7 +5167,7 @@
 		<span class="ident">erc20_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SwapTransactionsConfirmations</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">get_swap_tx_tstatus</span>(
+		<span class="ident">owner_swap::get_swap_tx_tstatus</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="kw-2">&amp;</span><span class="ident">swap_id</span>,
@@ -5193,10 +5193,10 @@
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateProcessRespond</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span>
 	<span class="kw">where</span>
-		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="kw">crate</span><span class="ident">::libwallet::Error</span><span class="op">&gt;</span>
 			<span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
-		<span class="ident">owner_swap</span>::<span class="ident">swap_process</span>(
+		<span class="ident">owner_swap::swap_process</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">swap_id</span>,
@@ -5218,7 +5218,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">message</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="ident">owner_swap</span>::<span class="ident">swap_income_message</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="prelude-val">None</span>)
+		<span class="ident">owner_swap::swap_income_message</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="prelude-val">None</span>)
 	}
 
 	<span class="comment">// decryipt income slate. It is the common routine for most API calls that accept the slates</span>
@@ -5232,7 +5232,7 @@
 			<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">_receiver</span>) <span class="op">=</span> <span class="self">self</span>
 				.<span class="ident">decrypt_slatepack</span>(<span class="ident">keychain_mask</span>, <span class="ident">in_slate</span>, <span class="prelude-val">None</span>)
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-					<span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to decrypt a slatepack, {}&quot;</span>, <span class="ident">e</span>))
+					<span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to decrypt a slatepack, {}&quot;</span>, <span class="ident">e</span>))
 				})<span class="question-mark">?</span>;
 			(<span class="ident">slate_from</span>, <span class="prelude-val">Some</span>(<span class="ident">content</span>), <span class="ident">sender</span>)
 		} <span class="kw">else</span> {
@@ -5259,7 +5259,7 @@
 	<span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">foreign</span>::<span class="ident">decrypt_slate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">encrypted_slate</span>, <span class="ident">address_index</span>)
+		<span class="ident">foreign::decrypt_slate</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">encrypted_slate</span>, <span class="ident">address_index</span>)
 	}
 
 	<span class="comment">// Encrypt slate to send back.</span>
@@ -5275,7 +5275,7 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
-		<span class="ident">foreign</span>::<span class="ident">encrypt_slate</span>(
+		<span class="ident">foreign::encrypt_slate</span>(
 			<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>,
 			<span class="ident">keychain_mask</span>,
 			<span class="ident">slate</span>,
@@ -5290,20 +5290,20 @@
 
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
-<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">doctest_helper_setup_doc_env</span> {
+<span class="macro">macro_rules!</span> <span class="ident">doctest_helper_setup_doc_env</span> {
 	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
 		<span class="kw">use</span> <span class="ident">grin_wallet_api</span> <span class="kw">as</span> <span class="ident">api</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_config</span> <span class="kw">as</span> <span class="ident">config</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_impls</span> <span class="kw">as</span> <span class="ident">impls</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_libwallet</span> <span class="kw">as</span> <span class="ident">libwallet</span>;
-		<span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>;
-		<span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">grin_keychain</span> <span class="kw">as</span> <span class="ident">keychain</span>;
-		<span class="kw">use</span> <span class="ident">grin_wallet_util</span>::<span class="ident">grin_util</span> <span class="kw">as</span> <span class="ident">util</span>;
+		<span class="kw">use</span> <span class="ident">grin_wallet_util::grin_core</span>;
+		<span class="kw">use</span> <span class="ident">grin_wallet_util::grin_keychain</span> <span class="kw">as</span> <span class="ident">keychain</span>;
+		<span class="kw">use</span> <span class="ident">grin_wallet_util::grin_util</span> <span class="kw">as</span> <span class="ident">util</span>;
 
-		<span class="kw">use</span> <span class="ident">keychain</span>::<span class="ident">ExtKeychain</span>;
-		<span class="kw">use</span> <span class="ident">tempfile</span>::<span class="ident">tempdir</span>;
+		<span class="kw">use</span> <span class="ident">keychain::ExtKeychain</span>;
+		<span class="kw">use</span> <span class="ident">tempfile::tempdir</span>;
 
-		<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>;
+		<span class="kw">use</span> <span class="ident">std::sync::Arc</span>;
 		<span class="kw">use</span> <span class="ident">util</span>::{<span class="ident">Mutex</span>, <span class="ident">ZeroingString</span>};
 
 		<span class="kw">use</span> <span class="ident">api</span>::{<span class="ident">Foreign</span>, <span class="ident">Owner</span>};
@@ -5311,26 +5311,26 @@
 		<span class="kw">use</span> <span class="ident">impls</span>::{<span class="ident">DefaultLCProvider</span>, <span class="ident">DefaultWalletImpl</span>, <span class="ident">HTTPNodeClient</span>};
 		<span class="kw">use</span> <span class="ident">libwallet</span>::{<span class="ident">BlockFees</span>, <span class="ident">InitTxArgs</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">Slate</span>, <span class="ident">WalletInst</span>};
 
-		<span class="kw">use</span> <span class="ident">uuid</span>::<span class="ident">Uuid</span>;
+		<span class="kw">use</span> <span class="ident">uuid::Uuid</span>;
 
-		<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">set_local_chain_type</span>(
-			<span class="ident">grin_wallet_util</span>::<span class="ident">grin_core</span>::<span class="ident">global</span>::<span class="ident">ChainTypes</span>::<span class="ident">AutomatedTesting</span>,
+		<span class="ident">grin_wallet_util::grin_core::global::set_local_chain_type</span>(
+			<span class="ident">grin_wallet_util::grin_core::global::ChainTypes::AutomatedTesting</span>,
 			);
 
-		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempdir</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{:#?}&quot;</span>, <span class="ident">e</span>)).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempdir</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;{:#?}&quot;</span>, <span class="ident">e</span>)).<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">dir</span>
 			.<span class="ident">path</span>()
 			.<span class="ident">to_str</span>()
 			.<span class="ident">ok_or</span>(<span class="string">&quot;Failed to convert tmpdir path to string.&quot;</span>.<span class="ident">to_owned</span>())
 			.<span class="ident">unwrap</span>();
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet_config</span> <span class="op">=</span> <span class="ident">WalletConfig</span>::<span class="ident">default</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet_config</span> <span class="op">=</span> <span class="ident">WalletConfig::default</span>();
 		<span class="ident">wallet_config</span>.<span class="ident">data_file_dir</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">to_owned</span>();
-		<span class="kw">let</span> <span class="ident">pw</span> <span class="op">=</span> <span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="string">&quot;&quot;</span>);
+		<span class="kw">let</span> <span class="ident">pw</span> <span class="op">=</span> <span class="ident">ZeroingString::from</span>(<span class="string">&quot;&quot;</span>);
 
 		<span class="kw">let</span> <span class="ident">node_list</span> <span class="op">=</span> <span class="ident">parse_node_address_string</span>(<span class="ident">wallet_config</span>.<span class="ident">check_node_api_http_addr</span>.<span class="ident">clone</span>());
-		<span class="kw">let</span> <span class="ident">node_client</span> <span class="op">=</span> <span class="ident">HTTPNodeClient</span>::<span class="ident">new</span>(<span class="ident">node_list</span>, <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(
-			<span class="ident">DefaultWalletImpl</span>::<span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">HTTPNodeClient</span><span class="op">&gt;</span>::<span class="ident">new</span>(<span class="ident">node_client</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>(),
+		<span class="kw">let</span> <span class="ident">node_client</span> <span class="op">=</span> <span class="ident">HTTPNodeClient::new</span>(<span class="ident">node_list</span>, <span class="prelude-val">None</span>).<span class="ident">unwrap</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">wallet</span> <span class="op">=</span> <span class="ident">Box::new</span>(
+			<span class="ident">DefaultWalletImpl</span>::<span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">HTTPNodeClient</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">node_client</span>.<span class="ident">clone</span>()).<span class="ident">unwrap</span>(),
 			)
 			<span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span>
 				<span class="ident">WalletInst</span><span class="op">&lt;</span>
@@ -5343,9 +5343,9 @@
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">wallet</span>.<span class="ident">lc_provider</span>().<span class="ident">unwrap</span>();
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">lc</span>.<span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="ident">wallet_config</span>.<span class="ident">data_file_dir</span>);
 		<span class="ident">lc</span>.<span class="ident">open_wallet</span>(<span class="prelude-val">None</span>, <span class="ident">pw</span>, <span class="bool-val">false</span>, <span class="bool-val">false</span>, <span class="prelude-val">None</span>);
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Mutex</span>::<span class="ident">new</span>(<span class="ident">wallet</span>));
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">wallet</span>));
 	};
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_wallet_api" data-search-js="../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_wallet_api" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

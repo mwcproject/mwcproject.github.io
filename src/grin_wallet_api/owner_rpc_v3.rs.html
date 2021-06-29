@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/owner_rpc_v3.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>owner_rpc_v3.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_wallet_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
@@ -3885,38 +3885,38 @@
 <span class="comment">// limitations under the License.</span>
 
 <span class="doccomment">//! JSON-RPC Stub generation for the Owner API</span>
-<span class="kw">use</span> <span class="ident">uuid</span>::<span class="ident">Uuid</span>;
+<span class="kw">use</span> <span class="ident">uuid::Uuid</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">config</span>::{<span class="ident">MQSConfig</span>, <span class="ident">TorConfig</span>, <span class="ident">WalletConfig</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">Transaction</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">global</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">keychain</span>::{<span class="ident">Identifier</span>, <span class="ident">Keychain</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::<span class="ident">slate_versions</span>::<span class="ident">v3</span>::<span class="ident">TransactionV3</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">libwallet</span>::{
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::config</span>::{<span class="ident">MQSConfig</span>, <span class="ident">TorConfig</span>, <span class="ident">WalletConfig</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::Transaction</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::global</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::keychain</span>::{<span class="ident">Identifier</span>, <span class="ident">Keychain</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet::slate_versions::v3::TransactionV3</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::libwallet</span>::{
 	<span class="ident">AcctPathMapping</span>, <span class="ident">ErrorKind</span>, <span class="ident">InitTxArgs</span>, <span class="ident">IssueInvoiceTxArgs</span>, <span class="ident">NodeClient</span>, <span class="ident">NodeHeightResult</span>,
 	<span class="ident">OutputCommitMapping</span>, <span class="ident">PaymentProof</span>, <span class="ident">Slate</span>, <span class="ident">SlatePurpose</span>, <span class="ident">SlateVersion</span>, <span class="ident">StatusMessage</span>,
 	<span class="ident">TxLogEntry</span>, <span class="ident">VersionedSlate</span>, <span class="ident">WalletInfo</span>, <span class="ident">WalletLCProvider</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::{<span class="ident">SlatepackInfo</span>, <span class="ident">TxLogEntryAPI</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">logger</span>::<span class="ident">LoggingConfig</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">key</span>::{<span class="ident">PublicKey</span>, <span class="ident">SecretKey</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">pedersen</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::{<span class="ident">static_secp_instance</span>, <span class="ident">ZeroingString</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::types</span>::{<span class="ident">SlatepackInfo</span>, <span class="ident">TxLogEntryAPI</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::logger::LoggingConfig</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::secp::key</span>::{<span class="ident">PublicKey</span>, <span class="ident">SecretKey</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::secp::pedersen</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>::{<span class="ident">static_secp_instance</span>, <span class="ident">ZeroingString</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ECDHPubkey</span>, <span class="ident">Owner</span>, <span class="ident">Token</span>};
 <span class="kw">use</span> <span class="ident">easy_jsonrpc_mw</span>;
-<span class="kw">use</span> <span class="ident">ed25519_dalek</span>::<span class="ident">PublicKey</span> <span class="kw">as</span> <span class="ident">DalekPublicKey</span>;
-<span class="kw">use</span> <span class="ident">grin_wallet_libwallet</span>::<span class="ident">proof</span>::<span class="ident">proofaddress</span>::<span class="ident">ProvableAddress</span>;
-<span class="kw">use</span> <span class="ident">rand</span>::<span class="ident">thread_rng</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
+<span class="kw">use</span> <span class="ident">ed25519_dalek::PublicKey</span> <span class="kw">as</span> <span class="ident">DalekPublicKey</span>;
+<span class="kw">use</span> <span class="ident">grin_wallet_libwallet::proof::proofaddress::ProvableAddress</span>;
+<span class="kw">use</span> <span class="ident">rand::thread_rng</span>;
+<span class="kw">use</span> <span class="ident">std::error::Error</span>;
+<span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
 <span class="doccomment">/// Public definition used to generate Owner jsonrpc api.</span>
 <span class="doccomment">/// Secure version containing wallet lifecycle functions. All calls to this API must be encrypted.</span>
 <span class="doccomment">/// See [`init_secure_api`](#tymethod.init_secure_api) for details of secret derivation</span>
 <span class="doccomment">/// and encryption.</span>
 
-<span class="attribute">#[<span class="ident">easy_jsonrpc_mw</span>::<span class="ident">rpc</span>]</span>
+<span class="attribute">#[<span class="ident">easy_jsonrpc_mw::rpc</span>]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">OwnerRpcV3</span> {
 	<span class="doccomment">/**
 	Networked version of [Owner::accounts](struct.Owner.html#method.accounts).
@@ -6229,7 +6229,7 @@
 	*/</span>
 	<span class="kw">fn</span> <span class="ident">create_config</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">chain_type</span>: <span class="ident">global</span>::<span class="ident">ChainTypes</span>,
+		<span class="ident">chain_type</span>: <span class="ident">global::ChainTypes</span>,
 		<span class="ident">wallet_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WalletConfig</span><span class="op">&gt;</span>,
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
@@ -7174,16 +7174,16 @@
 	<span class="ident">K</span>: <span class="ident">Keychain</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="kw">fn</span> <span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">accounts</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::accounts</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">create_account_path</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
+		<span class="ident">Owner::create_account_path</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">set_active_account</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
+		<span class="ident">Owner::set_active_account</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
@@ -7194,7 +7194,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">retrieve_outputs</span>(
+		<span class="ident">Owner::retrieve_outputs</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">include_spent</span>,
@@ -7211,7 +7211,7 @@
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntryAPI</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">retrieve_txs</span>(
+		<span class="ident">Owner::retrieve_txs</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">refresh_from_node</span>,
@@ -7223,7 +7223,7 @@
 			(
 				<span class="ident">b</span>,
 				<span class="ident">tx</span>.<span class="ident">iter</span>()
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">TxLogEntryAPI</span>::<span class="ident">from_txlogemtry</span>(<span class="ident">t</span>))
+					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">TxLogEntryAPI::from_txlogemtry</span>(<span class="ident">t</span>))
 					.<span class="ident">collect</span>(),
 			)
 		})
@@ -7235,7 +7235,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">minimum_confirmations</span>: <span class="ident">u64</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">retrieve_summary_info</span>(
+		<span class="ident">Owner::retrieve_summary_info</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">refresh_from_node</span>,
@@ -7245,15 +7245,15 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">args</span>: <span class="ident">InitTxArgs</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">init_send_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>, <span class="number">1</span>)
+		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner::init_send_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>, <span class="number">1</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="comment">// Return plain slate. If caller don&#39;t want sent slate with this API, than probvably caller want</span>
 		<span class="comment">// handle the workflow in lower level.</span>
 		<span class="comment">// If caller did send with thius API - then the slate is just for logging. For logging it is</span>
 		<span class="comment">// better to have plain slate so it can be readable.</span>
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">lowest_version</span>();
-		<span class="prelude-val">Ok</span>(<span class="ident">VersionedSlate</span>::<span class="ident">into_version_plain</span>(<span class="ident">slate</span>, <span class="ident">version</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>)
+		<span class="prelude-val">Ok</span>(<span class="ident">VersionedSlate::into_version_plain</span>(<span class="ident">slate</span>, <span class="ident">version</span>)
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">issue_invoice_tx</span>(
@@ -7261,17 +7261,17 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">args</span>: <span class="ident">IssueInvoiceTxArgs</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">issue_invoice_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>)
+		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner::issue_invoice_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
 		<span class="comment">// Invoice slate respond does a slatepack encoding if recipient is defined.</span>
 
-		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">encrypt_slate</span>(
+		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner::encrypt_slate</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="kw-2">&amp;</span><span class="ident">slate</span>,
 			<span class="prelude-val">None</span>,
-			<span class="ident">SlatePurpose</span>::<span class="ident">InvoiceInitial</span>,
+			<span class="ident">SlatePurpose::InvoiceInitial</span>,
 			<span class="ident">args</span>.<span class="ident">slatepack_recipient</span>
 				.<span class="ident">map</span>(<span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">tor_public_key</span>())
 				.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">a</span><span class="op">|</span> <span class="ident">a</span>.<span class="ident">is_ok</span>())
@@ -7280,7 +7280,7 @@
 			<span class="self">self</span>.<span class="ident">doctest_mode</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
+			<span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">res_slate</span>)
 	}
@@ -7293,12 +7293,12 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>) <span class="op">=</span>
-			<span class="ident">Owner</span>::<span class="ident">decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
-				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
+				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">content</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">content</span> {
-			<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">content</span> <span class="op">!</span><span class="op">=</span> <span class="ident">SlatePurpose</span>::<span class="ident">InvoiceInitial</span> {
-				<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="kw">if</span> <span class="kw-2">*</span><span class="ident">content</span> <span class="op">!</span><span class="op">=</span> <span class="ident">SlatePurpose::InvoiceInitial</span> {
+				<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Expecting InvoiceInitial slate content, get {:?}&quot;</span>,
 					<span class="ident">content</span>
 				)));
@@ -7306,21 +7306,21 @@
 		}
 
 		<span class="kw">let</span> <span class="ident">out_slate</span> <span class="op">=</span>
-			<span class="ident">Owner</span>::<span class="ident">process_invoice_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">slate_from</span>, <span class="kw-2">&amp;</span><span class="ident">args</span>)
+			<span class="ident">Owner::process_invoice_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">slate_from</span>, <span class="kw-2">&amp;</span><span class="ident">args</span>)
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
-		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">encrypt_slate</span>(
+		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner::encrypt_slate</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="kw-2">&amp;</span><span class="ident">out_slate</span>,
 			<span class="prelude-val">Some</span>(<span class="ident">version</span>),
-			<span class="ident">SlatePurpose</span>::<span class="ident">InvoiceResponse</span>,
+			<span class="ident">SlatePurpose::InvoiceResponse</span>,
 			<span class="ident">sender</span>, <span class="comment">// sending back to the sender</span>
 			<span class="prelude-val">None</span>,
 			<span class="self">self</span>.<span class="ident">doctest_mode</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
+			<span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">res_slate</span>)
 	}
@@ -7332,24 +7332,24 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">_content</span>, <span class="ident">sender</span>) <span class="op">=</span>
-			<span class="ident">Owner</span>::<span class="ident">decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
-				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
+				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
-		<span class="kw">let</span> <span class="ident">out_slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">finalize_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">slate_from</span>)
+		<span class="kw">let</span> <span class="ident">out_slate</span> <span class="op">=</span> <span class="ident">Owner::finalize_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">slate_from</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
-		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">encrypt_slate</span>(
+		<span class="kw">let</span> <span class="ident">res_slate</span> <span class="op">=</span> <span class="ident">Owner::encrypt_slate</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="kw-2">&amp;</span><span class="ident">out_slate</span>,
 			<span class="prelude-val">Some</span>(<span class="ident">version</span>),
-			<span class="ident">SlatePurpose</span>::<span class="ident">FullSlate</span>,
+			<span class="ident">SlatePurpose::FullSlate</span>,
 			<span class="ident">sender</span>, <span class="comment">// sending back to the sender</span>
 			<span class="prelude-val">None</span>,
 			<span class="self">self</span>.<span class="ident">doctest_mode</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
+			<span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to encode the slatepack, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">res_slate</span>)
 	}
@@ -7361,10 +7361,10 @@
 		<span class="ident">participant_id</span>: <span class="ident">usize</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">_content</span>, <span class="ident">_sender</span>) <span class="op">=</span>
-			<span class="ident">Owner</span>::<span class="ident">decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
-				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
+				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
-		<span class="ident">Owner</span>::<span class="ident">tx_lock_outputs</span>(
+		<span class="ident">Owner::tx_lock_outputs</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="kw-2">&amp;</span><span class="ident">slate_from</span>,
@@ -7380,7 +7380,7 @@
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">cancel_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">tx_id</span>, <span class="ident">tx_slate_id</span>)
+		<span class="ident">Owner::cancel_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">tx_id</span>, <span class="ident">tx_slate_id</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
@@ -7389,10 +7389,10 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">tx</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntryAPI</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TransactionV3</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">get_stored_tx</span>(
+		<span class="ident">Owner::get_stored_tx</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
-			<span class="kw-2">&amp;</span><span class="ident">TxLogEntry</span>::<span class="ident">new_from_data</span>(
+			<span class="kw-2">&amp;</span><span class="ident">TxLogEntry::new_from_data</span>(
 				<span class="ident">tx</span>.<span class="ident">parent_key_id</span>.<span class="ident">clone</span>(),
 				<span class="ident">tx</span>.<span class="ident">id</span>.<span class="ident">clone</span>(),
 				<span class="ident">tx</span>.<span class="ident">tx_slate_id</span>.<span class="ident">clone</span>(),
@@ -7416,27 +7416,27 @@
 				<span class="ident">tx</span>.<span class="ident">payment_proof</span>.<span class="ident">clone</span>(),
 				<span class="ident">tx</span>.<span class="ident">input_commits</span>
 					.<span class="ident">iter</span>()
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="ident">s</span>))
+					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">util::from_hex</span>(<span class="ident">s</span>))
 					.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">is_ok</span>())
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">pedersen</span>::<span class="ident">Commitment</span>::<span class="ident">from_vec</span>(<span class="ident">s</span>.<span class="ident">unwrap</span>()))
+					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">pedersen::Commitment::from_vec</span>(<span class="ident">s</span>.<span class="ident">unwrap</span>()))
 					.<span class="ident">collect</span>(),
 				<span class="ident">tx</span>.<span class="ident">output_commits</span>
 					.<span class="ident">iter</span>()
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="ident">s</span>))
+					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">util::from_hex</span>(<span class="ident">s</span>))
 					.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">is_ok</span>())
-					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">pedersen</span>::<span class="ident">Commitment</span>::<span class="ident">from_vec</span>(<span class="ident">s</span>.<span class="ident">unwrap</span>()))
+					.<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">pedersen::Commitment::from_vec</span>(<span class="ident">s</span>.<span class="ident">unwrap</span>()))
 					.<span class="ident">collect</span>(),
 			),
 		)
-		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">map</span>(<span class="ident">TransactionV3</span>::<span class="ident">from</span>))
+		.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">map</span>(<span class="ident">TransactionV3::from</span>))
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">tx</span>: <span class="ident">TransactionV3</span>, <span class="ident">fluff</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">post_tx</span>(
+		<span class="ident">Owner::post_tx</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
-			<span class="kw-2">&amp;</span><span class="ident">Transaction</span>::<span class="ident">from</span>(<span class="ident">tx</span>),
+			<span class="kw-2">&amp;</span><span class="ident">Transaction::from</span>(<span class="ident">tx</span>),
 			<span class="ident">fluff</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
@@ -7444,15 +7444,15 @@
 
 	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="ident">slate</span>.<span class="ident">is_slatepack</span>() {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::SlatepackDecodeError</span>(
 				<span class="string">&quot;verify_slate_messages is not applicable for slatepack&quot;</span>.<span class="ident">to_string</span>(),
 			));
 		}
 		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">slate</span>
 			.<span class="ident">into_slate_plain</span>()
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
 
-		<span class="ident">Owner</span>::<span class="ident">verify_slate_messages</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">Slate</span>::<span class="ident">from</span>(<span class="ident">slate</span>))
+		<span class="ident">Owner::verify_slate_messages</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">Slate::from</span>(<span class="ident">slate</span>))
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
@@ -7462,7 +7462,7 @@
 		<span class="ident">start_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">delete_unconfirmed</span>: <span class="ident">bool</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">scan</span>(
+		<span class="ident">Owner::scan</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">start_height</span>,
@@ -7472,7 +7472,7 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">node_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">node_height</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::node_height</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="comment">// we have to use e.description  because of the bug at rust-secp256k1-zkp</span>
@@ -7481,23 +7481,23 @@
 	<span class="kw">fn</span> <span class="ident">init_secure_api</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ecdh_pubkey</span>: <span class="ident">ECDHPubkey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ECDHPubkey</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">secp_inst</span> <span class="op">=</span> <span class="ident">static_secp_instance</span>();
 		<span class="kw">let</span> <span class="ident">secp</span> <span class="op">=</span> <span class="ident">secp_inst</span>.<span class="ident">lock</span>();
-		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">SecretKey</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">thread_rng</span>());
+		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">SecretKey::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">thread_rng</span>());
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shared_pubkey</span> <span class="op">=</span> <span class="ident">ecdh_pubkey</span>.<span class="ident">ecdh_pubkey</span>;
 		<span class="ident">shared_pubkey</span>
 			.<span class="ident">mul_assign</span>(<span class="kw-2">&amp;</span><span class="ident">secp</span>, <span class="kw-2">&amp;</span><span class="ident">sec_key</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Secp</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Secp</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">x_coord</span> <span class="op">=</span> <span class="ident">shared_pubkey</span>.<span class="ident">serialize_vec</span>(<span class="bool-val">true</span>);
-		<span class="kw">let</span> <span class="ident">shared_key</span> <span class="op">=</span> <span class="ident">SecretKey</span>::<span class="ident">from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">x_coord</span>[<span class="number">1</span>..])
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Secp</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">shared_key</span> <span class="op">=</span> <span class="ident">SecretKey::from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">x_coord</span>[<span class="number">1</span>..])
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Secp</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
 		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">s</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">shared_key</span>.<span class="ident">lock</span>();
 			<span class="kw-2">*</span><span class="ident">s</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">shared_key</span>);
 		}
 
-		<span class="kw">let</span> <span class="ident">pub_key</span> <span class="op">=</span> <span class="ident">PublicKey</span>::<span class="ident">from_secret_key</span>(<span class="kw-2">&amp;</span><span class="ident">secp</span>, <span class="kw-2">&amp;</span><span class="ident">sec_key</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Secp</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">pub_key</span> <span class="op">=</span> <span class="ident">PublicKey::from_secret_key</span>(<span class="kw-2">&amp;</span><span class="ident">secp</span>, <span class="kw-2">&amp;</span><span class="ident">sec_key</span>)
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Secp</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>.<span class="ident">description</span>())))<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">ECDHPubkey</span> {
 			<span class="ident">ecdh_pubkey</span>: <span class="ident">pub_key</span>,
@@ -7507,22 +7507,22 @@
 	<span class="attribute">#[<span class="ident">warn</span>(<span class="ident">deprecated</span>)]</span>
 
 	<span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">get_top_level_directory</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::get_top_level_directory</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">set_top_level_directory</span>(<span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">dir</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::set_top_level_directory</span>(<span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">dir</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">create_config</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
-		<span class="ident">chain_type</span>: <span class="ident">global</span>::<span class="ident">ChainTypes</span>,
+		<span class="ident">chain_type</span>: <span class="ident">global::ChainTypes</span>,
 		<span class="ident">wallet_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">WalletConfig</span><span class="op">&gt;</span>,
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 		<span class="ident">mqs_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MQSConfig</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">create_config</span>(
+		<span class="ident">Owner::create_config</span>(
 			<span class="self">self</span>,
 			<span class="kw-2">&amp;</span><span class="ident">chain_type</span>,
 			<span class="ident">wallet_config</span>,
@@ -7542,15 +7542,15 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">mnemonic</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">s</span>)),
+			<span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ZeroingString::from</span>(<span class="ident">s</span>)),
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
 		};
-		<span class="ident">Owner</span>::<span class="ident">create_wallet</span>(
+		<span class="ident">Owner::create_wallet</span>(
 			<span class="self">self</span>,
 			<span class="ident">n</span>,
 			<span class="ident">m</span>,
 			<span class="ident">mnemonic_length</span>,
-			<span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">password</span>),
+			<span class="ident">ZeroingString::from</span>(<span class="ident">password</span>),
 			<span class="prelude-val">None</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
@@ -7558,7 +7558,7 @@
 
 	<span class="kw">fn</span> <span class="ident">open_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Token</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
-		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">open_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">password</span>), <span class="bool-val">true</span>, <span class="prelude-val">None</span>)
+		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">Owner::open_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString::from</span>(<span class="ident">password</span>), <span class="bool-val">true</span>, <span class="prelude-val">None</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">Token</span> {
 			<span class="ident">keychain_mask</span>: <span class="ident">sec_key</span>,
@@ -7567,12 +7567,12 @@
 
 	<span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
-		<span class="ident">Owner</span>::<span class="ident">close_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::close_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">get_mnemonic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
-		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">get_mnemonic</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">password</span>), <span class="prelude-val">None</span>)
+		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Owner::get_mnemonic</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString::from</span>(<span class="ident">password</span>), <span class="prelude-val">None</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>((<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">res</span>).<span class="ident">to_string</span>())
 	}
@@ -7584,11 +7584,11 @@
 		<span class="ident">new</span>: <span class="ident">String</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
-		<span class="ident">Owner</span>::<span class="ident">change_password</span>(
+		<span class="ident">Owner::change_password</span>(
 			<span class="self">self</span>,
 			<span class="ident">n</span>,
-			<span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">old</span>),
-			<span class="ident">ZeroingString</span>::<span class="ident">from</span>(<span class="ident">new</span>),
+			<span class="ident">ZeroingString::from</span>(<span class="ident">old</span>),
+			<span class="ident">ZeroingString::from</span>(<span class="ident">new</span>),
 			<span class="prelude-val">None</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
@@ -7596,39 +7596,39 @@
 
 	<span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
-		<span class="ident">Owner</span>::<span class="ident">delete_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::delete_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">start_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">start_updater</span>(
+		<span class="ident">Owner::start_updater</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
-			<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="ident">frequency</span> <span class="kw">as</span> <span class="ident">u64</span>),
+			<span class="ident">Duration::from_millis</span>(<span class="ident">frequency</span> <span class="kw">as</span> <span class="ident">u64</span>),
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">stop_updater</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::stop_updater</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">get_updater_messages</span>(<span class="self">self</span>, <span class="ident">count</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
+		<span class="ident">Owner::get_updater_messages</span>(<span class="self">self</span>, <span class="ident">count</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span>
-			<span class="ident">Owner</span>::<span class="ident">get_mqs_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">public_proof_address</span> <span class="op">=</span> <span class="ident">ProvableAddress</span>::<span class="ident">from_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
-		<span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;mqs_address address {}&quot;</span>, <span class="ident">public_proof_address</span>.<span class="ident">public_key</span>);
+			<span class="ident">Owner::get_mqs_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">public_proof_address</span> <span class="op">=</span> <span class="ident">ProvableAddress::from_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
+		<span class="macro">println!</span>(<span class="string">&quot;mqs_address address {}&quot;</span>, <span class="ident">public_proof_address</span>.<span class="ident">public_key</span>);
 		<span class="prelude-val">Ok</span>(<span class="ident">public_proof_address</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">get_wallet_public_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())
+		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">Owner::get_wallet_public_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">ProvableAddress</span>::<span class="ident">from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
-		<span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;wallet_public_address address {}&quot;</span>, <span class="ident">address</span>.<span class="ident">public_key</span>);
+		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">ProvableAddress::from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
+		<span class="macro">println!</span>(<span class="string">&quot;wallet_public_address address {}&quot;</span>, <span class="ident">address</span>.<span class="ident">public_key</span>);
 		<span class="prelude-val">Ok</span>(<span class="ident">address</span>)
 	}
 
@@ -7639,7 +7639,7 @@
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">retrieve_payment_proof</span>(
+		<span class="ident">Owner::retrieve_payment_proof</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="ident">refresh_from_node</span>,
@@ -7654,12 +7654,12 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">proof</span>: <span class="ident">PaymentProof</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">verify_payment_proof</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">proof</span>)
+		<span class="ident">Owner::verify_payment_proof</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">proof</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="kw">fn</span> <span class="ident">set_tor_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="ident">Owner</span>::<span class="ident">set_tor_config</span>(<span class="self">self</span>, <span class="ident">tor_config</span>);
+		<span class="ident">Owner::set_tor_config</span>(<span class="self">self</span>, <span class="ident">tor_config</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
 
@@ -7673,21 +7673,21 @@
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="comment">// Expected Slate in Json (plain) format</span>
 		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">into_slate_plain</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Expected to get slate in Json format, {}&quot;</span>, <span class="ident">e</span>))
+			<span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Expected to get slate in Json format, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">recipient</span> {
 			<span class="prelude-val">Some</span>(<span class="ident">recipient</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">recipient</span>.<span class="ident">tor_public_key</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Expecting recipient tor address, {}&quot;</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Expecting recipient tor address, {}&quot;</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>),
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
 		};
 
-		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">encrypt_slate</span>(
+		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">Owner::encrypt_slate</span>(
 			<span class="kw-2">&amp;</span><span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
 			<span class="kw-2">&amp;</span><span class="ident">slate</span>,
-			<span class="prelude-val">Some</span>(<span class="ident">SlateVersion</span>::<span class="ident">SP</span>),
+			<span class="prelude-val">Some</span>(<span class="ident">SlateVersion::SP</span>),
 			<span class="ident">content</span>,
 			<span class="ident">recipient</span>,
 			<span class="ident">address_index</span>,
@@ -7695,10 +7695,10 @@
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
-		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">VersionedSlate</span>::<span class="ident">SP</span>(<span class="ident">message</span>) <span class="op">=</span> <span class="ident">vslate</span> {
+		<span class="kw">if</span> <span class="kw">let</span> <span class="ident">VersionedSlate::SP</span>(<span class="ident">message</span>) <span class="op">=</span> <span class="ident">vslate</span> {
 			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">message</span>);
 		} <span class="kw">else</span> {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">SlatepackEncodeError</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::SlatepackEncodeError</span>(
 				<span class="string">&quot;Unable to encode the slate, internal error&quot;</span>.<span class="ident">to_string</span>(),
 			));
 		}
@@ -7710,24 +7710,24 @@
 		<span class="ident">message</span>: <span class="ident">String</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SlatepackInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> (<span class="ident">slate</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">recipient</span>) <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">decrypt_slatepack</span>(
+		<span class="kw">let</span> (<span class="ident">slate</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">recipient</span>) <span class="op">=</span> <span class="ident">Owner::decrypt_slatepack</span>(
 			<span class="kw-2">&amp;</span><span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
-			<span class="ident">VersionedSlate</span>::<span class="ident">SP</span>(<span class="ident">message</span>),
+			<span class="ident">VersionedSlate::SP</span>(<span class="ident">message</span>),
 			<span class="ident">address_index</span>,
 		)
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">slate_version</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">lowest_version</span>();
 
-		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">VersionedSlate</span>::<span class="ident">into_version_plain</span>(<span class="ident">slate</span>, <span class="ident">slate_version</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">SlatepackDecodeError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to convert slate, {}&quot;</span>, <span class="ident">e</span>))
+		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">VersionedSlate::into_version_plain</span>(<span class="ident">slate</span>, <span class="ident">slate_version</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+			<span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to convert slate, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">SlatepackInfo</span> {
 			<span class="ident">slate</span>: <span class="ident">vslate</span>,
-			<span class="ident">sender</span>: <span class="ident">sender</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pk</span><span class="op">|</span> <span class="ident">ProvableAddress</span>::<span class="ident">from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">pk</span>)),
-			<span class="ident">recipient</span>: <span class="ident">recipient</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pk</span><span class="op">|</span> <span class="ident">ProvableAddress</span>::<span class="ident">from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">pk</span>)),
+			<span class="ident">sender</span>: <span class="ident">sender</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pk</span><span class="op">|</span> <span class="ident">ProvableAddress::from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">pk</span>)),
+			<span class="ident">recipient</span>: <span class="ident">recipient</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">pk</span><span class="op">|</span> <span class="ident">ProvableAddress::from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">pk</span>)),
 			<span class="ident">content</span>,
 		})
 	}
@@ -7739,5 +7739,5 @@
 	<span class="comment">// use crate as grin_wallet_api;</span>
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_wallet_api" data-search-js="../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_wallet_api" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>
