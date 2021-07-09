@@ -5115,7 +5115,7 @@
 		<span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">currency</span>: <span class="ident">Currency</span>,
 		<span class="ident">amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">libwallet::swap::ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">owner_eth::transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>, <span class="ident">dest</span>, <span class="ident">amount</span>)
 	}
 
