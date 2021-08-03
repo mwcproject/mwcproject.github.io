@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/handlers/chain_api.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>chain_api.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -541,30 +541,30 @@
 <span class="comment">// See the License for the specific language governing permissions and</span>
 <span class="comment">// limitations under the License.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">utils</span>::{<span class="ident">get_output</span>, <span class="ident">get_output_v2</span>, <span class="ident">w</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">chain</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">hash</span>::<span class="ident">Hashed</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rest</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">secp</span>::<span class="ident">pedersen</span>::<span class="ident">Commitment</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">web</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::utils</span>::{<span class="ident">get_output</span>, <span class="ident">get_output_v2</span>, <span class="ident">w</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::chain</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::hash::Hashed</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rest</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::secp::pedersen::Commitment</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::web</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">hyper</span>::{<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">StatusCode</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Weak</span>;
+<span class="kw">use</span> <span class="ident">std::sync::Weak</span>;
 
 <span class="doccomment">/// Chain handler. Get the head details.</span>
 <span class="doccomment">/// GET /v1/chain</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChainHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ChainHandler</span> {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_tip</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tip</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">head</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">head</span>()
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;can&#39;t get tip: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="prelude-val">Ok</span>(<span class="ident">Tip</span>::<span class="ident">from_tip</span>(<span class="ident">head</span>))
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;can&#39;t get tip: {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>(<span class="ident">Tip::from_tip</span>(<span class="ident">head</span>))
 	}
 }
 
@@ -577,24 +577,24 @@
 <span class="doccomment">/// Chain validation handler.</span>
 <span class="doccomment">/// GET /v1/chain/validate</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChainValidationHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ChainValidationHandler</span> {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">validate_chain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">validate</span>(<span class="bool-val">true</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain fast validation error. {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;chain fast validation error. {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">ChainValidationHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">match</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>).<span class="ident">validate</span>(<span class="bool-val">true</span>) {
-			<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>, <span class="string">&quot;{}&quot;</span>),
+		<span class="kw">match</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>).<span class="ident">validate</span>(<span class="bool-val">true</span>) {
+			<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode::OK</span>, <span class="string">&quot;{}&quot;</span>),
 			<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(
-				<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>,
-				<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain validation is failed, {}&quot;</span>, <span class="ident">e</span>),
+				<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>,
+				<span class="macro">format!</span>(<span class="string">&quot;chain validation is failed, {}&quot;</span>, <span class="ident">e</span>),
 			),
 		}
 	}
@@ -604,24 +604,24 @@
 <span class="doccomment">/// storage space.</span>
 <span class="doccomment">/// POST /v1/chain/compact</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ChainCompactHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ChainCompactHandler</span> {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compact_chain</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">compact</span>()
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;compact chain error {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;compact chain error {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
 	}
 }
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">ChainCompactHandler</span> {
 	<span class="kw">fn</span> <span class="ident">post</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">match</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>).<span class="ident">compact</span>() {
-			<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>, <span class="string">&quot;{}&quot;</span>),
+		<span class="kw">match</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>).<span class="ident">compact</span>() {
+			<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode::OK</span>, <span class="string">&quot;{}&quot;</span>),
 			<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(
-				<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>,
-				<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain compact failed: {}&quot;</span>, <span class="ident">e</span>),
+				<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>,
+				<span class="macro">format!</span>(<span class="string">&quot;chain compact failed: {}&quot;</span>, <span class="ident">e</span>),
 			),
 		}
 	}
@@ -632,7 +632,7 @@
 <span class="comment">// GET /v1/chain/outputs/byids?id=xxx&amp;id=yyy&amp;id=zzz</span>
 <span class="comment">// GET /v1/chain/outputs/byheight?start_height=101&amp;end_height=200</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OutputHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">OutputHandler</span> {
@@ -644,12 +644,12 @@
 		<span class="ident">include_proof</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
 		<span class="ident">include_merkle_proof</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outputs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outputs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">commits</span>) <span class="op">=</span> <span class="ident">commits</span> {
 			<span class="comment">// First check the commits length</span>
 			<span class="kw">for</span> <span class="ident">commit</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">commits</span> {
 				<span class="kw">if</span> <span class="ident">commit</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">66</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;invalid commit length for {}, expected length 66&quot;</span>,
 						<span class="ident">commit</span>
 					))
@@ -668,7 +668,7 @@
 						<span class="comment">// Ignore outputs that are not found</span>
 					}
 					<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-						<span class="macro">error</span><span class="macro">!</span>(
+						<span class="macro">error!</span>(
 							<span class="string">&quot;Failure to get output for commitment {} with error {}&quot;</span>,
 							<span class="ident">commit</span>, <span class="ident">e</span>
 						);
@@ -708,7 +708,7 @@
 		<span class="kw">let</span> <span class="ident">outputs</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">unspent_outputs_by_pmmr_index</span>(<span class="ident">start_index</span>, <span class="ident">max</span>, <span class="ident">end_index</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+				<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Unspent outputs for PMMR {}-{:?}, {}&quot;</span>,
 					<span class="ident">start_index</span>, <span class="ident">end_index</span>, <span class="ident">e</span>
 				))
@@ -720,7 +720,7 @@
 				.<span class="number">2</span>
 				.<span class="ident">iter</span>()
 				.<span class="ident">map</span>(<span class="op">|</span><span class="ident">x</span><span class="op">|</span> {
-					<span class="ident">OutputPrintable</span>::<span class="ident">from_output</span>(
+					<span class="ident">OutputPrintable::from_output</span>(
 						<span class="ident">x</span>,
 						<span class="kw-2">&amp;</span><span class="ident">chain</span>,
 						<span class="prelude-val">None</span>,
@@ -729,19 +729,19 @@
 					)
 				})
 				.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
-				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain error, {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>,
+				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;chain error, {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>,
 		};
 		<span class="prelude-val">Ok</span>(<span class="ident">out</span>)
 	}
 
 	<span class="kw">fn</span> <span class="ident">outputs_by_ids</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="kw-2">&amp;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 
-		<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="macro">must_get_query</span><span class="macro">!</span>(<span class="ident">req</span>);
-		<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams</span>::<span class="ident">from</span>(<span class="ident">query</span>);
+		<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="macro">must_get_query!</span>(<span class="ident">req</span>);
+		<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams::from</span>(<span class="ident">query</span>);
 		<span class="ident">params</span>.<span class="ident">process_multival_param</span>(<span class="string">&quot;id&quot;</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> <span class="ident">commitments</span>.<span class="ident">push</span>(<span class="ident">id</span>.<span class="ident">to_owned</span>()));
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outputs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">outputs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">for</span> <span class="ident">x</span> <span class="kw">in</span> <span class="ident">commitments</span> {
 			<span class="kw">match</span> <span class="ident">get_output</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>, <span class="kw-2">&amp;</span><span class="ident">x</span>) {
 				<span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>((<span class="ident">output</span>, <span class="kw">_</span>))) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">outputs</span>.<span class="ident">push</span>(<span class="ident">output</span>),
@@ -749,7 +749,7 @@
 					<span class="comment">// Ignore outputs that are not found</span>
 				}
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">error</span><span class="macro">!</span>(
+					<span class="macro">error!</span>(
 						<span class="string">&quot;Failure to get output for commitment {} with error {}&quot;</span>,
 						<span class="ident">x</span>, <span class="ident">e</span>
 					);
@@ -769,14 +769,14 @@
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">get_header_by_height</span>(<span class="ident">block_height</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Header at height {}, {}&quot;</span>, <span class="ident">block_height</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Header at height {}, {}&quot;</span>, <span class="ident">block_height</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>;
 
 		<span class="comment">// TODO - possible to compact away blocks we care about</span>
 		<span class="comment">// in the period between accepting the block and refreshing the wallet</span>
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">chain</span>.<span class="ident">get_block</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>.<span class="ident">hash</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;Block at height {} for hash {}, {}&quot;</span>,
 				<span class="ident">block_height</span>,
 				<span class="ident">header</span>.<span class="ident">hash</span>(),
@@ -788,15 +788,15 @@
 			.<span class="ident">iter</span>()
 			.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">output</span><span class="op">|</span> <span class="ident">commitments</span>.<span class="ident">is_empty</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">commitments</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">output</span>.<span class="ident">commitment</span>()))
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">output</span><span class="op">|</span> {
-				<span class="ident">OutputPrintable</span>::<span class="ident">from_output</span>(<span class="ident">output</span>, <span class="kw-2">&amp;</span><span class="ident">chain</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>), <span class="ident">include_proof</span>, <span class="bool-val">true</span>)
+				<span class="ident">OutputPrintable::from_output</span>(<span class="ident">output</span>, <span class="kw-2">&amp;</span><span class="ident">chain</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>), <span class="ident">include_proof</span>, <span class="bool-val">true</span>)
 			})
 			.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain read outputs from block error, {}&quot;</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;chain read outputs from block error, {}&quot;</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">BlockOutputs</span> {
-			<span class="ident">header</span>: <span class="ident">BlockHeaderInfo</span>::<span class="ident">from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>),
+			<span class="ident">header</span>: <span class="ident">BlockHeaderInfo::from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>),
 			<span class="ident">outputs</span>: <span class="ident">outputs</span>,
 		})
 	}
@@ -811,14 +811,14 @@
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">get_header_by_height</span>(<span class="ident">block_height</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Header at height {}, {}&quot;</span>, <span class="ident">block_height</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Header at height {}, {}&quot;</span>, <span class="ident">block_height</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>;
 
 		<span class="comment">// TODO - possible to compact away blocks we care about</span>
 		<span class="comment">// in the period between accepting the block and refreshing the wallet</span>
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">chain</span>.<span class="ident">get_block</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>.<span class="ident">hash</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;Block at height {} for hash {}, {}&quot;</span>,
 				<span class="ident">block_height</span>,
 				<span class="ident">header</span>.<span class="ident">hash</span>(),
@@ -830,7 +830,7 @@
 			.<span class="ident">iter</span>()
 			.<span class="ident">filter</span>(<span class="op">|</span><span class="ident">output</span><span class="op">|</span> <span class="ident">commitments</span>.<span class="ident">is_empty</span>() <span class="op">|</span><span class="op">|</span> <span class="ident">commitments</span>.<span class="ident">contains</span>(<span class="kw-2">&amp;</span><span class="ident">output</span>.<span class="ident">commitment</span>()))
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">output</span><span class="op">|</span> {
-				<span class="ident">OutputPrintable</span>::<span class="ident">from_output</span>(
+				<span class="ident">OutputPrintable::from_output</span>(
 					<span class="ident">output</span>,
 					<span class="kw-2">&amp;</span><span class="ident">chain</span>,
 					<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>),
@@ -840,7 +840,7 @@
 			})
 			.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span>, <span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain read outputs from block error, {}&quot;</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;chain read outputs from block error, {}&quot;</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>;
 
 		<span class="prelude-val">Ok</span>(<span class="ident">outputs</span>)
@@ -848,30 +848,30 @@
 
 	<span class="comment">// returns outputs for a specified range of blocks</span>
 	<span class="kw">fn</span> <span class="ident">outputs_block_batch</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="kw-2">&amp;</span><span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BlockOutputs</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Commitment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Commitment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 
-		<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="macro">must_get_query</span><span class="macro">!</span>(<span class="ident">req</span>);
-		<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams</span>::<span class="ident">from</span>(<span class="ident">query</span>);
+		<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="macro">must_get_query!</span>(<span class="ident">req</span>);
+		<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams::from</span>(<span class="ident">query</span>);
 		<span class="ident">params</span>.<span class="ident">process_multival_param</span>(<span class="string">&quot;id&quot;</span>, <span class="op">|</span><span class="ident">id</span><span class="op">|</span> {
-			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="ident">id</span>) {
-				<span class="ident">commitments</span>.<span class="ident">push</span>(<span class="ident">Commitment</span>::<span class="ident">from_vec</span>(<span class="ident">x</span>));
+			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">x</span>) <span class="op">=</span> <span class="ident">util::from_hex</span>(<span class="ident">id</span>) {
+				<span class="ident">commitments</span>.<span class="ident">push</span>(<span class="ident">Commitment::from_vec</span>(<span class="ident">x</span>));
 			} <span class="kw">else</span> {
-				<span class="macro">warn</span><span class="macro">!</span>(
+				<span class="macro">warn!</span>(
 					<span class="string">&quot;Outputs API unable to decode and skip id value form the HEX {}&quot;</span>,
 					<span class="ident">id</span>
 				);
 			}
 		});
-		<span class="kw">let</span> <span class="ident">start_height</span> <span class="op">=</span> <span class="macro">parse_param</span><span class="macro">!</span>(<span class="ident">params</span>, <span class="string">&quot;start_height&quot;</span>, <span class="number">1</span>);
-		<span class="kw">let</span> <span class="ident">end_height</span> <span class="op">=</span> <span class="macro">parse_param</span><span class="macro">!</span>(<span class="ident">params</span>, <span class="string">&quot;end_height&quot;</span>, <span class="number">1</span>);
+		<span class="kw">let</span> <span class="ident">start_height</span> <span class="op">=</span> <span class="macro">parse_param!</span>(<span class="ident">params</span>, <span class="string">&quot;start_height&quot;</span>, <span class="number">1</span>);
+		<span class="kw">let</span> <span class="ident">end_height</span> <span class="op">=</span> <span class="macro">parse_param!</span>(<span class="ident">params</span>, <span class="string">&quot;end_height&quot;</span>, <span class="number">1</span>);
 		<span class="kw">let</span> <span class="ident">include_rp</span> <span class="op">=</span> <span class="ident">params</span>.<span class="ident">get</span>(<span class="string">&quot;include_rp&quot;</span>).<span class="ident">is_some</span>();
 
-		<span class="macro">debug</span><span class="macro">!</span>(
+		<span class="macro">debug!</span>(
 			<span class="string">&quot;outputs_block_batch: {}-{}, {:?}, {:?}&quot;</span>,
 			<span class="ident">start_height</span>, <span class="ident">end_height</span>, <span class="ident">commitments</span>, <span class="ident">include_rp</span>,
 		);
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_vec</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_vec</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> (<span class="ident">start_height</span>..<span class="op">=</span><span class="ident">end_height</span>).<span class="ident">rev</span>() {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">outputs_at_height</span>(<span class="ident">i</span>, <span class="ident">commitments</span>.<span class="ident">clone</span>(), <span class="ident">include_rp</span>) {
 				<span class="kw">if</span> <span class="op">!</span><span class="ident">res</span>.<span class="ident">outputs</span>.<span class="ident">is_empty</span>() {
@@ -891,14 +891,14 @@
 		<span class="ident">include_rproof</span>: <span class="ident">bool</span>,
 		<span class="ident">include_merkle_proof</span>: <span class="ident">bool</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Commitment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="ident">commitments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Commitment</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 
-		<span class="macro">debug</span><span class="macro">!</span>(
+		<span class="macro">debug!</span>(
 			<span class="string">&quot;outputs_block_batch: {}-{}, {}, {}&quot;</span>,
 			<span class="ident">start_height</span>, <span class="ident">end_height</span>, <span class="ident">include_rproof</span>, <span class="ident">include_merkle_proof</span>,
 		);
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">return_vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputPrintable</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[];
 		<span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> (<span class="ident">start_height</span>..<span class="op">=</span><span class="ident">end_height</span>).<span class="ident">rev</span>() {
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">res</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">outputs_at_height_v2</span>(
 				<span class="ident">i</span>,
@@ -918,10 +918,10 @@
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">OutputHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">match</span> <span class="macro">right_path_element</span><span class="macro">!</span>(<span class="ident">req</span>) {
+		<span class="kw">match</span> <span class="macro">right_path_element!</span>(<span class="ident">req</span>) {
 			<span class="string">&quot;byids&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">result_to_response</span>(<span class="self">self</span>.<span class="ident">outputs_by_ids</span>(<span class="kw-2">&amp;</span><span class="ident">req</span>)),
 			<span class="string">&quot;byheight&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">result_to_response</span>(<span class="self">self</span>.<span class="ident">outputs_block_batch</span>(<span class="kw-2">&amp;</span><span class="ident">req</span>)),
-			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>, <span class="string">&quot;&quot;</span>),
+			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode::BAD_REQUEST</span>, <span class="string">&quot;&quot;</span>),
 		}
 	}
 }
@@ -930,7 +930,7 @@
 <span class="doccomment">/// GET /v1/chain/kernels/XXX?min_height=YYY&amp;max_height=ZZZ</span>
 <span class="doccomment">/// The `min_height` and `max_height` parameters are optional</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KernelHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">KernelHandler</span> {
@@ -941,19 +941,19 @@
 			.<span class="ident">trim_end_matches</span>(<span class="string">&#39;/&#39;</span>)
 			.<span class="ident">rsplit</span>(<span class="string">&#39;/&#39;</span>)
 			.<span class="ident">next</span>()
-			.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="string">&quot;missing excess&quot;</span>.<span class="ident">into</span>()))<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">excess_v</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="ident">excess_s</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid excess hex {}, {}&quot;</span>, <span class="ident">excess_s</span>, <span class="ident">e</span>))
+			.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind::RequestError</span>(<span class="string">&quot;missing excess&quot;</span>.<span class="ident">into</span>()))<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">excess_v</span> <span class="op">=</span> <span class="ident">util::from_hex</span>(<span class="ident">excess_s</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+			<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(<span class="string">&quot;invalid excess hex {}, {}&quot;</span>, <span class="ident">excess_s</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="ident">excess_v</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">33</span> {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;invalid excess {}, get length {}, expected 33&quot;</span>,
 				<span class="ident">excess_s</span>,
 				<span class="ident">excess_v</span>.<span class="ident">len</span>()
 			))
 			.<span class="ident">into</span>());
 		}
-		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">Commitment</span>::<span class="ident">from_vec</span>(<span class="ident">excess_v</span>);
+		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">Commitment::from_vec</span>(<span class="ident">excess_v</span>);
 
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 
@@ -962,10 +962,10 @@
 
 		<span class="comment">// Check query parameters for minimum and maximum search height</span>
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">q</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">query</span>() {
-			<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams</span>::<span class="ident">from</span>(<span class="ident">q</span>);
+			<span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">QueryParams::from</span>(<span class="ident">q</span>);
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">hs</span>) <span class="op">=</span> <span class="ident">params</span>.<span class="ident">get</span>(<span class="string">&quot;min_height&quot;</span>) {
 				<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">hs</span>.<span class="ident">parse</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-					<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;invalid parameter &#39;min_height&#39; value {}, {}&quot;</span>,
 						<span class="ident">hs</span>, <span class="ident">e</span>
 					))
@@ -975,7 +975,7 @@
 			}
 			<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">hs</span>) <span class="op">=</span> <span class="ident">params</span>.<span class="ident">get</span>(<span class="string">&quot;max_height&quot;</span>) {
 				<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">hs</span>.<span class="ident">parse</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-					<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;invalid parameter &#39;max_height&#39; value {}, {}&quot;</span>,
 						<span class="ident">hs</span>, <span class="ident">e</span>
 					))
@@ -983,7 +983,7 @@
 				<span class="comment">// Default is current head</span>
 				<span class="kw">let</span> <span class="ident">head_height</span> <span class="op">=</span> <span class="ident">chain</span>
 					.<span class="ident">head</span>()
-					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unable to get a chain head, {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>
+					.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;Unable to get a chain head, {}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>
 					.<span class="ident">height</span>;
 				<span class="ident">max_height</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">h</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">head_height</span> { <span class="prelude-val">None</span> } <span class="kw">else</span> { <span class="prelude-val">Some</span>(<span class="ident">h</span>) };
 			}
@@ -992,7 +992,7 @@
 		<span class="kw">let</span> <span class="ident">kernel</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">get_kernel_height</span>(<span class="kw-2">&amp;</span><span class="ident">excess</span>, <span class="ident">min_height</span>, <span class="ident">max_height</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Unable to get a height for the excess {}, {}&quot;</span>,
 					<span class="ident">excess_s</span>, <span class="ident">e</span>
 				))
@@ -1011,24 +1011,24 @@
 		<span class="ident">min_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">max_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">LocatedTxKernel</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">excess_s</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid excess hex {}, {}&quot;</span>, <span class="ident">excess_s</span>, <span class="ident">e</span>))
+		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">util::from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">excess_s</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+			<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(<span class="string">&quot;invalid excess hex {}, {}&quot;</span>, <span class="ident">excess_s</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="ident">excess</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="number">33</span> {
-			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">RequestError</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::RequestError</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;invalid excess {}, get length {}, expected 33&quot;</span>,
 				<span class="ident">excess_s</span>,
 				<span class="ident">excess</span>.<span class="ident">len</span>()
 			))
 			.<span class="ident">into</span>());
 		}
-		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">Commitment</span>::<span class="ident">from_vec</span>(<span class="ident">excess</span>);
+		<span class="kw">let</span> <span class="ident">excess</span> <span class="op">=</span> <span class="ident">Commitment::from_vec</span>(<span class="ident">excess</span>);
 
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">kernel</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">get_kernel_height</span>(<span class="kw-2">&amp;</span><span class="ident">excess</span>, <span class="ident">min_height</span>, <span class="ident">max_height</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Unable to get a height for excess {}, {}&quot;</span>,
 					<span class="ident">excess_s</span>, <span class="ident">e</span>
 				))
@@ -1039,7 +1039,7 @@
 				<span class="ident">mmr_index</span>,
 			});
 		<span class="ident">kernel</span>.<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
-			<span class="ident">Error</span>::<span class="ident">from</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="ident">Error::from</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;kernel value for excess {}&quot;</span>,
 				<span class="ident">excess_s</span>
 			)))
@@ -1053,5 +1053,5 @@
 	}
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-js="../../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>

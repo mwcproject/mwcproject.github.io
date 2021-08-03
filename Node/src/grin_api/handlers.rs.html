@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/handlers.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>handlers.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -541,64 +541,64 @@
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">utils</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">version_api</span>;
 
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">blocks_api</span>::<span class="ident">BlockHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">blocks_api</span>::<span class="ident">HeaderHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">chain_api</span>::<span class="ident">ChainCompactHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">chain_api</span>::<span class="ident">ChainHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">chain_api</span>::<span class="ident">ChainValidationHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">chain_api</span>::<span class="ident">KernelHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">chain_api</span>::<span class="ident">OutputHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">peers_api</span>::<span class="ident">PeerHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">peers_api</span>::<span class="ident">PeersAllHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">peers_api</span>::<span class="ident">PeersConnectedHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">pool_api</span>::<span class="ident">PoolInfoHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">pool_api</span>::<span class="ident">PoolPushHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">server_api</span>::<span class="ident">IndexHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">server_api</span>::<span class="ident">StatusHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">transactions_api</span>::<span class="ident">TxHashSetHandler</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">version_api</span>::<span class="ident">VersionHandler</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">auth</span>::{
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::blocks_api::BlockHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::blocks_api::HeaderHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::chain_api::ChainCompactHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::chain_api::ChainHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::chain_api::ChainValidationHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::chain_api::KernelHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::chain_api::OutputHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::peers_api::PeerHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::peers_api::PeersAllHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::peers_api::PeersConnectedHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::pool_api::PoolInfoHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::pool_api::PoolPushHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::server_api::IndexHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::server_api::StatusHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::transactions_api::TxHashSetHandler</span>;
+<span class="kw">use</span> <span class="self">self</span><span class="ident">::version_api::VersionHandler</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::auth</span>::{
 	<span class="ident">BasicAuthMiddleware</span>, <span class="ident">BasicAuthURIMiddleware</span>, <span class="ident">MWC_BASIC_REALM</span>, <span class="ident">MWC_FOREIGN_BASIC_REALM</span>,
 };
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">chain</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">chain</span>::{<span class="ident">Chain</span>, <span class="ident">SyncState</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">verifier_cache</span>::<span class="ident">VerifierCache</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">global</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">stratum</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">foreign</span>::<span class="ident">Foreign</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">foreign_rpc</span>::<span class="ident">ForeignRpc</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">owner</span>::<span class="ident">Owner</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">owner_rpc</span>::<span class="ident">OwnerRpc</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">p2p</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pool</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">pool</span>::{<span class="ident">BlockChain</span>, <span class="ident">PoolAdapter</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rest</span>::{<span class="ident">ApiServer</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">TLSConfig</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">router</span>::<span class="ident">ResponseFuture</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">router</span>::{<span class="ident">Router</span>, <span class="ident">RouterError</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">stratum</span>::<span class="ident">Stratum</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">stratum_rpc</span>::<span class="ident">StratumRpc</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">to_base64</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>::<span class="ident">RwLock</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">web</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::chain</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::chain</span>::{<span class="ident">Chain</span>, <span class="ident">SyncState</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::verifier_cache::VerifierCache</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::global</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::stratum</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::foreign::Foreign</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::foreign_rpc::ForeignRpc</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::owner::Owner</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::owner_rpc::OwnerRpc</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::p2p</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::pool</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::pool</span>::{<span class="ident">BlockChain</span>, <span class="ident">PoolAdapter</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rest</span>::{<span class="ident">ApiServer</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">TLSConfig</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::router::ResponseFuture</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::router</span>::{<span class="ident">Router</span>, <span class="ident">RouterError</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::stratum::Stratum</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::stratum_rpc::StratumRpc</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::to_base64</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util::RwLock</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::web</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">easy_jsonrpc_mw</span>::{<span class="ident">Handler</span>, <span class="ident">MaybeReply</span>};
 <span class="kw">use</span> <span class="ident">hyper</span>::{<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">Response</span>, <span class="ident">StatusCode</span>};
-<span class="kw">use</span> <span class="ident">serde</span>::<span class="ident">Serialize</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::<span class="ident">SocketAddr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::{<span class="ident">Arc</span>, <span class="ident">Weak</span>};
+<span class="kw">use</span> <span class="ident">serde::Serialize</span>;
+<span class="kw">use</span> <span class="ident">std::net::SocketAddr</span>;
+<span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Weak</span>};
 
 <span class="doccomment">/// Listener version, providing same API but listening for requests on a</span>
 <span class="doccomment">/// port and wrapping the calls</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">node_apis</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span>(
 	<span class="ident">addr</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-	<span class="ident">chain</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
-	<span class="ident">tx_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool</span>::<span class="ident">TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	<span class="ident">peers</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
-	<span class="ident">sync_state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">SyncState</span><span class="op">&gt;</span>,
+	<span class="ident">chain</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
+	<span class="ident">tx_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool::TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">peers</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
+	<span class="ident">sync_state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain::SyncState</span><span class="op">&gt;</span>,
 	<span class="ident">api_secret</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	<span class="ident">foreign_api_secret</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 	<span class="ident">tls_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TLSConfig</span><span class="op">&gt;</span>,
 	<span class="ident">allow_to_stop</span>: <span class="ident">bool</span>,
-	<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum</span>::<span class="ident">connections</span>::<span class="ident">StratumIpPool</span><span class="op">&gt;</span>,
+	<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum::connections::StratumIpPool</span><span class="op">&gt;</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">B</span>: <span class="ident">BlockChain</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
@@ -616,9 +616,9 @@
 	)
 	.<span class="ident">expect</span>(<span class="string">&quot;unable to build API router&quot;</span>);
 
-	<span class="kw">let</span> <span class="ident">basic_auth_key</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">global</span>::<span class="ident">is_mainnet</span>() {
+	<span class="kw">let</span> <span class="ident">basic_auth_key</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">global::is_mainnet</span>() {
 		<span class="string">&quot;mwcmain&quot;</span>
-	} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">global</span>::<span class="ident">is_floonet</span>() {
+	} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">global::is_floonet</span>() {
 		<span class="string">&quot;mwcfloo&quot;</span>
 	} <span class="kw">else</span> {
 		<span class="string">&quot;mwc&quot;</span>
@@ -626,12 +626,12 @@
 
 	<span class="comment">// Add basic auth to v1 API and owner v2 API</span>
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">api_secret</span>) <span class="op">=</span> <span class="ident">api_secret</span> {
-		<span class="kw">let</span> <span class="ident">api_basic_auth</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
+		<span class="kw">let</span> <span class="ident">api_basic_auth</span> <span class="op">=</span> <span class="macro">format!</span>(
 			<span class="string">&quot;Basic {}&quot;</span>,
-			<span class="ident">to_base64</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">basic_auth_key</span>, <span class="ident">api_secret</span>))
+			<span class="ident">to_base64</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">basic_auth_key</span>, <span class="ident">api_secret</span>))
 		);
 
-		<span class="kw">let</span> <span class="ident">basic_auth_middleware</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">BasicAuthMiddleware</span>::<span class="ident">new</span>(
+		<span class="kw">let</span> <span class="ident">basic_auth_middleware</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">BasicAuthMiddleware::new</span>(
 			<span class="ident">api_basic_auth</span>,
 			<span class="kw-2">&amp;</span><span class="ident">MWC_BASIC_REALM</span>,
 			<span class="prelude-val">Some</span>(<span class="string">&quot;/v2/foreign&quot;</span>.<span class="ident">into</span>()),
@@ -639,24 +639,24 @@
 		<span class="ident">router</span>.<span class="ident">add_middleware</span>(<span class="ident">basic_auth_middleware</span>);
 	}
 
-	<span class="kw">let</span> <span class="ident">api_handler_v2</span> <span class="op">=</span> <span class="ident">OwnerAPIHandlerV2</span>::<span class="ident">new</span>(
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
+	<span class="kw">let</span> <span class="ident">api_handler_v2</span> <span class="op">=</span> <span class="ident">OwnerAPIHandlerV2::new</span>(
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
 	);
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/owner&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">api_handler_v2</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/owner&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">api_handler_v2</span>))<span class="question-mark">?</span>;
 
-	<span class="kw">let</span> <span class="ident">stratum_handler_v2</span> <span class="op">=</span> <span class="ident">StratumAPIHandlerV2</span>::<span class="ident">new</span>(<span class="ident">stratum_ip_pool</span>);
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/stratum&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">stratum_handler_v2</span>))<span class="question-mark">?</span>;
+	<span class="kw">let</span> <span class="ident">stratum_handler_v2</span> <span class="op">=</span> <span class="ident">StratumAPIHandlerV2::new</span>(<span class="ident">stratum_ip_pool</span>);
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/stratum&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">stratum_handler_v2</span>))<span class="question-mark">?</span>;
 
 	<span class="comment">// Add basic auth to v2 foreign API only</span>
 	<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">api_secret</span>) <span class="op">=</span> <span class="ident">foreign_api_secret</span> {
-		<span class="kw">let</span> <span class="ident">api_basic_auth</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(
+		<span class="kw">let</span> <span class="ident">api_basic_auth</span> <span class="op">=</span> <span class="macro">format!</span>(
 			<span class="string">&quot;Basic {}&quot;</span>,
-			<span class="ident">to_base64</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">basic_auth_key</span>, <span class="ident">api_secret</span>))
+			<span class="ident">to_base64</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">basic_auth_key</span>, <span class="ident">api_secret</span>))
 		);
 
-		<span class="kw">let</span> <span class="ident">basic_auth_middleware</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">BasicAuthURIMiddleware</span>::<span class="ident">new</span>(
+		<span class="kw">let</span> <span class="ident">basic_auth_middleware</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">BasicAuthURIMiddleware::new</span>(
 			<span class="ident">api_basic_auth</span>,
 			<span class="kw-2">&amp;</span><span class="ident">MWC_FOREIGN_BASIC_REALM</span>,
 			<span class="string">&quot;/v2/foreign&quot;</span>.<span class="ident">into</span>(),
@@ -664,26 +664,26 @@
 		<span class="ident">router</span>.<span class="ident">add_middleware</span>(<span class="ident">basic_auth_middleware</span>);
 	}
 
-	<span class="kw">let</span> <span class="ident">api_handler_v2</span> <span class="op">=</span> <span class="ident">ForeignAPIHandlerV2</span>::<span class="ident">new</span>(
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
-		<span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
+	<span class="kw">let</span> <span class="ident">api_handler_v2</span> <span class="op">=</span> <span class="ident">ForeignAPIHandlerV2::new</span>(
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
+		<span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
 	);
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/foreign&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">api_handler_v2</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v2/foreign&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">api_handler_v2</span>))<span class="question-mark">?</span>;
 
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">apis</span> <span class="op">=</span> <span class="ident">ApiServer</span>::<span class="ident">new</span>();
-	<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Starting HTTP Node APIs server at {}.&quot;</span>, <span class="ident">addr</span>);
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">apis</span> <span class="op">=</span> <span class="ident">ApiServer::new</span>();
+	<span class="macro">warn!</span>(<span class="string">&quot;Starting HTTP Node APIs server at {}.&quot;</span>, <span class="ident">addr</span>);
 	<span class="kw">let</span> <span class="ident">socket_addr</span>: <span class="ident">SocketAddr</span> <span class="op">=</span> <span class="ident">addr</span>.<span class="ident">parse</span>().<span class="ident">expect</span>(<span class="string">&quot;unable to parse socket address&quot;</span>);
 	<span class="kw">let</span> <span class="ident">api_thread</span> <span class="op">=</span> <span class="ident">apis</span>.<span class="ident">start</span>(<span class="ident">socket_addr</span>, <span class="ident">router</span>, <span class="ident">tls_config</span>);
 
-	<span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;HTTP Node listener started.&quot;</span>);
+	<span class="macro">warn!</span>(<span class="string">&quot;HTTP Node listener started.&quot;</span>);
 
 	<span class="kw">match</span> <span class="ident">api_thread</span> {
 		<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
 		<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-			<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server failed to start. Err: {}&quot;</span>, <span class="ident">e</span>);
-			<span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;HTTP API server failed to start, {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
+			<span class="macro">error!</span>(<span class="string">&quot;HTTP API server failed to start. Err: {}&quot;</span>, <span class="ident">e</span>);
+			<span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;HTTP API server failed to start, {}&quot;</span>, <span class="ident">e</span>)).<span class="ident">into</span>())
 		}
 	}
 }
@@ -691,13 +691,13 @@
 <span class="doccomment">/// V2 API Handler/Wrapper for owner functions</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OwnerAPIHandlerV2</span> {
 	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">Chain</span><span class="op">&gt;</span>,
-	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
 	<span class="kw">pub</span> <span class="ident">sync_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SyncState</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">OwnerAPIHandlerV2</span> {
 	<span class="doccomment">/// Create a new owner API handler for GET methods</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">Chain</span><span class="op">&gt;</span>, <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>, <span class="ident">sync_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SyncState</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">Chain</span><span class="op">&gt;</span>, <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>, <span class="ident">sync_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SyncState</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">OwnerAPIHandlerV2</span> {
 			<span class="ident">chain</span>,
 			<span class="ident">peers</span>,
@@ -706,30 +706,30 @@
 	}
 }
 
-<span class="kw">impl</span> <span class="kw">crate</span>::<span class="ident">router</span>::<span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">OwnerAPIHandlerV2</span> {
+<span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::router::Handler</span> <span class="kw">for</span> <span class="ident">OwnerAPIHandlerV2</span> {
 	<span class="kw">fn</span> <span class="ident">post</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Owner</span>::<span class="ident">new</span>(
+		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Owner::new</span>(
 			<span class="self">self</span>.<span class="ident">chain</span>.<span class="ident">clone</span>(),
 			<span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">clone</span>(),
 			<span class="self">self</span>.<span class="ident">sync_state</span>.<span class="ident">clone</span>(),
 		);
 
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
 			<span class="kw">match</span> <span class="ident">parse_body</span>(<span class="ident">req</span>).<span class="kw">await</span> {
 				<span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">let</span> <span class="ident">owner_api</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">api</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">OwnerRpc</span>;
 					<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">owner_api</span>.<span class="ident">handle_request</span>(<span class="ident">val</span>) {
-						<span class="ident">MaybeReply</span>::<span class="ident">Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
-						<span class="ident">MaybeReply</span>::<span class="ident">DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
+						<span class="ident">MaybeReply::Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+						<span class="ident">MaybeReply::DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
 							<span class="comment">// Since it&#39;s http, we need to return something. We return [] because jsonrpc</span>
 							<span class="comment">// clients will parse it as an empty batch response.</span>
-							<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>([])
+							<span class="macro">serde_json::json!</span>([])
 						}
 					};
 					<span class="prelude-val">Ok</span>(<span class="ident">json_response_pretty</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>))
 				}
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
+					<span class="macro">error!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
 					<span class="prelude-val">Ok</span>(<span class="ident">create_error_response</span>(<span class="ident">e</span>))
 				}
 			}
@@ -737,7 +737,7 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
 	}
 }
 
@@ -748,9 +748,9 @@
 	<span class="ident">P</span>: <span class="ident">PoolAdapter</span>,
 	<span class="ident">V</span>: <span class="ident">VerifierCache</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
-	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">grin_p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">grin_p2p::Peers</span><span class="op">&gt;</span>,
 	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">Chain</span><span class="op">&gt;</span>,
-	<span class="kw">pub</span> <span class="ident">tx_pool</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool</span>::<span class="ident">TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">tx_pool</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool::TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 	<span class="kw">pub</span> <span class="ident">sync_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SyncState</span><span class="op">&gt;</span>,
 }
 
@@ -762,9 +762,9 @@
 {
 	<span class="doccomment">/// Create a new foreign API handler for GET methods</span>
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-		<span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">grin_p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+		<span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">grin_p2p::Peers</span><span class="op">&gt;</span>,
 		<span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">Chain</span><span class="op">&gt;</span>,
-		<span class="ident">tx_pool</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool</span>::<span class="ident">TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+		<span class="ident">tx_pool</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool::TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">sync_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">SyncState</span><span class="op">&gt;</span>,
 	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">ForeignAPIHandlerV2</span> {
@@ -776,36 +776,36 @@
 	}
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">router</span>::<span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">ForeignAPIHandlerV2</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span> <span class="kw">crate</span><span class="ident">::router::Handler</span> <span class="kw">for</span> <span class="ident">ForeignAPIHandlerV2</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span>
 <span class="kw">where</span>
 	<span class="ident">B</span>: <span class="ident">BlockChain</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">P</span>: <span class="ident">PoolAdapter</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">V</span>: <span class="ident">VerifierCache</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
 	<span class="kw">fn</span> <span class="ident">post</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Foreign</span>::<span class="ident">new</span>(
+		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Foreign::new</span>(
 			<span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">clone</span>(),
 			<span class="self">self</span>.<span class="ident">chain</span>.<span class="ident">clone</span>(),
 			<span class="self">self</span>.<span class="ident">tx_pool</span>.<span class="ident">clone</span>(),
 			<span class="self">self</span>.<span class="ident">sync_state</span>.<span class="ident">clone</span>(),
 		);
 
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
 			<span class="kw">match</span> <span class="ident">parse_body</span>(<span class="ident">req</span>).<span class="kw">await</span> {
 				<span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">let</span> <span class="ident">foreign_api</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">api</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ForeignRpc</span>;
 					<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">foreign_api</span>.<span class="ident">handle_request</span>(<span class="ident">val</span>) {
-						<span class="ident">MaybeReply</span>::<span class="ident">Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
-						<span class="ident">MaybeReply</span>::<span class="ident">DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
+						<span class="ident">MaybeReply::Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+						<span class="ident">MaybeReply::DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
 							<span class="comment">// Since it&#39;s http, we need to return something. We return [] because jsonrpc</span>
 							<span class="comment">// clients will parse it as an empty batch response.</span>
-							<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>([])
+							<span class="macro">serde_json::json!</span>([])
 						}
 					};
 					<span class="prelude-val">Ok</span>(<span class="ident">json_response_pretty</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>))
 				}
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
+					<span class="macro">error!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
 					<span class="prelude-val">Ok</span>(<span class="ident">create_error_response</span>(<span class="ident">e</span>))
 				}
 			}
@@ -813,42 +813,42 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
 	}
 }
 
 <span class="doccomment">/// V2 API Handler/Wrapper for stratum</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StratumAPIHandlerV2</span> {
-	<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum</span>::<span class="ident">connections</span>::<span class="ident">StratumIpPool</span><span class="op">&gt;</span>,
+	<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum::connections::StratumIpPool</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">StratumAPIHandlerV2</span> {
 	<span class="doccomment">/// Create a new owner API handler for GET methods</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum</span>::<span class="ident">connections</span>::<span class="ident">StratumIpPool</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">stratum_ip_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">stratum::connections::StratumIpPool</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
 		<span class="ident">StratumAPIHandlerV2</span> { <span class="ident">stratum_ip_pool</span> }
 	}
 }
 
-<span class="kw">impl</span> <span class="kw">crate</span>::<span class="ident">router</span>::<span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">StratumAPIHandlerV2</span> {
+<span class="kw">impl</span> <span class="kw">crate</span><span class="ident">::router::Handler</span> <span class="kw">for</span> <span class="ident">StratumAPIHandlerV2</span> {
 	<span class="kw">fn</span> <span class="ident">post</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Stratum</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">stratum_ip_pool</span>.<span class="ident">clone</span>());
+		<span class="kw">let</span> <span class="ident">api</span> <span class="op">=</span> <span class="ident">Stratum::new</span>(<span class="self">self</span>.<span class="ident">stratum_ip_pool</span>.<span class="ident">clone</span>());
 
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> <span class="kw">move</span> {
 			<span class="kw">match</span> <span class="ident">parse_body</span>(<span class="ident">req</span>).<span class="kw">await</span> {
 				<span class="prelude-val">Ok</span>(<span class="ident">val</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">let</span> <span class="ident">stratum_api</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">api</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">StratumRpc</span>;
 					<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">stratum_api</span>.<span class="ident">handle_request</span>(<span class="ident">val</span>) {
-						<span class="ident">MaybeReply</span>::<span class="ident">Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
-						<span class="ident">MaybeReply</span>::<span class="ident">DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
+						<span class="ident">MaybeReply::Reply</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+						<span class="ident">MaybeReply::DontReply</span> <span class="op">=</span><span class="op">&gt;</span> {
 							<span class="comment">// Since it&#39;s http, we need to return something. We return [] because jsonrpc</span>
 							<span class="comment">// clients will parse it as an empty batch response.</span>
-							<span class="ident">serde_json</span>::<span class="macro">json</span><span class="macro">!</span>([])
+							<span class="macro">serde_json::json!</span>([])
 						}
 					};
 					<span class="prelude-val">Ok</span>(<span class="ident">json_response_pretty</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>))
 				}
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="macro">error</span><span class="macro">!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
+					<span class="macro">error!</span>(<span class="string">&quot;Request Error: {:?}&quot;</span>, <span class="ident">e</span>);
 					<span class="prelude-val">Ok</span>(<span class="ident">create_error_response</span>(<span class="ident">e</span>))
 				}
 			}
@@ -856,7 +856,7 @@
 	}
 
 	<span class="kw">fn</span> <span class="ident">options</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="ident">Box</span>::<span class="ident">pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
+		<span class="ident">Box::pin</span>(<span class="kw">async</span> { <span class="prelude-val">Ok</span>(<span class="ident">create_ok_response</span>(<span class="string">&quot;{}&quot;</span>)) })
 	}
 }
 
@@ -865,36 +865,36 @@
 <span class="kw">where</span>
 	<span class="ident">T</span>: <span class="ident">Serialize</span>,
 {
-	<span class="kw">match</span> <span class="ident">serde_json</span>::<span class="ident">to_string_pretty</span>(<span class="ident">s</span>) {
-		<span class="prelude-val">Ok</span>(<span class="ident">json</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>, <span class="ident">json</span>),
+	<span class="kw">match</span> <span class="ident">serde_json::to_string_pretty</span>(<span class="ident">s</span>) {
+		<span class="prelude-val">Ok</span>(<span class="ident">json</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(<span class="ident">StatusCode::OK</span>, <span class="ident">json</span>),
 		<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(
-			<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>,
-			<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{{\&quot;error\&quot;: \&quot;{}\&quot;}}&quot;</span>, <span class="ident">e</span>),
+			<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>,
+			<span class="macro">format!</span>(<span class="string">&quot;{{\&quot;error\&quot;: \&quot;{}\&quot;}}&quot;</span>, <span class="ident">e</span>),
 		),
 	}
 }
 
 <span class="kw">fn</span> <span class="ident">create_error_response</span>(<span class="ident">e</span>: <span class="ident">Error</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span> {
-	<span class="ident">Response</span>::<span class="ident">builder</span>()
-		.<span class="ident">status</span>(<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>)
+	<span class="ident">Response::builder</span>()
+		.<span class="ident">status</span>(<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>)
 		.<span class="ident">header</span>(<span class="string">&quot;access-control-allow-origin&quot;</span>, <span class="string">&quot;*&quot;</span>)
 		.<span class="ident">header</span>(
 			<span class="string">&quot;access-control-allow-headers&quot;</span>,
 			<span class="string">&quot;Content-Type, Authorization&quot;</span>,
 		)
-		.<span class="ident">body</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>).<span class="ident">into</span>())
+		.<span class="ident">body</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>).<span class="ident">into</span>())
 		.<span class="ident">unwrap</span>()
 }
 
 <span class="kw">fn</span> <span class="ident">create_ok_response</span>(<span class="ident">json</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span> {
-	<span class="ident">Response</span>::<span class="ident">builder</span>()
-		.<span class="ident">status</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>)
+	<span class="ident">Response::builder</span>()
+		.<span class="ident">status</span>(<span class="ident">StatusCode::OK</span>)
 		.<span class="ident">header</span>(<span class="string">&quot;access-control-allow-origin&quot;</span>, <span class="string">&quot;*&quot;</span>)
 		.<span class="ident">header</span>(
 			<span class="string">&quot;access-control-allow-headers&quot;</span>,
 			<span class="string">&quot;Content-Type, Authorization&quot;</span>,
 		)
-		.<span class="ident">header</span>(<span class="ident">hyper</span>::<span class="ident">header</span>::<span class="ident">CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>)
+		.<span class="ident">header</span>(<span class="ident">hyper::header::CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>)
 		.<span class="ident">body</span>(<span class="ident">json</span>.<span class="ident">to_string</span>().<span class="ident">into</span>())
 		.<span class="ident">unwrap</span>()
 }
@@ -904,7 +904,7 @@
 <span class="doccomment">/// Whenever the status code is `StatusCode::OK` the text parameter should be</span>
 <span class="doccomment">/// valid JSON as the content type header will be set to `application/json&#39;</span>
 <span class="kw">fn</span> <span class="ident">response</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">status</span>: <span class="ident">StatusCode</span>, <span class="ident">text</span>: <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span> {
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">Response</span>::<span class="ident">builder</span>();
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">Response::builder</span>();
 
 	<span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>
 		.<span class="ident">status</span>(<span class="ident">status</span>)
@@ -914,8 +914,8 @@
 			<span class="string">&quot;Content-Type, Authorization&quot;</span>,
 		);
 
-	<span class="kw">if</span> <span class="ident">status</span> <span class="op">=</span><span class="op">=</span> <span class="ident">StatusCode</span>::<span class="ident">OK</span> {
-		<span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="ident">hyper</span>::<span class="ident">header</span>::<span class="ident">CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>);
+	<span class="kw">if</span> <span class="ident">status</span> <span class="op">=</span><span class="op">=</span> <span class="ident">StatusCode::OK</span> {
+		<span class="ident">builder</span> <span class="op">=</span> <span class="ident">builder</span>.<span class="ident">header</span>(<span class="ident">hyper::header::CONTENT_TYPE</span>, <span class="string">&quot;application/json&quot;</span>);
 	}
 
 	<span class="ident">builder</span>.<span class="ident">body</span>(<span class="ident">text</span>.<span class="ident">into</span>()).<span class="ident">unwrap</span>()
@@ -927,10 +927,10 @@
 	<span class="ident">note</span> <span class="op">=</span> <span class="string">&quot;The V1 Node API will be removed in grin 5.0.0. Please migrate to the V2 API as soon as possible.&quot;</span>
 )]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build_router</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span>(
-	<span class="ident">chain</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
-	<span class="ident">tx_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool</span>::<span class="ident">TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
-	<span class="ident">peers</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
-	<span class="ident">sync_state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">SyncState</span><span class="op">&gt;</span>,
+	<span class="ident">chain</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
+	<span class="ident">tx_pool</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">pool::TransactionPool</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">P</span>, <span class="ident">V</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+	<span class="ident">peers</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
+	<span class="ident">sync_state</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">chain::SyncState</span><span class="op">&gt;</span>,
 	<span class="ident">allow_to_stop</span>: <span class="ident">bool</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Router</span>, <span class="ident">RouterError</span><span class="op">&gt;</span>
 <span class="kw">where</span>
@@ -938,7 +938,7 @@
 	<span class="ident">P</span>: <span class="ident">PoolAdapter</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">V</span>: <span class="ident">VerifierCache</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
-	<span class="kw">let</span> <span class="ident">route_list</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
+	<span class="kw">let</span> <span class="ident">route_list</span> <span class="op">=</span> <span class="macro">vec!</span>[
 		<span class="string">&quot;get blocks&quot;</span>.<span class="ident">to_string</span>(),
 		<span class="string">&quot;get headers&quot;</span>.<span class="ident">to_string</span>(),
 		<span class="string">&quot;get chain&quot;</span>.<span class="ident">to_string</span>(),
@@ -966,74 +966,74 @@
 	<span class="kw">let</span> <span class="ident">index_handler</span> <span class="op">=</span> <span class="ident">IndexHandler</span> { <span class="ident">list</span>: <span class="ident">route_list</span> };
 
 	<span class="kw">let</span> <span class="ident">output_handler</span> <span class="op">=</span> <span class="ident">OutputHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">kernel_handler</span> <span class="op">=</span> <span class="ident">KernelHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">block_handler</span> <span class="op">=</span> <span class="ident">BlockHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">header_handler</span> <span class="op">=</span> <span class="ident">HeaderHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">chain_tip_handler</span> <span class="op">=</span> <span class="ident">ChainHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">chain_compact_handler</span> <span class="op">=</span> <span class="ident">ChainCompactHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">chain_validation_handler</span> <span class="op">=</span> <span class="ident">ChainValidationHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">status_handler</span> <span class="op">=</span> <span class="ident">StatusHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
-		<span class="ident">peers</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
-		<span class="ident">sync_state</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">peers</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">sync_state</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">sync_state</span>),
 		<span class="ident">allow_to_stop</span>,
 	};
 	<span class="kw">let</span> <span class="ident">txhashset_handler</span> <span class="op">=</span> <span class="ident">TxHashSetHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 	<span class="kw">let</span> <span class="ident">pool_info_handler</span> <span class="op">=</span> <span class="ident">PoolInfoHandler</span> {
-		<span class="ident">tx_pool</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
+		<span class="ident">tx_pool</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
 	};
 	<span class="kw">let</span> <span class="ident">pool_push_handler</span> <span class="op">=</span> <span class="ident">PoolPushHandler</span> {
-		<span class="ident">tx_pool</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
+		<span class="ident">tx_pool</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">tx_pool</span>),
 	};
 	<span class="kw">let</span> <span class="ident">peers_all_handler</span> <span class="op">=</span> <span class="ident">PeersAllHandler</span> {
-		<span class="ident">peers</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">peers</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
 	};
 	<span class="kw">let</span> <span class="ident">peers_connected_handler</span> <span class="op">=</span> <span class="ident">PeersConnectedHandler</span> {
-		<span class="ident">peers</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">peers</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
 	};
 	<span class="kw">let</span> <span class="ident">peer_handler</span> <span class="op">=</span> <span class="ident">PeerHandler</span> {
-		<span class="ident">peers</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
+		<span class="ident">peers</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>),
 	};
 	<span class="kw">let</span> <span class="ident">version_handler</span> <span class="op">=</span> <span class="ident">VersionHandler</span> {
-		<span class="ident">chain</span>: <span class="ident">Arc</span>::<span class="ident">downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
+		<span class="ident">chain</span>: <span class="ident">Arc::downgrade</span>(<span class="kw-2">&amp;</span><span class="ident">chain</span>),
 	};
 
-	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">router</span> <span class="op">=</span> <span class="ident">Router</span>::<span class="ident">new</span>();
+	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">router</span> <span class="op">=</span> <span class="ident">Router::new</span>();
 
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">index_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/blocks/*&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">block_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/headers/*&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">header_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">chain_tip_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/outputs/*&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">output_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/kernels/*&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">kernel_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/compact&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">chain_compact_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/validate&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">chain_validation_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/txhashset/*&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">txhashset_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/status&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">status_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/pool&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">pool_info_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/pool/push_tx&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">pool_push_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/all&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">peers_all_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/connected&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">peers_connected_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/**&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">peer_handler</span>))<span class="question-mark">?</span>;
-	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/version&quot;</span>, <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">version_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">index_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/blocks/*&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">block_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/headers/*&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">header_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">chain_tip_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/outputs/*&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">output_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/kernels/*&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">kernel_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/compact&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">chain_compact_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/chain/validate&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">chain_validation_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/txhashset/*&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">txhashset_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/status&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">status_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/pool&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">pool_info_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/pool/push_tx&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">pool_push_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/all&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">peers_all_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/connected&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">peers_connected_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/peers/**&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">peer_handler</span>))<span class="question-mark">?</span>;
+	<span class="ident">router</span>.<span class="ident">add_route</span>(<span class="string">&quot;/v1/version&quot;</span>, <span class="ident">Arc::new</span>(<span class="ident">version_handler</span>))<span class="question-mark">?</span>;
 	<span class="prelude-val">Ok</span>(<span class="ident">router</span>)
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_api" data-search-js="../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="grin_api" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
     <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script></body></html>

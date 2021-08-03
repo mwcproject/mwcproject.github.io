@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/handlers/peers_api.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>peers_api.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -268,31 +268,31 @@
 <span class="comment">// See the License for the specific language governing permissions and</span>
 <span class="comment">// limitations under the License.</span>
 
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">utils</span>::<span class="ident">w</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">p2p</span>::<span class="ident">types</span>::{<span class="ident">PeerAddr</span>, <span class="ident">PeerInfoDisplay</span>, <span class="ident">ReasonForBan</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">p2p</span>::{<span class="self">self</span>, <span class="ident">PeerData</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rest</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">web</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">grin_p2p</span>::<span class="ident">types</span>::<span class="ident">Direction</span>;
-<span class="kw">use</span> <span class="ident">grin_p2p</span>::<span class="ident">types</span>::<span class="ident">PeerInfoDisplayLegacy</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::utils::w</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::p2p::types</span>::{<span class="ident">PeerAddr</span>, <span class="ident">PeerInfoDisplay</span>, <span class="ident">ReasonForBan</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::p2p</span>::{<span class="self">self</span>, <span class="ident">PeerData</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rest</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::web</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">grin_p2p::types::Direction</span>;
+<span class="kw">use</span> <span class="ident">grin_p2p::types::PeerInfoDisplayLegacy</span>;
 <span class="kw">use</span> <span class="ident">hyper</span>::{<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">StatusCode</span>};
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">net</span>::<span class="ident">SocketAddr</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Weak</span>;
+<span class="kw">use</span> <span class="ident">std::net::SocketAddr</span>;
+<span class="kw">use</span> <span class="ident">std::sync::Weak</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PeersAllHandler</span> {
-	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">PeersAllHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">peers</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">all_peers</span>();
+		<span class="kw">let</span> <span class="ident">peers</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">all_peers</span>();
 		<span class="ident">json_response_pretty</span>(<span class="kw-2">&amp;</span><span class="ident">peers</span>)
 	}
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PeersConnectedHandler</span> {
-	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">PeersConnectedHandler</span> {
@@ -303,20 +303,20 @@
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">info</span>.<span class="ident">clone</span>().<span class="ident">into</span>())
 			.<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplay</span><span class="op">&gt;</span><span class="op">&gt;</span>();
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">peers_ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplayLegacy</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">peers_ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplayLegacy</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 
 		<span class="kw">for</span> <span class="ident">peer</span> <span class="kw">in</span> <span class="ident">peers</span> {
 			<span class="kw">let</span> <span class="ident">peer_addr_str</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">peer</span>.<span class="ident">addr</span> {
 				<span class="comment">// for tor we just return this because older wallets</span>
 				<span class="comment">// can&#39;t process this.</span>
-				<span class="ident">PeerAddr</span>::<span class="ident">Onion</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;127.0.0.1:{}&quot;</span>, <span class="number">3414</span>),
-				<span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">ip</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">ip</span>.<span class="ident">ip</span>(), <span class="ident">ip</span>.<span class="ident">port</span>()),
+				<span class="ident">PeerAddr::Onion</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(<span class="string">&quot;127.0.0.1:{}&quot;</span>, <span class="number">3414</span>),
+				<span class="ident">PeerAddr::Ip</span>(<span class="ident">ip</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">ip</span>.<span class="ident">ip</span>(), <span class="ident">ip</span>.<span class="ident">port</span>()),
 			};
 
-			<span class="kw">let</span> <span class="ident">peer_direction</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">OutboundTor</span> {
-				<span class="ident">Direction</span>::<span class="ident">Outbound</span>
-			} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">InboundTor</span> {
-				<span class="ident">Direction</span>::<span class="ident">Inbound</span>
+			<span class="kw">let</span> <span class="ident">peer_direction</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction::OutboundTor</span> {
+				<span class="ident">Direction::Outbound</span>
+			} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction::InboundTor</span> {
+				<span class="ident">Direction::Inbound</span>
 			} <span class="kw">else</span> {
 				<span class="ident">peer</span>.<span class="ident">direction</span>
 			};
@@ -338,25 +338,25 @@
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">PeersConnectedHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">_req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">peers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplay</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)
+		<span class="kw">let</span> <span class="ident">peers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplay</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)
 			.<span class="ident">connected_peers</span>()
 			.<span class="ident">iter</span>()
 			.<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">info</span>.<span class="ident">clone</span>().<span class="ident">into</span>())
 			.<span class="ident">collect</span>();
 
-		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">peers_ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplayLegacy</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">peers_ret</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerInfoDisplayLegacy</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 		<span class="kw">for</span> <span class="ident">peer</span> <span class="kw">in</span> <span class="ident">peers</span>.<span class="ident">clone</span>() {
 			<span class="kw">let</span> <span class="ident">peer_addr_str</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">peer</span>.<span class="ident">addr</span> {
 				<span class="comment">// for tor we just return this because older wallets</span>
 				<span class="comment">// can&#39;t process this.</span>
-				<span class="ident">PeerAddr</span>::<span class="ident">Onion</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;127.0.0.1:{}&quot;</span>, <span class="number">3414</span>),
-				<span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">ip</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">ip</span>.<span class="ident">ip</span>(), <span class="ident">ip</span>.<span class="ident">port</span>()),
+				<span class="ident">PeerAddr::Onion</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(<span class="string">&quot;127.0.0.1:{}&quot;</span>, <span class="number">3414</span>),
+				<span class="ident">PeerAddr::Ip</span>(<span class="ident">ip</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="ident">ip</span>.<span class="ident">ip</span>(), <span class="ident">ip</span>.<span class="ident">port</span>()),
 			};
 
-			<span class="kw">let</span> <span class="ident">peer_direction</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">OutboundTor</span> {
-				<span class="ident">Direction</span>::<span class="ident">Outbound</span>
-			} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">InboundTor</span> {
-				<span class="ident">Direction</span>::<span class="ident">Inbound</span>
+			<span class="kw">let</span> <span class="ident">peer_direction</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction::OutboundTor</span> {
+				<span class="ident">Direction::Outbound</span>
+			} <span class="kw">else</span> <span class="kw">if</span> <span class="ident">peer</span>.<span class="ident">direction</span> <span class="op">=</span><span class="op">=</span> <span class="ident">Direction::InboundTor</span> {
+				<span class="ident">Direction::Inbound</span>
 			} <span class="kw">else</span> {
 				<span class="ident">peer</span>.<span class="ident">direction</span>
 			};
@@ -381,31 +381,31 @@
 <span class="doccomment">/// POST /v1/peers/10.12.12.13/ban</span>
 <span class="doccomment">/// POST /v1/peers/10.12.12.13/unban</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PeerHandler</span> {
-	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p</span>::<span class="ident">Peers</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">peers</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">p2p::Peers</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">PeerHandler</span> {
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_peers</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SocketAddr</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PeerData</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">addr</span>) <span class="op">=</span> <span class="ident">addr</span> {
-			<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">addr</span>);
+			<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::Ip</span>(<span class="ident">addr</span>);
 			<span class="kw">let</span> <span class="ident">peer_data</span>: <span class="ident">PeerData</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)<span class="question-mark">?</span>.<span class="ident">get_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Unable to get peer for address {}, {}&quot;</span>,
 					<span class="ident">peer_addr</span>, <span class="ident">e</span>
 				))
 			})<span class="question-mark">?</span>;
-			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="macro">vec</span><span class="macro">!</span>[<span class="ident">peer_data</span>]);
+			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="ident">peer_data</span>]);
 		}
 		<span class="kw">let</span> <span class="ident">peers</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)<span class="question-mark">?</span>.<span class="ident">all_peers</span>();
 		<span class="prelude-val">Ok</span>(<span class="ident">peers</span>)
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ban_peer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">addr</span>);
+		<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::Ip</span>(<span class="ident">addr</span>);
 		<span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)<span class="question-mark">?</span>
-			.<span class="ident">ban_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>(), <span class="ident">ReasonForBan</span>::<span class="ident">ManualBan</span>)
+			.<span class="ident">ban_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>(), <span class="ident">ReasonForBan::ManualBan</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 					<span class="string">&quot;Unable to ban peer for address {}, {}&quot;</span>,
 					<span class="ident">peer_addr</span>, <span class="ident">e</span>
 				))
@@ -414,9 +414,9 @@
 	}
 
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unban_peer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-		<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">addr</span>);
+		<span class="kw">let</span> <span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::Ip</span>(<span class="ident">addr</span>);
 		<span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>)<span class="question-mark">?</span>.<span class="ident">unban_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;Unable to unban peer for address {}, {}&quot;</span>,
 				<span class="ident">peer_addr</span>, <span class="ident">e</span>
 			))
@@ -427,85 +427,85 @@
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">PeerHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="macro">right_path_element</span><span class="macro">!</span>(<span class="ident">req</span>);
+		<span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="macro">right_path_element!</span>(<span class="ident">req</span>);
 
 		<span class="comment">// We support both &quot;ip&quot; and &quot;ip:port&quot; here for peer_addr.</span>
 		<span class="comment">// &quot;ip:port&quot; is only really useful for local usernet testing on loopback address.</span>
 		<span class="comment">// Normally we map peers to ip and only allow a single peer per ip address.</span>
 		<span class="kw">let</span> <span class="ident">peer_addr</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">ip_addr</span>) <span class="op">=</span> <span class="ident">command</span>.<span class="ident">parse</span>() {
-			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">from_ip</span>(<span class="ident">ip_addr</span>);
+			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::from_ip</span>(<span class="ident">ip_addr</span>);
 		} <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">addr</span>) <span class="op">=</span> <span class="ident">command</span>.<span class="ident">parse</span>() {
-			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">addr</span>);
+			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::Ip</span>(<span class="ident">addr</span>);
 		} <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">onion</span>) <span class="op">=</span> <span class="ident">command</span>.<span class="ident">parse</span>() {
-			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr</span>::<span class="ident">Onion</span>(<span class="ident">onion</span>);
+			<span class="ident">peer_addr</span> <span class="op">=</span> <span class="ident">PeerAddr::Onion</span>(<span class="ident">onion</span>);
 		} <span class="kw">else</span> {
 			<span class="kw">return</span> <span class="ident">response</span>(
-				<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>,
-				<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;peer address unrecognized: {}&quot;</span>, <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">path</span>()),
+				<span class="ident">StatusCode::BAD_REQUEST</span>,
+				<span class="macro">format!</span>(<span class="string">&quot;peer address unrecognized: {}&quot;</span>, <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">path</span>()),
 			);
 		}
 
-		<span class="kw">match</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">get_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>()) {
+		<span class="kw">match</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">get_peer</span>(<span class="ident">peer_addr</span>.<span class="ident">clone</span>()) {
 			<span class="prelude-val">Ok</span>(<span class="ident">peer</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">json_response</span>(<span class="kw-2">&amp;</span><span class="ident">peer</span>),
 			<span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">response</span>(
-				<span class="ident">StatusCode</span>::<span class="ident">NOT_FOUND</span>,
-				<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;peer {} not found&quot;</span>, <span class="ident">peer_addr</span>),
+				<span class="ident">StatusCode::NOT_FOUND</span>,
+				<span class="macro">format!</span>(<span class="string">&quot;peer {} not found&quot;</span>, <span class="ident">peer_addr</span>),
 			),
 		}
 	}
 	<span class="kw">fn</span> <span class="ident">post</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">path_elems</span> <span class="op">=</span> <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">path</span>().<span class="ident">trim_end_matches</span>(<span class="string">&#39;/&#39;</span>).<span class="ident">rsplit</span>(<span class="string">&#39;/&#39;</span>);
 		<span class="kw">let</span> <span class="ident">command</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">path_elems</span>.<span class="ident">next</span>() {
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>, <span class="string">&quot;invalid url&quot;</span>),
+			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode::BAD_REQUEST</span>, <span class="string">&quot;invalid url&quot;</span>),
 			<span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">c</span>,
 		};
 		<span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">path_elems</span>.<span class="ident">next</span>() {
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>, <span class="string">&quot;invalid url&quot;</span>),
+			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode::BAD_REQUEST</span>, <span class="string">&quot;invalid url&quot;</span>),
 			<span class="prelude-val">Some</span>(<span class="ident">a</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">ip_addr</span>) <span class="op">=</span> <span class="ident">a</span>.<span class="ident">parse</span>() {
-					<span class="ident">PeerAddr</span>::<span class="ident">from_ip</span>(<span class="ident">ip_addr</span>)
+					<span class="ident">PeerAddr::from_ip</span>(<span class="ident">ip_addr</span>)
 				} <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">addr</span>) <span class="op">=</span> <span class="ident">a</span>.<span class="ident">parse</span>() {
-					<span class="ident">PeerAddr</span>::<span class="ident">Ip</span>(<span class="ident">addr</span>)
+					<span class="ident">PeerAddr::Ip</span>(<span class="ident">addr</span>)
 				} <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">addr</span>) <span class="op">=</span> <span class="ident">a</span>.<span class="ident">parse</span>() {
-					<span class="ident">PeerAddr</span>::<span class="ident">Onion</span>(<span class="ident">addr</span>)
+					<span class="ident">PeerAddr::Onion</span>(<span class="ident">addr</span>)
 				} <span class="kw">else</span> {
 					<span class="kw">return</span> <span class="ident">response</span>(
-						<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>,
-						<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid peer address: {}&quot;</span>, <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">path</span>()),
+						<span class="ident">StatusCode::BAD_REQUEST</span>,
+						<span class="macro">format!</span>(<span class="string">&quot;invalid peer address: {}&quot;</span>, <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">path</span>()),
 					);
 				}
 			}
 		};
 
 		<span class="kw">match</span> <span class="ident">command</span> {
-			<span class="string">&quot;ban&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">ban_peer</span>(<span class="ident">addr</span>.<span class="ident">clone</span>(), <span class="ident">ReasonForBan</span>::<span class="ident">ManualBan</span>) {
-				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>, <span class="string">&quot;{}&quot;</span>),
+			<span class="string">&quot;ban&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">ban_peer</span>(<span class="ident">addr</span>.<span class="ident">clone</span>(), <span class="ident">ReasonForBan::ManualBan</span>) {
+				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode::OK</span>, <span class="string">&quot;{}&quot;</span>),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">return</span> <span class="ident">response</span>(
-						<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>,
-						<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;ban for peer {} failed, {:?}&quot;</span>, <span class="ident">addr</span>, <span class="ident">e</span>),
+						<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>,
+						<span class="macro">format!</span>(<span class="string">&quot;ban for peer {} failed, {:?}&quot;</span>, <span class="ident">addr</span>, <span class="ident">e</span>),
 					)
 				}
 			},
-			<span class="string">&quot;unban&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="macro">w_fut</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">unban_peer</span>(<span class="ident">addr</span>.<span class="ident">clone</span>()) {
-				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode</span>::<span class="ident">OK</span>, <span class="string">&quot;{}&quot;</span>),
+			<span class="string">&quot;unban&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">match</span> <span class="macro">w_fut!</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">peers</span>).<span class="ident">unban_peer</span>(<span class="ident">addr</span>.<span class="ident">clone</span>()) {
+				<span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="ident">response</span>(<span class="ident">StatusCode::OK</span>, <span class="string">&quot;{}&quot;</span>),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 					<span class="kw">return</span> <span class="ident">response</span>(
-						<span class="ident">StatusCode</span>::<span class="ident">INTERNAL_SERVER_ERROR</span>,
-						<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;unban for peer {} failed, {:?}&quot;</span>, <span class="ident">addr</span>, <span class="ident">e</span>),
+						<span class="ident">StatusCode::INTERNAL_SERVER_ERROR</span>,
+						<span class="macro">format!</span>(<span class="string">&quot;unban for peer {} failed, {:?}&quot;</span>, <span class="ident">addr</span>, <span class="ident">e</span>),
 					)
 				}
 			},
 			<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">return</span> <span class="ident">response</span>(
-					<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>,
-					<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid command {}&quot;</span>, <span class="ident">command</span>),
+					<span class="ident">StatusCode::BAD_REQUEST</span>,
+					<span class="macro">format!</span>(<span class="string">&quot;invalid command {}&quot;</span>, <span class="ident">command</span>),
 				)
 			}
 		};
 	}
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-js="../../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>

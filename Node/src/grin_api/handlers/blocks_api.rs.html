@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `api/src/handlers/blocks_api.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>blocks_api.rs - source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled ><script id="default-settings"></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
+<link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../../grin_api/index.html'><div class='logo-container rust-logo'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -316,18 +316,18 @@
 <span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
 <span class="comment">// See the License for the specific language governing permissions and</span>
 <span class="comment">// limitations under the License.</span>
-<span class="kw">use</span> <span class="kw">super</span>::<span class="ident">utils</span>::{<span class="ident">get_output</span>, <span class="ident">get_output_v2</span>, <span class="ident">w</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">chain</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">hash</span>::<span class="ident">Hash</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">core</span>::<span class="ident">core</span>::<span class="ident">hash</span>::<span class="ident">Hashed</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rest</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">web</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">super</span><span class="ident">::utils</span>::{<span class="ident">get_output</span>, <span class="ident">get_output_v2</span>, <span class="ident">w</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::chain</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::hash::Hash</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::core::core::hash::Hashed</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::rest</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::router</span>::{<span class="ident">Handler</span>, <span class="ident">ResponseFuture</span>};
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::util</span>;
+<span class="kw">use</span> <span class="kw">crate</span><span class="ident">::web</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">hyper</span>::{<span class="ident">Body</span>, <span class="ident">Request</span>, <span class="ident">StatusCode</span>};
-<span class="kw">use</span> <span class="ident">regex</span>::<span class="ident">Regex</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Weak</span>;
+<span class="kw">use</span> <span class="ident">regex::Regex</span>;
+<span class="kw">use</span> <span class="ident">std::sync::Weak</span>;
 
 <span class="doccomment">/// Gets block headers given either a hash or height or an output commit.</span>
 <span class="doccomment">/// GET /v1/headers/&lt;hash&gt;</span>
@@ -335,7 +335,7 @@
 <span class="doccomment">/// GET /v1/headers/&lt;output commit&gt;</span>
 <span class="doccomment">///</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HeaderHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">HeaderHandler</span> {
@@ -346,9 +346,9 @@
 		}
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">height</span>) <span class="op">=</span> <span class="ident">input</span>.<span class="ident">parse</span>() {
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_by_height</span>(<span class="ident">height</span>) {
-				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable</span>::<span class="ident">from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>)),
+				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable::from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>)),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for height {}, {}&quot;</span>,
 						<span class="ident">height</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
@@ -356,13 +356,13 @@
 			}
 		}
 		<span class="ident">check_block_param</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Argument</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid input: {}, {}&quot;</span>, <span class="ident">input</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">Hash</span>::<span class="ident">from_vec</span>(<span class="kw-2">&amp;</span><span class="ident">vec</span>);
+		<span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">util::from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Argument</span>(<span class="macro">format!</span>(<span class="string">&quot;invalid input: {}, {}&quot;</span>, <span class="ident">input</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">Hash::from_vec</span>(<span class="kw-2">&amp;</span><span class="ident">vec</span>);
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>
 			.<span class="ident">get_block_header</span>(<span class="kw-2">&amp;</span><span class="ident">h</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Block header for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable</span>::<span class="ident">from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>))
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Block header for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable::from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>))
 	}
 
 	<span class="kw">fn</span> <span class="ident">get_header_for_output</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">commit_id</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BlockHeaderPrintable</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
@@ -370,13 +370,13 @@
 			<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">o</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">o</span>,
 			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">return</span> <span class="prelude-val">Err</span>(
-					<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Commit id {} not found&quot;</span>, <span class="ident">commit_id</span>)).<span class="ident">into</span>(),
+					<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Commit id {} not found&quot;</span>, <span class="ident">commit_id</span>)).<span class="ident">into</span>(),
 				)
 			}
 		};
 		<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_for_output</span>(<span class="ident">oid</span>.<span class="ident">commitment</span>()) {
-			<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable</span>::<span class="ident">from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>)),
-			<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+			<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable::from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>)),
+			<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;Header for output {}, {}&quot;</span>,
 				<span class="ident">commit_id</span>, <span class="ident">e</span>
 			)))<span class="question-mark">?</span>,
@@ -387,8 +387,8 @@
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">get_block_header</span>(<span class="ident">h</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Block header for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable</span>::<span class="ident">from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>));
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Block header for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">BlockHeaderPrintable::from_header</span>(<span class="kw-2">&amp;</span><span class="ident">header</span>));
 	}
 
 	<span class="comment">// Try to get hash from height, hash or output commit</span>
@@ -402,7 +402,7 @@
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_by_height</span>(<span class="ident">height</span>) {
 				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">header</span>.<span class="ident">hash</span>()),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for height {}, {}&quot;</span>,
 						<span class="ident">height</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
@@ -416,20 +416,20 @@
 			<span class="kw">let</span> <span class="ident">oid</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">get_output_v2</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>, <span class="kw-2">&amp;</span><span class="ident">commit</span>, <span class="bool-val">false</span>, <span class="bool-val">false</span>)<span class="question-mark">?</span> {
 				<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">o</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">o</span>,
 				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Output {} not found&quot;</span>, <span class="ident">commit</span>)).<span class="ident">into</span>())
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Output {} not found&quot;</span>, <span class="ident">commit</span>)).<span class="ident">into</span>())
 				}
 			};
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_for_output</span>(<span class="ident">oid</span>.<span class="ident">commitment</span>()) {
 				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">header</span>.<span class="ident">hash</span>()),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for output {:?}, {}&quot;</span>,
 						<span class="ident">oid</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
 				}
 			}
 		}
-		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">Argument</span>(<span class="macro">format</span><span class="macro">!</span>(
+		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Argument</span>(<span class="macro">format!</span>(
 			<span class="string">&quot;not a valid hash {:?}, height {:?} or output commit {:?}&quot;</span>,
 			<span class="ident">hash</span>, <span class="ident">height</span>, <span class="ident">commit</span>
 		)))<span class="question-mark">?</span>;
@@ -438,7 +438,7 @@
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">HeaderHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">el</span> <span class="op">=</span> <span class="macro">right_path_element</span><span class="macro">!</span>(<span class="ident">req</span>);
+		<span class="kw">let</span> <span class="ident">el</span> <span class="op">=</span> <span class="macro">right_path_element!</span>(<span class="ident">req</span>);
 		<span class="ident">result_to_response</span>(<span class="self">self</span>.<span class="ident">get_header</span>(<span class="ident">el</span>.<span class="ident">to_string</span>()))
 	}
 }
@@ -454,7 +454,7 @@
 <span class="doccomment">/// Optionally turn off the Merkle proof extraction by passing &quot;?no_merkle_proof&quot; query</span>
 <span class="doccomment">/// param GET /v1/blocks/&lt;hash&gt;?no_merkle_proof</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BlockHandler</span> {
-	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain</span>::<span class="ident">Chain</span><span class="op">&gt;</span>,
+	<span class="kw">pub</span> <span class="ident">chain</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">chain::Chain</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">BlockHandler</span> {
@@ -467,10 +467,10 @@
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">get_block</span>(<span class="ident">h</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Block for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="ident">BlockPrintable</span>::<span class="ident">from_block</span>(<span class="kw-2">&amp;</span><span class="ident">block</span>, <span class="kw-2">&amp;</span><span class="ident">chain</span>, <span class="ident">include_proof</span>, <span class="ident">include_merkle_proof</span>).<span class="ident">map_err</span>(
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Block for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="ident">BlockPrintable::from_block</span>(<span class="kw-2">&amp;</span><span class="ident">block</span>, <span class="kw-2">&amp;</span><span class="ident">chain</span>, <span class="ident">include_proof</span>, <span class="ident">include_merkle_proof</span>).<span class="ident">map_err</span>(
 			<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-				<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;chain error, broken block for hash {}. {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>))
+				<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(<span class="string">&quot;chain error, broken block for hash {}. {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>))
 					.<span class="ident">into</span>()
 			},
 		)
@@ -480,9 +480,9 @@
 		<span class="kw">let</span> <span class="ident">chain</span> <span class="op">=</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">block</span> <span class="op">=</span> <span class="ident">chain</span>
 			.<span class="ident">get_block</span>(<span class="ident">h</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Block for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="ident">CompactBlockPrintable</span>::<span class="ident">from_compact_block</span>(<span class="kw-2">&amp;</span><span class="ident">block</span>.<span class="ident">into</span>(), <span class="kw-2">&amp;</span><span class="ident">chain</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-			<span class="ident">ErrorKind</span>::<span class="ident">Internal</span>(<span class="macro">format</span><span class="macro">!</span>(
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Block for hash {}, {}&quot;</span>, <span class="ident">h</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="ident">CompactBlockPrintable::from_compact_block</span>(<span class="kw-2">&amp;</span><span class="ident">block</span>.<span class="ident">into</span>(), <span class="kw-2">&amp;</span><span class="ident">chain</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+			<span class="ident">ErrorKind::Internal</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;chain error, broken compact block for hash {}, {}&quot;</span>,
 				<span class="ident">h</span>, <span class="ident">e</span>
 			))
@@ -496,7 +496,7 @@
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_by_height</span>(<span class="ident">height</span>) {
 				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">header</span>.<span class="ident">hash</span>()),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for height {}, {}&quot;</span>,
 						<span class="ident">height</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
@@ -504,9 +504,9 @@
 			}
 		}
 		<span class="ident">check_block_param</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)<span class="question-mark">?</span>;
-		<span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)
-			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind</span>::<span class="ident">Argument</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;invalid input {}, {}&quot;</span>, <span class="ident">input</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
-		<span class="prelude-val">Ok</span>(<span class="ident">Hash</span>::<span class="ident">from_vec</span>(<span class="kw-2">&amp;</span><span class="ident">vec</span>))
+		<span class="kw">let</span> <span class="ident">vec</span> <span class="op">=</span> <span class="ident">util::from_hex</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>)
+			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::Argument</span>(<span class="macro">format!</span>(<span class="string">&quot;invalid input {}, {}&quot;</span>, <span class="ident">input</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
+		<span class="prelude-val">Ok</span>(<span class="ident">Hash::from_vec</span>(<span class="kw-2">&amp;</span><span class="ident">vec</span>))
 	}
 
 	<span class="comment">// Try to get hash from height, hash or output commit</span>
@@ -520,7 +520,7 @@
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_by_height</span>(<span class="ident">height</span>) {
 				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">header</span>.<span class="ident">hash</span>()),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for height {}, {}&quot;</span>,
 						<span class="ident">height</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
@@ -533,19 +533,19 @@
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">commit</span>) <span class="op">=</span> <span class="ident">commit</span> {
 			<span class="kw">let</span> <span class="ident">oid</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">get_output_v2</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>, <span class="kw-2">&amp;</span><span class="ident">commit</span>, <span class="bool-val">false</span>, <span class="bool-val">false</span>)<span class="question-mark">?</span> {
 				<span class="prelude-val">Some</span>((<span class="kw">_</span>, <span class="ident">o</span>)) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">o</span>,
-				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Output {}&quot;</span>, <span class="ident">commit</span>)).<span class="ident">into</span>()),
+				<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(<span class="string">&quot;Output {}&quot;</span>, <span class="ident">commit</span>)).<span class="ident">into</span>()),
 			};
 			<span class="kw">match</span> <span class="ident">w</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">chain</span>)<span class="question-mark">?</span>.<span class="ident">get_header_for_output</span>(<span class="ident">oid</span>.<span class="ident">commitment</span>()) {
 				<span class="prelude-val">Ok</span>(<span class="ident">header</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">header</span>.<span class="ident">hash</span>()),
 				<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
-					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">NotFound</span>(<span class="macro">format</span><span class="macro">!</span>(
+					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::NotFound</span>(<span class="macro">format!</span>(
 						<span class="string">&quot;Header for output {:?}, {}&quot;</span>,
 						<span class="ident">oid</span>, <span class="ident">e</span>
 					)))<span class="question-mark">?</span>
 				}
 			}
 		}
-		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">Argument</span>(<span class="macro">format</span><span class="macro">!</span>(
+		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Argument</span>(<span class="macro">format!</span>(
 			<span class="string">&quot;not a valid hash {:?}, height {:?} or output commit {:?}&quot;</span>,
 			<span class="ident">hash</span>, <span class="ident">height</span>, <span class="ident">commit</span>
 		)))<span class="question-mark">?</span>;
@@ -553,11 +553,11 @@
 }
 
 <span class="kw">fn</span> <span class="ident">check_block_param</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-	<span class="macro">lazy_static</span><span class="macro">!</span> {
-		<span class="kw">static</span> <span class="kw-2">ref</span> <span class="ident">RE</span>: <span class="ident">Regex</span> <span class="op">=</span> <span class="ident">Regex</span>::<span class="ident">new</span>(<span class="string">r&quot;[0-9a-fA-F]{64}&quot;</span>).<span class="ident">unwrap</span>();
+	<span class="macro">lazy_static!</span> {
+		<span class="kw">static</span> <span class="kw-2">ref</span> <span class="ident">RE</span>: <span class="ident">Regex</span> <span class="op">=</span> <span class="ident">Regex::new</span>(<span class="string">r&quot;[0-9a-fA-F]{64}&quot;</span>).<span class="ident">unwrap</span>();
 	}
 	<span class="kw">if</span> <span class="op">!</span><span class="ident">RE</span>.<span class="ident">is_match</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>) {
-		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind</span>::<span class="ident">Argument</span>(<span class="macro">format</span><span class="macro">!</span>(
+		<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Argument</span>(<span class="macro">format!</span>(
 			<span class="string">&quot;Not a valid hash or height value {}&quot;</span>,
 			<span class="ident">input</span>
 		)))<span class="question-mark">?</span>;
@@ -567,12 +567,12 @@
 
 <span class="kw">impl</span> <span class="ident">Handler</span> <span class="kw">for</span> <span class="ident">BlockHandler</span> {
 	<span class="kw">fn</span> <span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">req</span>: <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">Body</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ResponseFuture</span> {
-		<span class="kw">let</span> <span class="ident">el</span> <span class="op">=</span> <span class="macro">right_path_element</span><span class="macro">!</span>(<span class="ident">req</span>);
+		<span class="kw">let</span> <span class="ident">el</span> <span class="op">=</span> <span class="macro">right_path_element!</span>(<span class="ident">req</span>);
 		<span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">parse_input</span>(<span class="ident">el</span>.<span class="ident">to_string</span>()) {
 			<span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
 				<span class="kw">return</span> <span class="ident">response</span>(
-					<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>,
-					<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;failed to parse request: {}&quot;</span>, <span class="ident">e</span>),
+					<span class="ident">StatusCode::BAD_REQUEST</span>,
+					<span class="macro">format!</span>(<span class="string">&quot;failed to parse request: {}&quot;</span>, <span class="ident">e</span>),
 				);
 			}
 			<span class="prelude-val">Ok</span>(<span class="ident">h</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">h</span>,
@@ -581,7 +581,7 @@
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">include_proof</span> <span class="op">=</span> <span class="bool-val">false</span>;
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">include_merkle_proof</span> <span class="op">=</span> <span class="bool-val">true</span>;
 		<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">params</span>) <span class="op">=</span> <span class="ident">req</span>.<span class="ident">uri</span>().<span class="ident">query</span>() {
-			<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">url</span>::<span class="ident">form_urlencoded</span>::<span class="ident">parse</span>(<span class="ident">params</span>.<span class="ident">as_bytes</span>());
+			<span class="kw">let</span> <span class="ident">query</span> <span class="op">=</span> <span class="ident">url::form_urlencoded::parse</span>(<span class="ident">params</span>.<span class="ident">as_bytes</span>());
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">compact</span> <span class="op">=</span> <span class="bool-val">false</span>;
 			<span class="kw">for</span> (<span class="ident">param</span>, <span class="kw">_</span>) <span class="kw">in</span> <span class="ident">query</span> {
 				<span class="kw">match</span> <span class="ident">param</span>.<span class="ident">as_ref</span>() {
@@ -590,8 +590,8 @@
 					<span class="string">&quot;include_proof&quot;</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">include_proof</span> <span class="op">=</span> <span class="bool-val">true</span>,
 					<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> {
 						<span class="kw">return</span> <span class="ident">response</span>(
-							<span class="ident">StatusCode</span>::<span class="ident">BAD_REQUEST</span>,
-							<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;unsupported query parameter: {}&quot;</span>, <span class="ident">param</span>),
+							<span class="ident">StatusCode::BAD_REQUEST</span>,
+							<span class="macro">format!</span>(<span class="string">&quot;unsupported query parameter: {}&quot;</span>, <span class="ident">param</span>),
 						)
 					}
 				}
@@ -605,5 +605,5 @@
 	}
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-js="../../../search-index.js"></div>
+</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="grin_api" data-search-index-js="../../../search-index.js" data-search-js="../../../search.js"></div>
     <script src="../../../main.js"></script><script src="../../../source-script.js"></script><script src="../../../source-files.js"></script></body></html>
