@@ -2,35 +2,35 @@
 on the wallet, as well as helpers to invoke and instantiate wallets
 and listeners</p>
 </div></details><h2 id="structs" class="section-header"><a href="#structs">Structs</a></h2>
-<div class="item-table"><div class="item-left module-item"><a class="struct" href="struct.ECDHPubkey.html" title="grin_wallet_api::ECDHPubkey struct">ECDHPubkey</a></div><div class="item-right docblock-short"><p>Wrapper for ECDH Public keys</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.EncryptedRequest.html" title="grin_wallet_api::EncryptedRequest struct">EncryptedRequest</a></div><div class="item-right docblock-short"><p>Wrapper for secure JSON requests</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.EncryptedResponse.html" title="grin_wallet_api::EncryptedResponse struct">EncryptedResponse</a></div><div class="item-right docblock-short"><p>Wrapper for secure JSON requests</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.EncryptionErrorResponse.html" title="grin_wallet_api::EncryptionErrorResponse struct">EncryptionErrorResponse</a></div><div class="item-right docblock-short"><p>Wrapper for encryption error responses</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.Foreign.html" title="grin_wallet_api::Foreign struct">Foreign</a></div><div class="item-right docblock-short"><p>Main interface into all wallet API functions.
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ECDHPubkey.html" title="grin_wallet_api::ECDHPubkey struct">ECDHPubkey</a></div><div class="item-right docblock-short"><p>Wrapper for ECDH Public keys</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EncryptedRequest.html" title="grin_wallet_api::EncryptedRequest struct">EncryptedRequest</a></div><div class="item-right docblock-short"><p>Wrapper for secure JSON requests</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EncryptedResponse.html" title="grin_wallet_api::EncryptedResponse struct">EncryptedResponse</a></div><div class="item-right docblock-short"><p>Wrapper for secure JSON requests</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EncryptionErrorResponse.html" title="grin_wallet_api::EncryptionErrorResponse struct">EncryptionErrorResponse</a></div><div class="item-right docblock-short"><p>Wrapper for encryption error responses</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Foreign.html" title="grin_wallet_api::Foreign struct">Foreign</a></div><div class="item-right docblock-short"><p>Main interface into all wallet API functions.
 Wallet APIs are split into two seperate blocks of functionality
 called the <a href="struct.Owner.html">‘Owner’</a> and <a href="struct.Foreign.html">‘Foreign’</a> APIs</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.Owner.html" title="grin_wallet_api::Owner struct">Owner</a></div><div class="item-right docblock-short"><p>Main interface into all wallet API functions.
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Owner.html" title="grin_wallet_api::Owner struct">Owner</a></div><div class="item-right docblock-short"><p>Main interface into all wallet API functions.
 Wallet APIs are split into two seperate blocks of functionality
 called the <a href="struct.Owner.html">‘Owner’</a> and <a href="struct.Foreign.html">‘Foreign’</a> APIs</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.PubAddress.html" title="grin_wallet_api::PubAddress struct">PubAddress</a></div><div class="item-right docblock-short"><p>Wrapper for dalek public keys, used as addresses</p>
-</div><div class="item-left module-item"><a class="struct" href="struct.Token.html" title="grin_wallet_api::Token struct">Token</a></div><div class="item-right docblock-short"><p>Wrapper for API Tokens</p>
-</div></div><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
-<div class="item-table"><div class="item-left module-item"><a class="enum" href="enum.ForeignCheckMiddlewareFn.html" title="grin_wallet_api::ForeignCheckMiddlewareFn enum">ForeignCheckMiddlewareFn</a></div><div class="item-right docblock-short"><p>Middleware Identifiers for each function</p>
-</div><div class="item-left module-item"><a class="enum" href="enum.JsonId.html" title="grin_wallet_api::JsonId enum">JsonId</a></div><div class="item-right docblock-short"><p>Represents a compliant JSON RPC 2.0 id.
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PubAddress.html" title="grin_wallet_api::PubAddress struct">PubAddress</a></div><div class="item-right docblock-short"><p>Wrapper for dalek public keys, used as addresses</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Token.html" title="grin_wallet_api::Token struct">Token</a></div><div class="item-right docblock-short"><p>Wrapper for API Tokens</p>
+</div></div></div><h2 id="enums" class="section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ForeignCheckMiddlewareFn.html" title="grin_wallet_api::ForeignCheckMiddlewareFn enum">ForeignCheckMiddlewareFn</a></div><div class="item-right docblock-short"><p>Middleware Identifiers for each function</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.JsonId.html" title="grin_wallet_api::JsonId enum">JsonId</a></div><div class="item-right docblock-short"><p>Represents a compliant JSON RPC 2.0 id.
 Valid id: Integer, String.</p>
-</div><div class="item-left module-item"><a class="enum" href="enum.foreign_rpc_client.html" title="grin_wallet_api::foreign_rpc_client enum">foreign_rpc_client</a></div><div class="item-right docblock-short"><p>Helper module for jsonrpc clients. Automatically generated by easy-jsonrpc.</p>
-</div></div><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
-<div class="item-table"><div class="item-left module-item"><a class="trait" href="trait.ForeignRpc.html" title="grin_wallet_api::ForeignRpc trait">ForeignRpc</a></div><div class="item-right docblock-short"><p>Public definition used to generate Foreign jsonrpc api.</p>
-</div><div class="item-left module-item"><a class="trait" href="trait.OwnerRpcV2.html" title="grin_wallet_api::OwnerRpcV2 trait">OwnerRpcV2</a></div><div class="item-right docblock-short"><p>Public definition used to generate Owner jsonrpc api.</p>
-</div><div class="item-left module-item"><a class="trait" href="trait.OwnerRpcV3.html" title="grin_wallet_api::OwnerRpcV3 trait">OwnerRpcV3</a></div><div class="item-right docblock-short"><p>Public definition used to generate Owner jsonrpc api.
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.foreign_rpc_client.html" title="grin_wallet_api::foreign_rpc_client enum">foreign_rpc_client</a></div><div class="item-right docblock-short"><p>Helper module for jsonrpc clients. Automatically generated by easy-jsonrpc.</p>
+</div></div></div><h2 id="traits" class="section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ForeignRpc.html" title="grin_wallet_api::ForeignRpc trait">ForeignRpc</a></div><div class="item-right docblock-short"><p>Public definition used to generate Foreign jsonrpc api.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.OwnerRpcV2.html" title="grin_wallet_api::OwnerRpcV2 trait">OwnerRpcV2</a></div><div class="item-right docblock-short"><p>Public definition used to generate Owner jsonrpc api.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.OwnerRpcV3.html" title="grin_wallet_api::OwnerRpcV3 trait">OwnerRpcV3</a></div><div class="item-right docblock-short"><p>Public definition used to generate Owner jsonrpc api.
 Secure version containing wallet lifecycle functions. All calls to this API must be encrypted.
 See <a href="#tymethod.init_secure_api"><code>init_secure_api</code></a> for details of secret derivation
 and encryption.</p>
-</div></div><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
-<div class="item-table"><div class="item-left module-item"><a class="fn" href="fn.run_doctest_foreign.html" title="grin_wallet_api::run_doctest_foreign fn">run_doctest_foreign</a></div><div class="item-right docblock-short"><p>helper to set up a real environment to run integrated doctests</p>
-</div><div class="item-left module-item"><a class="fn" href="fn.run_doctest_owner.html" title="grin_wallet_api::run_doctest_owner fn">run_doctest_owner</a></div><div class="item-right docblock-short"><p>helper to set up a real environment to run integrated doctests</p>
-</div></div><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
-<div class="item-table"><div class="item-left module-item"><a class="type" href="type.ForeignCheckMiddleware.html" title="grin_wallet_api::ForeignCheckMiddleware type">ForeignCheckMiddleware</a></div><div class="item-right docblock-short"><p>ForeignAPI Middleware Check callback</p>
-</div></div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="grin_wallet_api" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
+</div></div></div><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.run_doctest_foreign.html" title="grin_wallet_api::run_doctest_foreign fn">run_doctest_foreign</a></div><div class="item-right docblock-short"><p>helper to set up a real environment to run integrated doctests</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="fn" href="fn.run_doctest_owner.html" title="grin_wallet_api::run_doctest_owner fn">run_doctest_owner</a></div><div class="item-right docblock-short"><p>helper to set up a real environment to run integrated doctests</p>
+</div></div></div><h2 id="types" class="section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.ForeignCheckMiddleware.html" title="grin_wallet_api::ForeignCheckMiddleware type">ForeignCheckMiddleware</a></div><div class="item-right docblock-short"><p>ForeignAPI Middleware Check callback</p>
+</div></div></div></section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../" data-current-crate="grin_wallet_api" data-search-index-js="../search-index.js" data-search-js="../search.js"></div>
     <script src="../main.js"></script>
 </body></html>

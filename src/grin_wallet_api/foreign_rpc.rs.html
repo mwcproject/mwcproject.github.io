@@ -1467,7 +1467,7 @@
 	# ,false, 0, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Foreign::check_version](struct.Foreign.html#method.check_version).
@@ -1497,7 +1497,7 @@
 	# ,false, 0, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked Legacy (non-secure token) version of [Foreign::build_coinbase](struct.Foreign.html#method.build_coinbase).
@@ -1548,7 +1548,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedCoinbase</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedCoinbase</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Foreign::verify_slate_messages](struct.Foreign.html#method.verify_slate_messages).
@@ -1630,7 +1630,7 @@
 	# ,false, 1 ,false, false, false);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Foreign::receive_tx](struct.Foreign.html#method.receive_tx).
@@ -1946,7 +1946,7 @@
 		<span class="ident">slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">dest_acct_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 
@@ -2304,20 +2304,20 @@
 	# ,false, 5, false, true, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Foreign::receive_swap_message](struct.Foreign.html#method.receive_swap_message).
 
 	# Json rpc example
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Foreign::marketplace_message](struct.Foreign.html#method.marketplace_message).
 	# Json rpc example
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">marketplace_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accept_offer_message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">marketplace_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accept_offer_message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span> <span class="ident">ForeignRpc</span> <span class="kw">for</span> <span class="ident">Foreign</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span>
@@ -2326,21 +2326,21 @@
 	<span class="ident">C</span>: <span class="ident">NodeClient</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
 	<span class="ident">K</span>: <span class="ident">Keychain</span> <span class="op">+</span> <span class="lifetime">&#39;a</span>,
 {
-	<span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">check_version</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Foreign::check_version</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_proof_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Foreign::get_proof_address</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedCoinbase</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">build_coinbase</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">block_fees</span>: <span class="kw-2">&amp;</span><span class="ident">BlockFees</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedCoinbase</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">cb</span>: <span class="ident">CbData</span> <span class="op">=</span> <span class="ident">Foreign::build_coinbase</span>(<span class="self">self</span>, <span class="ident">block_fees</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(<span class="ident">VersionedCoinbase::into_version</span>(<span class="ident">cb</span>, <span class="ident">SlateVersion::V2</span>))
 	}
 
 	<span class="comment">// verify_slate_messages doesn&#39;t make sense for the slate pack. That is why supporting only plain slates</span>
-	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Foreign::verify_slate_messages</span>(
 			<span class="self">self</span>,
 			<span class="kw-2">&amp;</span><span class="ident">slate</span>.<span class="ident">into_slate_plain</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
@@ -2355,7 +2355,7 @@
 		<span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">dest_acct_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">sender</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">in_slate</span>.<span class="ident">is_slatepack</span>() {
 			<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>) <span class="op">=</span>
@@ -2400,7 +2400,7 @@
 		<span class="prelude-val">Ok</span>(<span class="ident">res_slate</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">finalize_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">in_slate</span>, <span class="ident">sender</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">in_slate</span>.<span class="ident">is_slatepack</span>() {
 			<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>) <span class="op">=</span>
@@ -2438,14 +2438,14 @@
 		<span class="prelude-val">Ok</span>(<span class="ident">res_slate</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Foreign::receive_swap_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::SwapError</span>(<span class="macro">format!</span>(<span class="string">&quot;Error encountered receiving swap message, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 		<span class="prelude-val">Ok</span>(())
 	}
 
-	<span class="kw">fn</span> <span class="ident">marketplace_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">marketplace_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Foreign::marketplace_message</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::SwapError</span>(<span class="macro">format!</span>(<span class="string">&quot;Error encountered receiving swap message, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
@@ -2457,7 +2457,7 @@
 	<span class="ident">_name</span>: <span class="ident">ForeignCheckMiddlewareFn</span>,
 	<span class="ident">_node_version_info</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NodeVersionInfo</span><span class="op">&gt;</span>,
 	<span class="ident">_slate</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">Slate</span><span class="op">&gt;</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">libwallet::Error</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">libwallet::Error</span><span class="op">&gt;</span> {
 	<span class="comment">// TODO: Implement checks</span>
 	<span class="comment">// return Err(ErrorKind::GenericError(&quot;Test Rejection&quot;.into()))?</span>
 	<span class="prelude-val">Ok</span>(())
@@ -2472,7 +2472,7 @@
 	<span class="ident">init_tx</span>: <span class="ident">bool</span>,
 	<span class="ident">init_invoice_tx</span>: <span class="ident">bool</span>,
 	<span class="ident">compact_slate</span>: <span class="ident">bool</span>,
-) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">serde_json::Value</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">serde_json::Value</span><span class="op">&gt;</span>, <span class="ident">String</span><span class="op">&gt;</span> {
 	<span class="kw">use</span> <span class="ident">easy_jsonrpc_mw::Handler</span>;
 	<span class="kw">use</span> <span class="ident">grin_wallet_impls::test_framework</span>::{<span class="self">self</span>, <span class="ident">LocalWalletClient</span>, <span class="ident">WalletProxy</span>};
 	<span class="kw">use</span> <span class="ident">grin_wallet_impls</span>::{<span class="ident">DefaultLCProvider</span>, <span class="ident">DefaultWalletImpl</span>};
@@ -2737,8 +2737,8 @@
 	}
 
 	<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">api_foreign</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">init_invoice_tx</span> {
-		<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Foreign::new</span>(<span class="ident">wallet1</span>, <span class="ident">mask1</span>, <span class="prelude-val">Some</span>(<span class="ident">test_check_middleware</span>)),
-		<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Foreign::new</span>(<span class="ident">wallet2</span>, <span class="ident">mask2</span>, <span class="prelude-val">Some</span>(<span class="ident">test_check_middleware</span>)),
+		<span class="bool-val">false</span> =&gt; <span class="ident">Foreign::new</span>(<span class="ident">wallet1</span>, <span class="ident">mask1</span>, <span class="prelude-val">Some</span>(<span class="ident">test_check_middleware</span>)),
+		<span class="bool-val">true</span> =&gt; <span class="ident">Foreign::new</span>(<span class="ident">wallet2</span>, <span class="ident">mask2</span>, <span class="prelude-val">Some</span>(<span class="ident">test_check_middleware</span>)),
 	};
 	<span class="ident">api_foreign</span>.<span class="ident">doctest_mode</span> <span class="op">=</span> <span class="bool-val">true</span>;
 	<span class="kw">let</span> <span class="ident">foreign_api</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">api_foreign</span> <span class="kw">as</span> <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ForeignRpc</span>;
@@ -2750,7 +2750,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules!</span> <span class="ident">doctest_helper_json_rpc_foreign_assert_response</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">request</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expected_response</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">use_token</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">blocks_to_mine</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">init_tx</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">init_invoice_tx</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">compact_slate</span>:<span class="ident">expr</span>) <span class="op">=</span><span class="op">&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">request</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expected_response</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">use_token</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">blocks_to_mine</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">init_tx</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">init_invoice_tx</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">compact_slate</span>:<span class="ident">expr</span>) =&gt; {
 		<span class="comment">// create temporary wallet, run jsonrpc request on owner api of wallet, delete wallet, return</span>
 		<span class="comment">// json response.</span>
 		<span class="comment">// In order to prevent leaking tempdirs, This function should not panic.</span>

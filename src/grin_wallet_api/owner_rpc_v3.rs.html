@@ -3949,7 +3949,7 @@
 	# , true, 4, false, false, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::create_account_path](struct.Owner.html#method.create_account_path).
@@ -3982,7 +3982,7 @@
 	# ,true, 4, false, false, false, false, true);
 	```
 	 */</span>
-	<span class="kw">fn</span> <span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::set_active_account](struct.Owner.html#method.set_active_account).
@@ -4015,7 +4015,7 @@
 	# , true, 4, false, false, false, false, true);
 	```
 	 */</span>
-	<span class="kw">fn</span> <span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::retrieve_outputs](struct.Owner.html#method.retrieve_outputs).
@@ -4092,7 +4092,7 @@
 		<span class="ident">include_spent</span>: <span class="ident">bool</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::retrieve_txs](struct.Owner.html#method.retrieve_txs).
@@ -4192,7 +4192,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntryAPI</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntryAPI</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::retrieve_summary_info](struct.Owner.html#method.retrieve_summary_info).
@@ -4242,7 +4242,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">minimum_confirmations</span>: <span class="ident">u64</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::init_send_tx](struct.Owner.html#method.init_send_tx).
@@ -4594,7 +4594,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">args</span>: <span class="ident">InitTxArgs</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">args</span>: <span class="ident">InitTxArgs</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::issue_invoice_tx](struct.Owner.html#method.issue_invoice_tx).
@@ -4790,7 +4790,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">args</span>: <span class="ident">IssueInvoiceTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::process_invoice_tx](struct.Owner.html#method.process_invoice_tx).
@@ -5142,7 +5142,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">args</span>: <span class="ident">InitTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::tx_lock_outputs](struct.Owner.html#method.tx_lock_outputs).
@@ -5320,7 +5320,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">participant_id</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::finalize_tx](struct.Owner.html#method.finalize_tx).
@@ -5680,7 +5680,7 @@
 	```
 	 */</span>
 	<span class="kw">fn</span> <span class="ident">finalize_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>)
-		<span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+		-&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::post_tx](struct.Owner.html#method.post_tx).
@@ -5748,7 +5748,7 @@
 	```
 	 */</span>
 
-	<span class="kw">fn</span> <span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">tx</span>: <span class="ident">TransactionV3</span>, <span class="ident">fluff</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">tx</span>: <span class="ident">TransactionV3</span>, <span class="ident">fluff</span>: <span class="ident">bool</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::cancel_tx](struct.Owner.html#method.cancel_tx).
@@ -5811,7 +5811,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_stored_tx](struct.Owner.html#method.get_stored_tx).
@@ -5885,7 +5885,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">tx</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntryAPI</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TransactionV3</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TransactionV3</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::verify_slate_messages](struct.Owner.html#method.verify_slate_messages).
@@ -5967,7 +5967,7 @@
 	# ,true, 0 ,false, false, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::scan](struct.Owner.html#method.scan).
@@ -6005,7 +6005,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">start_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">delete_unconfirmed</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::node_height](struct.Owner.html#method.node_height).
@@ -6039,7 +6039,7 @@
 	# , true, 5, false, false, false, false, true);
 	```
 	 */</span>
-	<span class="kw">fn</span> <span class="ident">node_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">node_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 		Initializes the secure JSON-RPC API. This function must be called and a shared key
@@ -6093,7 +6093,7 @@
 
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">init_secure_api</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ecdh_pubkey</span>: <span class="ident">ECDHPubkey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ECDHPubkey</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">init_secure_api</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ecdh_pubkey</span>: <span class="ident">ECDHPubkey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ECDHPubkey</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_top_level_directory](struct.Owner.html#method.get_top_level_directory).
@@ -6123,7 +6123,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::set_top_level_directory](struct.Owner.html#method.set_top_level_directory).
@@ -6153,7 +6153,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::create_config](struct.Owner.html#method.create_config).
@@ -6230,7 +6230,7 @@
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 		<span class="ident">mqs_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MQSConfig</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::create_wallet](struct.Owner.html#method.create_wallet).
@@ -6269,7 +6269,7 @@
 		<span class="ident">mnemonic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">mnemonic_length</span>: <span class="ident">u32</span>,
 		<span class="ident">password</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::open_wallet](struct.Owner.html#method.open_wallet).
@@ -6300,7 +6300,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">open_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Token</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">open_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Token</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::close_wallet](struct.Owner.html#method.close_wallet).
@@ -6330,7 +6330,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_mnemonic](struct.Owner.html#method.get_mnemonic).
@@ -6361,7 +6361,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">get_mnemonic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_mnemonic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::change_password](struct.Owner.html#method.change_password).
@@ -6397,7 +6397,7 @@
 		<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">old</span>: <span class="ident">String</span>,
 		<span class="ident">new</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::delete_wallet](struct.Owner.html#method.delete_wallet).
@@ -6426,7 +6426,7 @@
 	# , true, 0, false, false, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::start_updated](struct.Owner.html#method.start_updater).
@@ -6457,7 +6457,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">start_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">start_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::stop_updater](struct.Owner.html#method.stop_updater).
@@ -6484,7 +6484,7 @@
 	# , true, 0, false, false, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_updater_messages](struct.Owner.html#method.get_updater_messages).
@@ -6514,7 +6514,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">u32</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_mqs_address](struct.Owner.html#method.get_mqs_address).
@@ -6548,7 +6548,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::get_wallet_public_address](struct.Owner.html#method.get_wallet_public_address).
@@ -6582,7 +6582,7 @@
 	```
 	*/</span>
 
-	<span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::retrieve_payment_proof](struct.Owner.html#method.retrieve_payment_proof).
@@ -6679,7 +6679,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::verify_payment_proof](struct.Owner.html#method.verify_payment_proof).
@@ -6776,7 +6776,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">proof</span>: <span class="ident">PaymentProof</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::set_tor_config](struct.Owner.html#method.set_tor_config).
@@ -6810,7 +6810,7 @@
 	# , true, 0, false, false, false, false, true);
 	```
 	*/</span>
-	<span class="kw">fn</span> <span class="ident">set_tor_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	<span class="kw">fn</span> <span class="ident">set_tor_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::encode_slatepack_message](struct.Owner.html#method.encode_slatepack_message).
@@ -6982,7 +6982,7 @@
 		<span class="ident">content</span>: <span class="ident">SlatePurpose</span>,
 		<span class="ident">recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span><span class="op">&gt;</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 
 	<span class="doccomment">/**
 	Networked version of [Owner::decode_slatepack_message](struct.Owner.html#method.decode_slatepack_message).
@@ -7160,7 +7160,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">message</span>: <span class="ident">String</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SlatepackInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SlatepackInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span>;
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span> <span class="ident">OwnerRpcV3</span> <span class="kw">for</span> <span class="ident">Owner</span><span class="op">&lt;</span><span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span>
@@ -7169,16 +7169,16 @@
 	<span class="ident">C</span>: <span class="ident">NodeClient</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	<span class="ident">K</span>: <span class="ident">Keychain</span> <span class="op">+</span> <span class="lifetime">&#39;static</span>,
 {
-	<span class="kw">fn</span> <span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">accounts</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::accounts</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">create_account_path</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::create_account_path</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">set_active_account</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::set_active_account</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">label</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
@@ -7189,7 +7189,7 @@
 		<span class="ident">include_spent</span>: <span class="ident">bool</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::retrieve_outputs</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7206,7 +7206,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntryAPI</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntryAPI</span><span class="op">&gt;</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::retrieve_txs</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7230,7 +7230,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">minimum_confirmations</span>: <span class="ident">u64</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::retrieve_summary_info</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7240,7 +7240,7 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">args</span>: <span class="ident">InitTxArgs</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">init_send_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">args</span>: <span class="ident">InitTxArgs</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner::init_send_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>, <span class="number">1</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="comment">// Return plain slate. If caller don&#39;t want sent slate with this API, than probvably caller want</span>
@@ -7256,7 +7256,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">args</span>: <span class="ident">IssueInvoiceTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">Owner::issue_invoice_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">args</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 
@@ -7286,7 +7286,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">args</span>: <span class="ident">InitTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>) <span class="op">=</span>
 			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
@@ -7325,7 +7325,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">in_slate</span>.<span class="ident">version</span>();
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">_content</span>, <span class="ident">sender</span>) <span class="op">=</span>
 			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
@@ -7355,7 +7355,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">participant_id</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">_content</span>, <span class="ident">_sender</span>) <span class="op">=</span>
 			<span class="ident">Owner::decrypt_versioned_slate</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">in_slate</span>)
 				.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">e</span>)))<span class="question-mark">?</span>;
@@ -7375,7 +7375,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::cancel_tx</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="ident">tx_id</span>, <span class="ident">tx_slate_id</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
@@ -7384,7 +7384,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">tx</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntryAPI</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TransactionV3</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TransactionV3</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::get_stored_tx</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7428,7 +7428,7 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">tx</span>: <span class="ident">TransactionV3</span>, <span class="ident">fluff</span>: <span class="ident">bool</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">post_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">tx</span>: <span class="ident">TransactionV3</span>, <span class="ident">fluff</span>: <span class="ident">bool</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::post_tx</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7438,7 +7438,7 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">verify_slate_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">slate</span>: <span class="ident">VersionedSlate</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">if</span> <span class="ident">slate</span>.<span class="ident">is_slatepack</span>() {
 			<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::SlatepackDecodeError</span>(
 				<span class="string">&quot;verify_slate_messages is not applicable for slatepack&quot;</span>.<span class="ident">to_string</span>(),
@@ -7457,7 +7457,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">start_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">delete_unconfirmed</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::scan</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7467,14 +7467,14 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">node_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">node_height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::node_height</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
 	<span class="comment">// we have to use e.description  because of the bug at rust-secp256k1-zkp</span>
 	<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">deprecated</span>)]</span>
 
-	<span class="kw">fn</span> <span class="ident">init_secure_api</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ecdh_pubkey</span>: <span class="ident">ECDHPubkey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ECDHPubkey</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">init_secure_api</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ecdh_pubkey</span>: <span class="ident">ECDHPubkey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ECDHPubkey</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">secp_inst</span> <span class="op">=</span> <span class="ident">static_secp_instance</span>();
 		<span class="kw">let</span> <span class="ident">secp</span> <span class="op">=</span> <span class="ident">secp_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">SecretKey::new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">thread_rng</span>());
@@ -7502,11 +7502,11 @@
 
 	<span class="attribute">#[<span class="ident">warn</span>(<span class="ident">deprecated</span>)]</span>
 
-	<span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::get_top_level_directory</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::set_top_level_directory</span>(<span class="self">self</span>, <span class="kw-2">&amp;</span><span class="ident">dir</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
@@ -7517,7 +7517,7 @@
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 		<span class="ident">mqs_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MQSConfig</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::create_config</span>(
 			<span class="self">self</span>,
 			<span class="kw-2">&amp;</span><span class="ident">chain_type</span>,
@@ -7535,11 +7535,11 @@
 		<span class="ident">mnemonic</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">mnemonic_length</span>: <span class="ident">u32</span>,
 		<span class="ident">password</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">mnemonic</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">ZeroingString::from</span>(<span class="ident">s</span>)),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			<span class="prelude-val">Some</span>(<span class="ident">s</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">ZeroingString::from</span>(<span class="ident">s</span>)),
+			<span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>,
 		};
 		<span class="ident">Owner::create_wallet</span>(
 			<span class="self">self</span>,
@@ -7552,7 +7552,7 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">open_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Token</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">open_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Token</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="kw">let</span> <span class="ident">sec_key</span> <span class="op">=</span> <span class="ident">Owner::open_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString::from</span>(<span class="ident">password</span>), <span class="bool-val">true</span>, <span class="prelude-val">None</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
@@ -7561,12 +7561,12 @@
 		})
 	}
 
-	<span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="ident">Owner::close_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_mnemonic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_mnemonic</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>, <span class="ident">password</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Owner::get_mnemonic</span>(<span class="self">self</span>, <span class="ident">n</span>, <span class="ident">ZeroingString::from</span>(<span class="ident">password</span>), <span class="prelude-val">None</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
@@ -7578,7 +7578,7 @@
 		<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">old</span>: <span class="ident">String</span>,
 		<span class="ident">new</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="ident">Owner::change_password</span>(
 			<span class="self">self</span>,
@@ -7590,12 +7590,12 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">name</span>.<span class="ident">as_ref</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">as_str</span>());
 		<span class="ident">Owner::delete_wallet</span>(<span class="self">self</span>, <span class="ident">n</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">start_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">start_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>, <span class="ident">frequency</span>: <span class="ident">u32</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::start_updater</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7604,15 +7604,15 @@
 		.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::stop_updater</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">u32</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::get_updater_messages</span>(<span class="self">self</span>, <span class="ident">count</span> <span class="kw">as</span> <span class="ident">usize</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span>
 			<span class="ident">Owner::get_mqs_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>()).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">public_proof_address</span> <span class="op">=</span> <span class="ident">ProvableAddress::from_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
@@ -7620,7 +7620,7 @@
 		<span class="prelude-val">Ok</span>(<span class="ident">public_proof_address</span>)
 	}
 
-	<span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">token</span>: <span class="ident">Token</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">Owner::get_wallet_public_address</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>())
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">ProvableAddress::from_tor_pub_key</span>(<span class="kw-2">&amp;</span><span class="ident">address</span>);
@@ -7634,7 +7634,7 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::retrieve_payment_proof</span>(
 			<span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),
@@ -7649,12 +7649,12 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">proof</span>: <span class="ident">PaymentProof</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::verify_payment_proof</span>(<span class="self">self</span>, (<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(), <span class="kw-2">&amp;</span><span class="ident">proof</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">kind</span>())
 	}
 
-	<span class="kw">fn</span> <span class="ident">set_tor_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">set_tor_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">Owner::set_tor_config</span>(<span class="self">self</span>, <span class="ident">tor_config</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -7666,17 +7666,17 @@
 		<span class="ident">content</span>: <span class="ident">SlatePurpose</span>,
 		<span class="ident">recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ProvableAddress</span><span class="op">&gt;</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="comment">// Expected Slate in Json (plain) format</span>
 		<span class="kw">let</span> <span class="ident">slate</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">into_slate_plain</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::SlatepackDecodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Expected to get slate in Json format, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
 
 		<span class="kw">let</span> <span class="ident">recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">recipient</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">recipient</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">recipient</span>.<span class="ident">tor_public_key</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">recipient</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">recipient</span>.<span class="ident">tor_public_key</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 				<span class="ident">ErrorKind::SlatepackEncodeError</span>(<span class="macro">format!</span>(<span class="string">&quot;Expecting recipient tor address, {}&quot;</span>, <span class="ident">e</span>))
 			})<span class="question-mark">?</span>),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			<span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>,
 		};
 
 		<span class="kw">let</span> <span class="ident">vslate</span> <span class="op">=</span> <span class="ident">Owner::encrypt_slate</span>(
@@ -7705,7 +7705,7 @@
 		<span class="ident">token</span>: <span class="ident">Token</span>,
 		<span class="ident">message</span>: <span class="ident">String</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SlatepackInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SlatepackInfo</span>, <span class="ident">ErrorKind</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">slate</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">recipient</span>) <span class="op">=</span> <span class="ident">Owner::decrypt_slatepack</span>(
 			<span class="kw-2">&amp;</span><span class="self">self</span>,
 			(<span class="kw-2">&amp;</span><span class="ident">token</span>.<span class="ident">keychain_mask</span>).<span class="ident">as_ref</span>(),

@@ -579,7 +579,7 @@
 
 <span class="kw">impl</span> <span class="ident">EncryptedBody</span> {
 	<span class="doccomment">/// Encrypts and encodes json as base 64</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">to_encrypt</span> <span class="op">=</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">json_in</span>)
 			.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 				<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(<span class="string">&quot;EncryptedBody Enc: Unable to encode JSON, {}&quot;</span>, <span class="ident">e</span>))
@@ -612,7 +612,7 @@
 	}
 
 	<span class="doccomment">/// return serialize JSON self</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_value</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(<span class="string">&quot;EncryptedBody: JSON serialization failed, {}&quot;</span>, <span class="ident">e</span>))
 		})<span class="question-mark">?</span>;
@@ -620,7 +620,7 @@
 	}
 
 	<span class="doccomment">/// return serialized JSON self as string</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_json_value</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
@@ -632,7 +632,7 @@
 	}
 
 	<span class="doccomment">/// Return original request</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">to_decrypt</span> <span class="op">=</span> <span class="ident">base64::decode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">body_enc</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;EncryptedBody Dec: Encrypted request contains invalid Base64, {}&quot;</span>,
@@ -693,7 +693,7 @@
 
 <span class="kw">impl</span> <span class="ident">EncryptedRequest</span> {
 	<span class="doccomment">/// from json</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">JsonId</span>, <span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">JsonId</span>, <span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="prelude-val">Ok</span>(<span class="ident">EncryptedRequest</span> {
 			<span class="ident">jsonrpc</span>: <span class="string">&quot;2.0&quot;</span>.<span class="ident">to_owned</span>(),
 			<span class="ident">method</span>: <span class="string">&quot;encrypted_request_v3&quot;</span>.<span class="ident">to_owned</span>(),
@@ -703,7 +703,7 @@
 	}
 
 	<span class="doccomment">/// return serialize JSON self</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_value</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;EncryptedRequest: JSON serialization failed, {}&quot;</span>,
@@ -714,7 +714,7 @@
 	}
 
 	<span class="doccomment">/// return serialized JSON self as string</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_json_value</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
@@ -726,7 +726,7 @@
 	}
 
 	<span class="doccomment">/// Return decrypted body</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">params</span>.<span class="ident">decrypt</span>(<span class="ident">dec_key</span>)
 	}
 }
@@ -744,7 +744,7 @@
 
 <span class="kw">impl</span> <span class="ident">EncryptedResponse</span> {
 	<span class="doccomment">/// from json</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">JsonId</span>, <span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_json</span>(<span class="ident">id</span>: <span class="kw-2">&amp;</span><span class="ident">JsonId</span>, <span class="ident">json_in</span>: <span class="kw-2">&amp;</span><span class="ident">Value</span>, <span class="ident">enc_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result_set</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
 		<span class="ident">result_set</span>.<span class="ident">insert</span>(
 			<span class="string">&quot;Ok&quot;</span>.<span class="ident">to_string</span>(),
@@ -758,7 +758,7 @@
 	}
 
 	<span class="doccomment">/// return serialize JSON self</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_value</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;EncryptedResponse: JSON serialization failed, {}&quot;</span>,
@@ -769,7 +769,7 @@
 	}
 
 	<span class="doccomment">/// return serialized JSON self as string</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">as_json_value</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">res</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
@@ -781,7 +781,7 @@
 	}
 
 	<span class="doccomment">/// Return decrypted body</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dec_key</span>: <span class="kw-2">&amp;</span><span class="ident">SecretKey</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Value</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">result</span>
 			.<span class="ident">get</span>(<span class="string">&quot;Ok&quot;</span>)
 			.<span class="ident">ok_or</span>(<span class="ident">ErrorKind::GenericError</span>(<span class="macro">format!</span>(
@@ -814,7 +814,7 @@
 
 <span class="kw">impl</span> <span class="ident">EncryptionErrorResponse</span> {
 	<span class="doccomment">/// Create new response</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">id</span>: <span class="ident">u64</span>, <span class="ident">code</span>: <span class="ident">i32</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">id</span>: <span class="ident">u64</span>, <span class="ident">code</span>: <span class="ident">i32</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">EncryptionErrorResponse</span> {
 			<span class="ident">jsonrpc</span>: <span class="string">&quot;2.0&quot;</span>.<span class="ident">to_owned</span>(),
 			<span class="ident">id</span>: <span class="ident">id</span>,
@@ -826,7 +826,7 @@
 	}
 
 	<span class="doccomment">/// return serialized JSON self</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Value</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_json_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Value</span> {
 		<span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">serde_json::to_value</span>(<span class="self">self</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
 			<span class="ident">ErrorKind::APIEncryption</span>(<span class="macro">format!</span>(
 				<span class="string">&quot;EncryptedResponse: JSON serialization failed, {}&quot;</span>,
@@ -834,9 +834,9 @@
 			))
 		});
 		<span class="kw">match</span> <span class="ident">res</span> {
-			<span class="prelude-val">Ok</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">r</span>,
+			<span class="prelude-val">Ok</span>(<span class="ident">r</span>) =&gt; <span class="ident">r</span>,
 			<span class="comment">// proverbial &quot;should never happen&quot;</span>
-			<span class="prelude-val">Err</span>(<span class="ident">r</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">serde_json::json!</span>({
+			<span class="prelude-val">Err</span>(<span class="ident">r</span>) =&gt; <span class="macro">serde_json::json!</span>({
 					<span class="string">&quot;json_rpc&quot;</span> : <span class="string">&quot;2.0&quot;</span>,
 					<span class="string">&quot;id&quot;</span> : <span class="string">&quot;1&quot;</span>,
 					<span class="string">&quot;error&quot;</span> : {
@@ -912,7 +912,7 @@
 
 <span class="kw">impl</span> <span class="ident">TxLogEntryAPI</span> {
 	<span class="doccomment">/// Return a new blank with TS initialised with next entry</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_txlogemtry</span>(<span class="ident">tle</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntry</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_txlogemtry</span>(<span class="ident">tle</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntry</span>) -&gt; <span class="self">Self</span> {
 		<span class="ident">TxLogEntryAPI</span> {
 			<span class="ident">parent_key_id</span>: <span class="ident">tle</span>.<span class="ident">parent_key_id</span>.<span class="ident">clone</span>(),
 			<span class="ident">tx_type</span>: <span class="ident">tle</span>.<span class="ident">tx_type</span>.<span class="ident">clone</span>(),
@@ -940,10 +940,10 @@
 		}
 	}
 
-	<span class="kw">fn</span> <span class="ident">default_parent_key_id</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Identifier</span> {
+	<span class="kw">fn</span> <span class="ident">default_parent_key_id</span>() -&gt; <span class="ident">Identifier</span> {
 		<span class="ident">Identifier::zero</span>()
 	}
-	<span class="kw">fn</span> <span class="ident">default_creation_ts</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">DateTime</span><span class="op">&lt;</span><span class="ident">Utc</span><span class="op">&gt;</span> {
+	<span class="kw">fn</span> <span class="ident">default_creation_ts</span>() -&gt; <span class="ident">DateTime</span><span class="op">&lt;</span><span class="ident">Utc</span><span class="op">&gt;</span> {
 		<span class="ident">Utc::now</span>()
 	}
 }
@@ -964,7 +964,7 @@
 }
 
 <span class="attribute">#[<span class="ident">test</span>]</span>
-<span class="kw">fn</span> <span class="ident">encrypted_request</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">encrypted_request</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 	<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util::from_hex</span>;
 
 	<span class="kw">let</span> <span class="ident">sec_key_str</span> <span class="op">=</span> <span class="string">&quot;e00dcc4a009e3427c6b1e1a550c538179d46f3827a13ed74c759c860761caf1e&quot;</span>;

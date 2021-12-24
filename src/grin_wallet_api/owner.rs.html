@@ -2875,7 +2875,7 @@
 		<span class="ident">wallet_inst</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">WalletInst</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">L</span>, <span class="ident">C</span>, <span class="ident">K</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">custom_channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+	) -&gt; <span class="self">Self</span> {
 		<span class="kw">let</span> <span class="ident">updater_running</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">AtomicBool::new</span>(<span class="bool-val">false</span>));
 		<span class="kw">let</span> <span class="ident">updater</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">owner_updater::Updater::new</span>(
 			<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -2885,8 +2885,8 @@
 
 		<span class="kw">let</span> <span class="ident">running</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">AtomicBool::new</span>(<span class="bool-val">true</span>));
 		<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">handle</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">custom_channel</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">c</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="ident">c</span>, <span class="prelude-val">None</span>),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">c</span>) =&gt; (<span class="ident">c</span>, <span class="prelude-val">None</span>),
+			<span class="prelude-val">None</span> =&gt; {
 				<span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">channel</span>();
 				<span class="kw">let</span> <span class="ident">handle</span> <span class="op">=</span>
 					<span class="ident">start_updater_log_thread</span>(<span class="ident">rx</span>, <span class="ident">updater_messages</span>.<span class="ident">clone</span>(), <span class="ident">running</span>.<span class="ident">clone</span>())
@@ -2956,7 +2956,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accounts</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">AcctPathMapping</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -3008,7 +3008,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Identifier</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner::create_account_path</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">label</span>)
@@ -3056,7 +3056,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">label</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -3116,14 +3116,14 @@
 		<span class="ident">include_spent</span>: <span class="ident">bool</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OutputCommitMapping</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> =&gt; <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> =&gt; <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner::retrieve_outputs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -3185,14 +3185,14 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntry</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">TxLogEntry</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> =&gt; <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> =&gt; <span class="ident">refresh_from_node</span>,
 		};
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">owner::retrieve_txs</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -3260,14 +3260,14 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">minimum_confirmations</span>: <span class="ident">u64</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">WalletInfo</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> =&gt; <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> =&gt; <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner::retrieve_summary_info</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -3360,7 +3360,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="ident">InitTxArgs</span>,
 		<span class="ident">routputs</span>: <span class="ident">usize</span>, <span class="comment">// Number of resulting outputs. Normally it is 1</span>
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">address</span> <span class="op">=</span> <span class="ident">args</span>.<span class="ident">address</span>.<span class="ident">clone</span>();
 
 		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
@@ -3375,7 +3375,7 @@
 		}
 
 		<span class="kw">match</span> <span class="ident">args</span>.<span class="ident">send_args</span>.<span class="ident">clone</span>() {
-			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) =&gt; {
 				<span class="kw">if</span> <span class="ident">sa</span>.<span class="ident">post_tx</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">sa</span>.<span class="ident">finalize</span> {
 					<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 						<span class="string">&quot;Transcations can not be posted without being finalized!&quot;</span>.<span class="ident">to_owned</span>(),
@@ -3383,7 +3383,7 @@
 					.<span class="ident">into</span>());
 				}
 			}
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {}
+			<span class="prelude-val">None</span> =&gt; {}
 		}
 
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span> <span class="op">=</span> <span class="prelude-val">None</span>;
@@ -3397,7 +3397,7 @@
 		<span class="comment">// we can decide on the slate format (compact slate or not)</span>
 		<span class="kw">let</span> <span class="ident">sender_info</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">send_args</span> {
 			<span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">method</span>.<span class="ident">as_ref</span>() {
-				<span class="string">&quot;http&quot;</span> <span class="op">|</span> <span class="string">&quot;mwcmqs&quot;</span> <span class="op">=</span><span class="op">&gt;</span> {
+				<span class="string">&quot;http&quot;</span> <span class="op">|</span> <span class="string">&quot;mwcmqs&quot;</span> =&gt; {
 					<span class="kw">let</span> <span class="ident">tor_config_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">tor_config</span>.<span class="ident">lock</span>();
 					<span class="kw">let</span> <span class="ident">comm_adapter</span> <span class="op">=</span>
 						<span class="ident">create_sender</span>(<span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">method</span>, <span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">dest</span>, <span class="kw-2">&amp;</span><span class="ident">sa</span>.<span class="ident">apisecret</span>, <span class="ident">tor_config_lock</span>.<span class="ident">clone</span>())
@@ -3422,7 +3422,7 @@
 					}
 					<span class="prelude-val">Some</span>((<span class="ident">comm_adapter</span>, <span class="ident">other_wallet_version</span>))
 				}
-				<span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+				<span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
 			}
 		} <span class="kw">else</span> {
 			<span class="prelude-val">None</span>
@@ -3435,11 +3435,11 @@
 		};
 
 		<span class="kw">match</span> <span class="ident">send_args</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) <span class="op">=</span><span class="op">&gt;</span> {
+			<span class="prelude-val">Some</span>(<span class="ident">sa</span>) =&gt; {
 				<span class="kw">let</span> <span class="ident">original_slate</span> <span class="op">=</span> <span class="ident">slate</span>.<span class="ident">clone</span>();
 
 				<span class="kw">match</span> <span class="ident">sender_info</span> {
-					<span class="prelude-val">Some</span>((<span class="ident">sender</span>, <span class="ident">other_wallet_info</span>)) <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="prelude-val">Some</span>((<span class="ident">sender</span>, <span class="ident">other_wallet_info</span>)) =&gt; {
 						<span class="kw">let</span> <span class="ident">slatepack_secret</span> <span class="op">=</span> {
 							<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 							<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -3464,7 +3464,7 @@
 								))
 							})<span class="question-mark">?</span>;
 					}
-					<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> {
+					<span class="prelude-val">None</span> =&gt; {
 						<span class="macro">error!</span>(<span class="string">&quot;unsupported payment method: {}&quot;</span>, <span class="ident">sa</span>.<span class="ident">method</span>);
 						<span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::ClientCallback</span>(
 							<span class="string">&quot;unsupported payment method&quot;</span>.<span class="ident">to_owned</span>(),
@@ -3489,8 +3489,8 @@
 
 				<span class="self">self</span>.<span class="ident">tx_lock_outputs</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>, <span class="ident">address</span>, <span class="number">0</span>)<span class="question-mark">?</span>;
 				<span class="ident">slate</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">sa</span>.<span class="ident">finalize</span> {
-					<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">finalize_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>,
-					<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">slate</span>,
+					<span class="bool-val">true</span> =&gt; <span class="self">self</span>.<span class="ident">finalize_tx</span>(<span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">slate</span>)<span class="question-mark">?</span>,
+					<span class="bool-val">false</span> =&gt; <span class="ident">slate</span>,
 				};
 				<span class="macro">println!</span>(
 					<span class="string">&quot;slate [{}] finalized successfully in owner_api&quot;</span>,
@@ -3506,7 +3506,7 @@
 				);
 				<span class="prelude-val">Ok</span>(<span class="ident">slate</span>)
 			}
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">slate</span>),
+			<span class="prelude-val">None</span> =&gt; <span class="prelude-val">Ok</span>(<span class="ident">slate</span>),
 		}
 	}
 
@@ -3549,7 +3549,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="ident">IssueInvoiceTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner::issue_invoice_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">keychain_mask</span>, <span class="ident">args</span>, <span class="self">self</span>.<span class="ident">doctest_mode</span>, <span class="number">1</span>)
@@ -3615,7 +3615,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
 		<span class="ident">args</span>: <span class="kw-2">&amp;</span><span class="ident">InitTxArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
 		<span class="comment">//minimum_confirmations cannot be zero.</span>
@@ -3700,7 +3700,7 @@
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
 		<span class="ident">address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">participant_id</span>: <span class="ident">usize</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner::tx_lock_outputs</span>(
@@ -3777,7 +3777,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Slate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="kw">let</span> (<span class="ident">slate_res</span>, <span class="ident">_context</span>) <span class="op">=</span>
@@ -3843,7 +3843,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx</span>: <span class="kw-2">&amp;</span><span class="ident">Transaction</span>,
 		<span class="ident">fluff</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -3915,7 +3915,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -3967,7 +3967,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_log_entry</span>: <span class="kw-2">&amp;</span><span class="ident">TxLogEntry</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Transaction</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Transaction</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="comment">// Test keychain mask, to keep API consistent</span>
@@ -3976,7 +3976,7 @@
 	}
 
 	<span class="doccomment">/// Loads a stored transaction from a file</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file</span>: <span class="kw-2">&amp;</span><span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Transaction</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">owner::load_stored_tx</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="ident">w</span>, <span class="ident">file</span>)
@@ -4037,7 +4037,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">slate</span>: <span class="kw-2">&amp;</span><span class="ident">Slate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -4104,7 +4104,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">start_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>,
 		<span class="ident">delete_unconfirmed</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -4120,7 +4120,7 @@
 	}
 
 	<span class="doccomment">/// Dump wallet data (outputs,transactions) into the logs</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dump_wallet_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">dump_wallet_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">file_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
@@ -4170,7 +4170,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">node_height</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">NodeHeightResult</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		{
 			<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 			<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
@@ -4221,7 +4221,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
@@ -4268,7 +4268,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_top_level_directory</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">dir</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">set_top_level_directory</span>(<span class="ident">dir</span>)
@@ -4327,7 +4327,7 @@
 		<span class="ident">logging_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">LoggingConfig</span><span class="op">&gt;</span>,
 		<span class="ident">tor_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TorConfig</span><span class="op">&gt;</span>,
 		<span class="ident">mqs_config</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">MQSConfig</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">create_config</span>(
@@ -4403,7 +4403,7 @@
 		<span class="ident">mnemonic_length</span>: <span class="ident">u32</span>,
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">create_wallet</span>(
@@ -4474,7 +4474,7 @@
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">use_mask</span>: <span class="ident">bool</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="comment">// just return a representative string for doctest mode</span>
 		<span class="kw">if</span> <span class="self">self</span>.<span class="ident">doctest_mode</span> {
 			<span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">SecretKey::from_slice</span>(
@@ -4514,7 +4514,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">close_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">close_wallet</span>(<span class="ident">name</span>)
@@ -4555,7 +4555,7 @@
 		<span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
 		<span class="ident">password</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ZeroingString</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ZeroingString</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">get_mnemonic</span>(<span class="ident">name</span>, <span class="ident">password</span>, <span class="ident">wallet_data_dir</span>)
@@ -4603,7 +4603,7 @@
 		<span class="ident">old</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">new</span>: <span class="ident">ZeroingString</span>,
 		<span class="ident">wallet_data_dir</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">change_password</span>(<span class="ident">name</span>, <span class="ident">old</span>, <span class="ident">new</span>, <span class="ident">wallet_data_dir</span>)
@@ -4640,7 +4640,7 @@
 	<span class="doccomment">/// }</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">delete_wallet</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">lc</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>;
 		<span class="ident">lc</span>.<span class="ident">delete_wallet</span>(<span class="ident">name</span>)
@@ -4700,15 +4700,15 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">frequency</span>: <span class="ident">Duration</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">updater_inner</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">updater</span>.<span class="ident">clone</span>();
 		<span class="kw">let</span> <span class="ident">tx_inner</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">keychain_mask</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">keychain_mask</span> {
-			<span class="prelude-val">Some</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>.<span class="ident">clone</span>()),
-			<span class="prelude-val">None</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+			<span class="prelude-val">Some</span>(<span class="ident">m</span>) =&gt; <span class="prelude-val">Some</span>(<span class="ident">m</span>.<span class="ident">clone</span>()),
+			<span class="prelude-val">None</span> =&gt; <span class="prelude-val">None</span>,
 		};
 		<span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">thread::Builder::new</span>()
 			.<span class="ident">name</span>(<span class="string">&quot;wallet-updater&quot;</span>.<span class="ident">to_string</span>())
@@ -4753,7 +4753,7 @@
 	<span class="doccomment">/// let res = api_owner.stop_updater();</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_updater</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::Relaxed</span>);
 		<span class="prelude-val">Ok</span>(())
 	}
@@ -4796,7 +4796,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_updater_messages</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">count</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">StatusMessage</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">q</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">updater_messages</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">index</span> <span class="op">=</span> <span class="ident">q</span>.<span class="ident">len</span>().<span class="ident">saturating_sub</span>(<span class="ident">count</span>);
 		<span class="prelude-val">Ok</span>(<span class="ident">q</span>.<span class="ident">split_off</span>(<span class="ident">index</span>))
@@ -4833,7 +4833,7 @@
 	<span class="doccomment">///</span>
 	<span class="doccomment">/// ```</span>
 
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_mqs_address</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner::get_mqs_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
 	}
 
@@ -4872,7 +4872,7 @@
 	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_wallet_public_address</span>(
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner::get_wallet_public_address</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>)
 	}
 
@@ -4926,14 +4926,14 @@
 		<span class="ident">refresh_from_node</span>: <span class="ident">bool</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">tx_slate_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Uuid</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PaymentProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> {
 			<span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">status_tx</span>.<span class="ident">lock</span>();
 			<span class="ident">t</span>.<span class="ident">clone</span>()
 		};
 		<span class="kw">let</span> <span class="ident">refresh_from_node</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">updater_running</span>.<span class="ident">load</span>(<span class="ident">Ordering::Relaxed</span>) {
-			<span class="bool-val">true</span> <span class="op">=</span><span class="op">&gt;</span> <span class="bool-val">false</span>,
-			<span class="bool-val">false</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">refresh_from_node</span>,
+			<span class="bool-val">true</span> =&gt; <span class="bool-val">false</span>,
+			<span class="bool-val">false</span> =&gt; <span class="ident">refresh_from_node</span>,
 		};
 		<span class="ident">owner::retrieve_payment_proof</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
@@ -4949,7 +4949,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">_keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">tx_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TxProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">TxProof</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner::get_stored_tx_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">tx_id</span>)
 	}
 
@@ -5006,7 +5006,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">proof</span>: <span class="kw-2">&amp;</span><span class="ident">PaymentProof</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">bool</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner::verify_payment_proof</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">proof</span>)
 	}
 
@@ -5015,7 +5015,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">params</span>: <span class="kw-2">&amp;</span><span class="ident">SwapStartArgs</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="comment">// Updating wallet state first because we need to select outputs.</span>
 		<span class="ident">owner::update_wallet_state</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 		<span class="ident">owner_swap::swap_start</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">params</span>)
@@ -5025,7 +5025,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">message_filename</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_create_from_offer</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
@@ -5038,7 +5038,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">do_check</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap::SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">owner_swap::SwapListInfo</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_list</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="ident">do_check</span>)
 	}
 
@@ -5047,7 +5047,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_delete</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 	<span class="doccomment">/// Retrieve swap trade</span>
@@ -5055,7 +5055,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Swap</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Swap</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_get</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 
@@ -5074,7 +5074,7 @@
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">tag</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateId</span>, <span class="ident">Action</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateId</span>, <span class="ident">Action</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_adjust</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
@@ -5096,12 +5096,12 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">swap_id</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_dump</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">swap_id</span>)
 	}
 
 	<span class="doccomment">/// dump ethereum info</span>
-	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">currency</span>: <span class="ident">Currency</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">eth_info</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">currency</span>: <span class="ident">Currency</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>, <span class="ident">String</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_eth::info</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>)
 	}
 
@@ -5111,7 +5111,7 @@
 		<span class="ident">dest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">currency</span>: <span class="ident">Currency</span>,
 		<span class="ident">amount</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">libwallet::swap::ErrorKind</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">libwallet::swap::ErrorKind</span><span class="op">&gt;</span> {
 		<span class="ident">owner_eth::transfer</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">currency</span>, <span class="ident">dest</span>, <span class="ident">amount</span>)
 	}
 
@@ -5127,7 +5127,7 @@
 		<span class="ident">eth_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">erc20_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>
 		(
 			<span class="ident">StateId</span>,
 			<span class="ident">Action</span>,
@@ -5162,7 +5162,7 @@
 		<span class="ident">eth_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">erc20_swap_contract_address</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SwapTransactionsConfirmations</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">SwapTransactionsConfirmations</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::get_swap_tx_tstatus</span>(
 			<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(),
 			<span class="ident">keychain_mask</span>,
@@ -5187,9 +5187,9 @@
 		<span class="ident">electrum_node_uri1</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">electrum_node_uri2</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 		<span class="ident">eth_infura_project_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateProcessRespond</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span>
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">StateProcessRespond</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Swap</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span>
 	<span class="kw">where</span>
-		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="ident"><span class="kw">crate</span>::libwallet::Error</span><span class="op">&gt;</span>
+		<span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Message</span>, <span class="ident">String</span>, <span class="ident">String</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">bool</span>, <span class="ident">String</span>), <span class="ident"><span class="kw">crate</span>::libwallet::Error</span><span class="op">&gt;</span>
 			<span class="op">+</span> <span class="lifetime">&#39;static</span>,
 	{
 		<span class="ident">owner_swap::swap_process</span>(
@@ -5213,7 +5213,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">message</span>: <span class="ident">String</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Message</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="ident">owner_swap::swap_income_message</span>(<span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">clone</span>(), <span class="ident">keychain_mask</span>, <span class="kw-2">&amp;</span><span class="ident">message</span>, <span class="prelude-val">None</span>)
 	}
 
@@ -5223,7 +5223,7 @@
 		<span class="kw-2">&amp;</span><span class="self">self</span>,
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">in_slate</span>: <span class="ident">VersionedSlate</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Slate</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SlatePurpose</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Slate</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SlatePurpose</span><span class="op">&gt;</span>, <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span>), <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>) <span class="op">=</span> <span class="kw">if</span> <span class="ident">in_slate</span>.<span class="ident">is_slatepack</span>() {
 			<span class="kw">let</span> (<span class="ident">slate_from</span>, <span class="ident">content</span>, <span class="ident">sender</span>, <span class="ident">_receiver</span>) <span class="op">=</span> <span class="self">self</span>
 				.<span class="ident">decrypt_slatepack</span>(<span class="ident">keychain_mask</span>, <span class="ident">in_slate</span>, <span class="prelude-val">None</span>)
@@ -5244,7 +5244,7 @@
 		<span class="ident">keychain_mask</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">SecretKey</span><span class="op">&gt;</span>,
 		<span class="ident">encrypted_slate</span>: <span class="ident">VersionedSlate</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>
 		(
 			<span class="ident">Slate</span>,
 			<span class="ident">SlatePurpose</span>,
@@ -5268,7 +5268,7 @@
 		<span class="ident">slatepack_recipient</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DalekPublicKey</span><span class="op">&gt;</span>,
 		<span class="ident">address_index</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
 		<span class="ident">use_test_rng</span>: <span class="ident">bool</span>,
-	) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+	) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">VersionedSlate</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
 		<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">w_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">wallet_inst</span>.<span class="ident">lock</span>();
 		<span class="kw">let</span> <span class="ident">w</span> <span class="op">=</span> <span class="ident">w_lock</span>.<span class="ident">lc_provider</span>()<span class="question-mark">?</span>.<span class="ident">wallet_inst</span>()<span class="question-mark">?</span>;
 		<span class="ident">foreign::encrypt_slate</span>(
@@ -5287,7 +5287,7 @@
 <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_export</span>]</span>
 <span class="macro">macro_rules!</span> <span class="ident">doctest_helper_setup_doc_env</span> {
-	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> {
+	(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">wallet_config</span>:<span class="ident">ident</span>) =&gt; {
 		<span class="kw">use</span> <span class="ident">grin_wallet_api</span> <span class="kw">as</span> <span class="ident">api</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_config</span> <span class="kw">as</span> <span class="ident">config</span>;
 		<span class="kw">use</span> <span class="ident">grin_wallet_impls</span> <span class="kw">as</span> <span class="ident">impls</span>;
